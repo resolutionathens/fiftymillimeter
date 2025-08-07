@@ -1,0 +1,8 @@
+# Redirect trailing slashes (except root)
+/*/ /:splat 301
+
+# API routes (handled by Nuxt server)
+/api/* /.nuxt/output/server/index.mjs 200
+
+# SPA fallback for client-side routing
+/* /index.html 200
