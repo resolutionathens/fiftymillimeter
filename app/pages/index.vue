@@ -41,15 +41,12 @@
               />
             </div>
 
-            <!-- Permanent overlay with gallery name -->
-            <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+            <!-- Hover overlay with gallery name -->
+            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300 flex items-center justify-center">
               <div class="text-center text-white">
                 <h3 class="text-2xl font-light tracking-wide drop-shadow-lg">{{ collection.displayName }}</h3>
               </div>
             </div>
-
-            <!-- Additional hover effect -->
-            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
           </NuxtLink>
         </div>
 
