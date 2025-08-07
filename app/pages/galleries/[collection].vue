@@ -46,7 +46,7 @@
       <div v-else-if="images?.length">
         <ImageGallery 
           :images="images"
-          :columns="3"
+          :columns="1"
         />
       </div>
 

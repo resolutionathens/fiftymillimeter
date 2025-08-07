@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   },
   // Enable static site generation
   ssr: true,
-  modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui'],
+  modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxt/ui-pro'],
   
   css: ['~/assets/main.css'],
 
