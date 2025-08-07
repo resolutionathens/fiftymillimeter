@@ -6,8 +6,16 @@
     "directory": "./.output/public",
     "binding": "ASSETS"
   },
+  "r2_buckets": [
+    {
+      "binding": "R2_BUCKET",
+      "bucket_name": "fiftymillimeter",
+      "preview_bucket_name": "fiftymillimeter-dev",
+      "experimental_remote": true
+    }
+  ],
   "vars": {
-    "NUXT_SITE_URL": "https://fiftymillimeter.YOUR_SUBDOMAIN.workers.dev",
-    "CLOUDFLARE_R2_PUBLIC_URL": "https://YOUR_R2_CUSTOM_DOMAIN_OR_PUBLIC_URL"
+    "NUXT_SITE_URL": "https://fiftymillimeter-portfolio.exposure-gmail-com.workers.dev",
+    "CLOUDFLARE_R2_PUBLIC_URL": "https://pub-77d2c63f12a143a59270d491959246da.r2.dev"
   }
 }

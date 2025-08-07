@@ -1,4 +1,4 @@
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3'
+import { listR2Images } from '../../utils/r2-dynamic'
 
 export default defineEventHandler(async (event) => {
   const collection = getRouterParam(event, 'collection')
@@ -11,34 +11,18 @@ export default defineEventHandler(async (event) => {
     })
   }
   
-  const s3Client = new S3Client({
-    endpoint: config.cloudflareR2Endpoint,
-    credentials: {
-      accessKeyId: config.cloudflareAccessKeyId,
-      secretAccessKey: config.cloudflareSecretAccessKey,
-    },
-    region: 'auto',
-  })
-
   try {
-    const command = new ListObjectsV2Command({
-      Bucket: config.cloudflareR2BucketName,
-      Prefix: `gallery/${collection}/`,
-    })
-
-    const response = await s3Client.send(command)
+    // Access the R2 bucket via Workers binding - use globalThis for Wrangler dev
+    const bucket = event.context.cloudflare?.env?.R2_BUCKET || 
+                   (globalThis as any)?.R2_BUCKET ||
+                   (process.env as any)?.R2_BUCKET
     
-    const images = response.Contents
-      ?.filter(item => item.Key && !item.Key.endsWith('/'))
-      ?.map(item => ({
-        key: item.Key,
-        lastModified: item.LastModified,
-        size: item.Size,
-        url: `${config.public.cloudflareR2PublicUrl}/${item.Key}`,
-        name: item.Key?.split('/').pop()?.replace(/\.[^/.]+$/, '') || '',
-        collection: collection
-      })) || []
-
+    if (!bucket) {
+      throw new Error('R2 bucket binding not available')
+    }
+    
+    const images = await listR2Images(bucket, collection, config.public.cloudflareR2PublicUrl)
+    
     return {
       collection,
       images,

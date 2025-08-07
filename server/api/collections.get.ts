@@ -1,61 +1,29 @@
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3'
+import { listR2Collections } from '../utils/r2-dynamic'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   
-  const s3Client = new S3Client({
-    endpoint: config.cloudflareR2Endpoint,
-    credentials: {
-      accessKeyId: config.cloudflareAccessKeyId,
-      secretAccessKey: config.cloudflareSecretAccessKey,
-    },
-    region: 'auto',
-  })
-
   try {
-    const command = new ListObjectsV2Command({
-      Bucket: config.cloudflareR2BucketName,
-      Prefix: 'gallery/',
-      Delimiter: '/',
-    })
-
-    const response = await s3Client.send(command)
+    // Access the R2 bucket via Workers binding - use globalThis for Wrangler dev
+    const bucket = event.context.cloudflare?.env?.R2_BUCKET || 
+                   (globalThis as any)?.R2_BUCKET ||
+                   (process.env as any)?.R2_BUCKET
     
-    const collections = response.CommonPrefixes
-      ?.map(prefix => {
-        const collectionName = prefix.Prefix?.replace('gallery/', '').replace('/', '') || ''
-        return {
-          name: collectionName,
-          slug: collectionName.toLowerCase().replace(/\s+/g, '-'),
-          displayName: collectionName.charAt(0).toUpperCase() + collectionName.slice(1)
-        }
-      })
-      ?.filter(collection => collection.name) || []
-
-    for (const collection of collections) {
-      const imagesCommand = new ListObjectsV2Command({
-        Bucket: config.cloudflareR2BucketName,
-        Prefix: `gallery/${collection.name}/`,
-        MaxKeys: 1
-      })
-      
-      const imagesResponse = await s3Client.send(imagesCommand)
-      const firstImage = imagesResponse.Contents?.[0]
-      
-      if (firstImage?.Key) {
-        collection.coverImage = `${config.public.cloudflareR2PublicUrl}/${firstImage.Key}`
-      }
+    if (!bucket) {
+      throw new Error('R2 bucket binding not available')
     }
-
+    
+    const collections = await listR2Collections(bucket, config.public.cloudflareR2PublicUrl)
+    
     return {
       collections,
       count: collections.length
     }
   } catch (error) {
-    console.error('Error fetching collections from R2:', error)
+    console.error('Error fetching collections:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch collections from storage'
+      statusMessage: 'Failed to fetch collections from R2'
     })
   }
 })
