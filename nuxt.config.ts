@@ -12,12 +12,8 @@ export default defineNuxtConfig({
   
   css: ['~/assets/main.css'],
 
-  // Image optimization with Cloudflare transformations
+  // Image optimization - direct R2 serving for now
   image: {
-    provider: 'cloudflare',
-    cloudflare: {
-      baseURL: 'https://fiftymillimeter.com'
-    },
     domains: ['pub-77d2c63f12a143a59270d491959246da.r2.dev'],
     alias: {}
   },
