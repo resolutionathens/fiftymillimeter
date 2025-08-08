@@ -3,21 +3,21 @@
     <!-- Single Image View -->
     <div class="relative w-full">
       <!-- Navigation Controls -->
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center justify-between mb-3 md:mb-6">
         <!-- Previous Button -->
         <UButton
           v-if="currentImageIndex > 0"
           variant="outline"
           color="neutral"
-          size="lg"
+          size="md"
           class="flex items-center gap-2"
           @click="previousImage"
         >
           <UIcon
             name="i-heroicons-chevron-left"
-            class="w-5 h-5"
+            class="w-4 h-4 md:w-5 md:h-5"
           />
-          Previous
+          <span class="hidden sm:inline">Previous</span>
         </UButton>
         <div
           v-else
@@ -26,7 +26,7 @@
 
         <!-- Image Counter -->
         <div class="text-center">
-          <span class="text-lg font-medium text-gray-900 dark:text-white">
+          <span class="text-sm md:text-lg font-medium text-gray-900 dark:text-white">
             {{ currentImageIndex + 1 }} of {{ images.length }}
           </span>
         </div>
@@ -36,14 +36,14 @@
           v-if="currentImageIndex < images.length - 1"
           variant="outline"
           color="neutral"
-          size="lg"
+          size="md"
           class="flex items-center gap-2"
           @click="nextImage"
         >
-          Next
+          <span class="hidden sm:inline">Next</span>
           <UIcon
             name="i-heroicons-chevron-right"
-            class="w-5 h-5"
+            class="w-4 h-4 md:w-5 md:h-5"
           />
         </UButton>
         <div
@@ -53,10 +53,7 @@
       </div>
 
       <!-- Main Image Display -->
-      <div
-        class="w-full overflow-hidden flex items-center justify-center"
-        style="height: calc(100vh - 120px);"
-      >
+      <div class="w-full overflow-hidden flex items-center justify-center h-[calc(100vh-100px)] md:h-[calc(100vh-120px)]">
         <NuxtImg
           v-if="currentImage"
           :src="currentImage.url"

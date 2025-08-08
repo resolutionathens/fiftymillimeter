@@ -94,10 +94,10 @@
 <script setup lang="ts">
 // SEO
 useSeoMeta({
-  title: 'Contact - Fifty Millimeter',
-  ogTitle: 'Contact - Fifty Millimeter',
-  description: 'Get in touch to discuss your photography needs. Available for portraits, events, commercial, and landscape photography.',
-  ogDescription: 'Get in touch to discuss your photography needs. Available for portraits, events, commercial, and landscape photography.',
+  title: 'Contact - Fiftymillimeter',
+  ogTitle: 'Contact - Fiftymillimeter',
+  description: 'Get in touch if you would like to connect or have questions about my photography work.',
+  ogDescription: 'Get in touch if you would like to connect or have questions about my photography work.',
 })
 
 

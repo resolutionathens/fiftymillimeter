@@ -18,8 +18,8 @@
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
             Like the work in Eggleston's haunting yet challenging 'Democratic
             Forest,’ I intend these photographs to resist easy categorization or
-            immediate gratification. A backyard grill in Tucson AZ, an empty
-            parking lot in Athens GA, a table set for the 4th of July that's
+            immediate gratification. A backyard grill in Tucson, Arizona, an empty
+            parking lot in Athens, Georgia, a table set for the 4th of July that's
             just too yellow… I want each image to ask the viewer to pause and
             reconsider what deserves attention or what merits preservation. In
             documenting both my southern surroundings and travels, I look for
@@ -43,11 +43,11 @@
 <script setup lang="ts">
 // SEO
 useSeoMeta({
-  title: "About - Fifty Millimeter",
-  ogTitle: "About - Fifty Millimeter",
+  title: "About - Fiftymillimeter",
+  ogTitle: "About - Fiftymillimeter",
   description:
-    "Learn about my photography journey, philosophy, and passion for capturing life's most beautiful moments.",
+    "Ian Kennedy is a photographer based in Athens, Georgia, exploring the extraordinary within the ordinary through contemporary scenes from the Southeast and beyond.",
   ogDescription:
-    "Learn about my photography journey, philosophy, and passion for capturing life's most beautiful moments.",
+    "Ian Kennedy is a photographer based in Athens, Georgia, exploring the extraordinary within the ordinary through contemporary scenes from the Southeast and beyond.",
 });
 </script>

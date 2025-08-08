@@ -13,7 +13,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
           <div class="text-sm text-gray-500 dark:text-gray-400 font-light">
-            © {{ new Date().getFullYear() }} Fifty Millimeter
+            © {{ new Date().getFullYear() }} Fiftymillimeter
           </div>
           <div class="flex space-x-6 mt-4 md:mt-0">
             <a

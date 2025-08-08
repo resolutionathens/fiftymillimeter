@@ -42,15 +42,19 @@ export default defineNuxtConfig({
   // SEO and meta optimization
   app: {
     head: {
-      title: 'Fifty Millimeter - Photography Portfolio',
+      title: 'Fiftymillimeter - Photography Portfolio',
       meta: [
-        { name: 'description', content: 'Professional photography portfolio showcasing stunning visuals and artistic vision' },
+        { name: 'description', content: 'Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Fifty Millimeter - Photography Portfolio' },
-        { property: 'og:description', content: 'Professional photography portfolio showcasing stunning visuals and artistic vision' }
+        { property: 'og:title', content: 'Fiftymillimeter - Photography Portfolio' },
+        { property: 'og:description', content: 'Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.' },
+        { property: 'og:image', content: 'https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1200,h=630/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp' },
+        { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }

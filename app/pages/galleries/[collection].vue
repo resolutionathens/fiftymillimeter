@@ -97,10 +97,10 @@ const collectionDisplayName = collectionName.charAt(0).toUpperCase() + collectio
 
 // SEO
 useSeoMeta({
-  title: `${collectionDisplayName} - Fifty Millimeter`,
-  ogTitle: `${collectionDisplayName} - Fifty Millimeter`,
-  description: `View the ${collectionDisplayName} photography collection featuring stunning images and artistic vision.`,
-  ogDescription: `View the ${collectionDisplayName} photography collection featuring stunning images and artistic vision.`,
+  title: `${collectionDisplayName} - Fiftymillimeter`,
+  ogTitle: `${collectionDisplayName} - Fiftymillimeter`,
+  description: `Photographs from the ${collectionDisplayName} collection, exploring moments and scenes that caught my eye.`,
+  ogDescription: `Photographs from the ${collectionDisplayName} collection, exploring moments and scenes that caught my eye.`,
 })
 
 // Fetch collection images
