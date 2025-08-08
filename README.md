@@ -2,6 +2,8 @@
 
 A modern photography portfolio built with Nuxt 4, showcasing photo collections with Cloudflare R2 integration and optimized image delivery.
 
+**Live Example**: [fiftymillimeter.com](https://fiftymillimeter.com)
+
 ## Features
 
 - **Modern Stack**: Nuxt 4 with Vue 3 and TypeScript

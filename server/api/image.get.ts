@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
   const format = query.f as string
 
   // Build cf.image options
-  const imageOptions: any = {}
+  const imageOptions: Record<string, string | number> = {}
   
   if (width) imageOptions.width = width
   if (height) imageOptions.height = height

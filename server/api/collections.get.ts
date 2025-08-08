@@ -4,12 +4,12 @@ export default defineEventHandler(async (event) => {
   try {
     // Try to access the R2 bucket via Workers binding first
     const bucket = event.context.cloudflare?.env?.R2_BUCKET || 
-                   (globalThis as any)?.R2_BUCKET ||
-                   (process.env as any)?.R2_BUCKET
+                   (globalThis as Record<string, unknown>)?.R2_BUCKET ||
+                   (process.env as Record<string, string | undefined>)?.R2_BUCKET
     
     // Get public URL from Workers environment variables
     const publicUrl = event.context.cloudflare?.env?.CLOUDFLARE_R2_PUBLIC_URL || 
-                      (globalThis as any)?.CLOUDFLARE_R2_PUBLIC_URL ||
+                      (globalThis as Record<string, unknown>)?.CLOUDFLARE_R2_PUBLIC_URL ||
                       process.env.CLOUDFLARE_R2_PUBLIC_URL ||
                       'https://pub-77d2c63f12a143a59270d491959246da.r2.dev'
     

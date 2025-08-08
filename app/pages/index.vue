@@ -58,8 +58,13 @@ useSeoMeta({
   ogTitle: 'Fiftymillimeter',
   description: 'Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.',
   ogDescription: 'Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.',
-  ogImage: 'https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1200,h=630/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp',
+  ogUrl: 'https://fiftymillimeter.com',
+  ogImage: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp',
+  ogImageWidth: '1200',
+  ogImageHeight: '630',
+  ogImageType: 'image/jpeg',
   twitterCard: 'summary_large_image',
+  twitterImage: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp',
 })
 
 // Fetch featured collections

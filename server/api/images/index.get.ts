@@ -1,6 +1,6 @@
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (_event) => {
   const config = useRuntimeConfig()
   
   const s3Client = new S3Client({
