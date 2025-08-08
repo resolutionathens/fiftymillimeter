@@ -12,8 +12,13 @@ export default defineNuxtConfig({
   
   css: ['~/assets/main.css'],
 
-  // Image optimization - direct R2 until transformation routing is fixed
+  // Image optimization with Cloudflare transformations
   image: {
+    format: ['avif', 'webp'],
+    provider: 'cloudflare',
+    cloudflare: {
+      baseURL: 'https://fiftymillimeter.com'
+    },
     domains: ['pub-77d2c63f12a143a59270d491959246da.r2.dev'],
     alias: {}
   },
