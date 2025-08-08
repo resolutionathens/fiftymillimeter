@@ -12,18 +12,13 @@ export default defineNuxtConfig({
   
   css: ['~/assets/main.css'],
 
-  // Image optimization for R2 integration
+  // Image optimization for Cloudflare transformations
   image: {
-    providers: {
-      cloudflare: {
-        name: 'cloudflare',
-        provider: 'cloudflare',
-        options: {
-          baseURL: process.env.CLOUDFLARE_R2_PUBLIC_URL
-        }
-      }
+    provider: 'cloudflare',
+    cloudflare: {
+      baseURL: process.env.NUXT_SITE_URL || 'https://fiftymillimeter.com'
     },
-    domains: [],
+    domains: ['pub-77d2c63f12a143a59270d491959246da.r2.dev'],
     alias: {}
   },
   // Runtime config for environment variables
