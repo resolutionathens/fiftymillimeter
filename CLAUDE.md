@@ -8,11 +8,14 @@ This is a Nuxt 4 photography portfolio application using TypeScript, Vue 3, and 
 
 **Key Technologies:**
 - **Framework**: Nuxt 4 with Vue 3 and TypeScript
-- **Styling**: Nuxt UI component library with Tailwind CSS
-- **Cloud Storage**: Cloudflare R2 for image storage with AWS SDK
+- **UI Components**: Nuxt UI v3 and Nuxt UI Pro v3 component libraries
+- **Styling**: Tailwind CSS with custom color scheme (primary: sky, neutral: slate)
+- **Icons**: Heroicons via @iconify-json/heroicons
+- **Cloud Storage**: Cloudflare R2 for image storage with Workers bindings
 - **Image Processing**: Nuxt Image with Cloudflare provider
-- **Deployment**: Cloudflare Pages with static generation
+- **Deployment**: Cloudflare Workers with Wrangler v4
 - **EXIF Processing**: exifr library for image metadata
+- **Scripts**: Nuxt Scripts for optimized third-party integrations
 
 ## Development Commands
 
@@ -32,7 +35,7 @@ bun run preview
 # Generate static site
 bun run generate
 
-# Deploy to Cloudflare Pages
+# Deploy to Cloudflare Workers
 bun run deploy
 
 # Deploy preview version
@@ -45,34 +48,45 @@ npx eslint .
 ## Architecture Overview
 
 ### Cloud Storage Integration
-The application integrates with Cloudflare R2 for image storage using a structured approach:
-- Images are organized in `gallery/{collection}/` folders in R2
-- Server API routes (`/server/api/`) handle R2 communication using AWS SDK
-- Collections are auto-discovered from R2 folder structure
+The application integrates with Cloudflare R2 for image storage using Workers bindings:
+- Images are organized in root-level collection folders in R2 bucket
+- Server API routes (`/server/api/`) handle R2 communication using native Workers bindings
+- Collections are auto-discovered from R2 folder structure via `listR2Collections`
 - Images are served through Cloudflare's CDN with public URLs
+- R2 bucket binding configured in `wrangler.jsonc` as `R2_BUCKET`
+- Supports both production and preview buckets
 
 ### API Architecture
 - `collections.get.ts`: Lists all photo collections from R2 bucket prefixes
 - `images/[collection].get.ts`: Fetches images for a specific collection
 - `images/index.get.ts`: General image API endpoint
-- All APIs use S3Client with Cloudflare R2 endpoint configuration
+- All APIs use native Cloudflare Workers R2 bindings for optimal performance
+- Dynamic R2 utilities in `/server/utils/r2-dynamic.ts` handle bucket operations
 
 ### Frontend Structure
 - **Pages**: Standard Nuxt 4 app directory structure with Vue 3 composition API
-- **Components**: Reusable Vue components for galleries and image display
-- **Layouts**: Default layout wrapping pages with NuxtLayout
-- **SEO**: Built-in meta tag management with useSeoMeta
+  - `index.vue`: Homepage
+  - `about.vue` & `contact.vue`: Static pages
+  - `galleries/index.vue`: Collection listing page
+  - `galleries/[collection].vue`: Dynamic collection gallery pages
+- **Components**: Reusable Vue components using Nuxt UI
+  - `AppHeader.vue`: Navigation header with dynamic collection menu
+  - `CollectionCard.vue`: Collection preview cards
+  - `ImageGallery.vue`: Photo gallery display component
+- **Layouts**: `default.vue` layout with AppHeader integration
+- **SEO**: Built-in meta tag management with portfolio-specific defaults
 
 ### Environment Configuration
-Critical environment variables for Cloudflare integration:
-- `CLOUDFLARE_R2_*`: R2 storage credentials and endpoints
-- `NUXT_SITE_URL`: Site URL for SEO and og:image
-- Runtime config separates server-side secrets from public variables
+Environment variables are handled through multiple layers:
+- **Runtime config** in `nuxt.config.ts` for server-side secrets
+- **Wrangler vars** in `wrangler.jsonc` for Workers deployment
+- **Public runtime config** for client-accessible variables
+- Default site URL: `https://fiftymillimeter.com`
 
 ### Static Generation
-- Configured for Cloudflare Pages preset (`nitro.preset: 'cloudflare-pages'`)
+- Configured for Cloudflare Workers preset
 - SSR enabled with static generation capabilities
-- Public folder includes `_headers` and `_redirects` for Cloudflare Pages deployment
+- Optimized for Cloudflare Workers deployment
 
 ### Image Optimization
 - Nuxt Image module configured with Cloudflare provider
@@ -97,10 +111,44 @@ The following environment variables are required for the application to function
 ### Site Configuration
 - `NUXT_SITE_URL`: Base URL of the site for SEO and og:image generation
 
-## Deployment
+## Wrangler Configuration
 
-The application is configured for deployment to Cloudflare Pages:
-- Uses `cloudflare-pages` preset in Nitro configuration
-- Includes `_headers` and `_redirects` files in public folder
-- Supports both static generation and SSR
-- Deploy commands available: `bun run deploy` and `bun run deploy:preview`
+The project uses Wrangler v4 for Cloudflare Workers deployment:
+- **Config file**: `wrangler.jsonc` (JSON with comments)
+- **R2 Bindings**: 
+  - Production bucket: `fiftymillimeter`
+  - Preview bucket: `fiftymillimeter-dev`
+  - Binding name: `R2_BUCKET`
+- **Assets**: Served from `.output/public` directory
+- **Main entry**: `.output/server/index.mjs` (generated by Nuxt build)
+
+### Deployment Commands
+- `bun run deploy`: Deploy to production using `wrangler deploy`
+- `bun run deploy:preview`: Deploy preview version using `wrangler versions upload`
+
+## UI Component Libraries
+
+### Nuxt UI v3
+Primary component library providing:
+- Form components (Input, Select, Checkbox, etc.)
+- Navigation components (Button, Link, etc.)
+- Layout components (Container, Card, etc.)
+- Feedback components (Toast, Modal, etc.)
+
+### Nuxt UI Pro v3
+Extended component library with advanced components:
+- Additional prose components for rich content
+- Enhanced form components
+- Advanced layout patterns
+- Pro-tier design system components
+
+### Color Scheme
+Configured in `app.config.ts`:
+- **Primary**: Sky blue (`sky`)
+- **Neutral**: Slate gray (`slate`)
+
+## Icon System
+Uses Heroicons via `@iconify-json/heroicons`:
+- Navigation icons (`i-heroicons-home`, `i-heroicons-user`, etc.)
+- Consistent iconography throughout the application
+- Optimized icon loading through Nuxt UI
