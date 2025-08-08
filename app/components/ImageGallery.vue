@@ -64,9 +64,7 @@
           class="max-w-full max-h-full object-contain"
           :width="1600"
           :height="1200"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
           loading="lazy"
-          provider="cloudflare"
         />
       </div>
 
