@@ -8,10 +8,10 @@
         <UButton
           v-if="currentImageIndex > 0"
           variant="outline"
-          color="gray"
+          color="neutral"
           size="lg"
-          @click="previousImage"
           class="flex items-center gap-2"
+          @click="previousImage"
         >
           <UIcon
             name="i-heroicons-chevron-left"
@@ -22,7 +22,7 @@
         <div
           v-else
           class="w-24"
-        ></div>
+        />
 
         <!-- Image Counter -->
         <div class="text-center">
@@ -35,10 +35,10 @@
         <UButton
           v-if="currentImageIndex < images.length - 1"
           variant="outline"
-          color="gray"
+          color="neutral"
           size="lg"
-          @click="nextImage"
           class="flex items-center gap-2"
+          @click="nextImage"
         >
           Next
           <UIcon
@@ -49,7 +49,7 @@
         <div
           v-else
           class="w-24"
-        ></div>
+        />
       </div>
 
       <!-- Main Image Display -->

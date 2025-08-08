@@ -6,40 +6,12 @@
         <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
           Get In Touch
         </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Ready to capture your special moments? I'd love to hear about your vision and discuss how we can bring it to
-          life.
-        </p>
       </div>
 
       <div class="grid grid-cols-1 gap-16">
         <!-- Contact Information -->
         <div>
-          <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
-            Let's Connect
-          </h2>
-
           <div class="space-y-6">
-            <!-- Email -->
-            <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0"
-              >
-                <UIcon
-                  name="i-heroicons-envelope"
-                  class="w-6 h-6 text-gray-600 dark:text-gray-400"
-                />
-              </div>
-              <div>
-                <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-1">
-                  Email
-                </h3>
-                <p class="text-gray-600 dark:text-gray-300">
-                  hello@fiftymillimeter.com
-                </p>
-              </div>
-            </div>
-
             <!-- Location -->
             <div class="flex items-start space-x-4">
               <div
@@ -59,6 +31,26 @@
                 </p>
               </div>
             </div>
+            <!-- Email -->
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <UIcon
+                  name="i-heroicons-envelope"
+                  class="w-6 h-6 text-gray-600 dark:text-gray-400"
+                />
+              </div>
+              <div>
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-1">
+                  Email
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  <a href="mailto:hello@fiftymillimeter.com">hello@fiftymillimeter.com</a>
+                </p>
+              </div>
+            </div>
+
 
             <!-- Social Media -->
             <div class="flex items-start space-x-4">
@@ -72,12 +64,12 @@
               </div>
               <div>
                 <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                  Follow My Work
+                  Follow me (I follow back)
                 </h3>
                 <div class="flex space-x-3">
                   <UButton
                     variant="outline"
-                    color="gray"
+                    color="neutral"
                     size="sm"
                     to="https://instagram.com/fiftymillimeter_"
                     external

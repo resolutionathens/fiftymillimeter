@@ -15,7 +15,7 @@
     }
   ],
   "vars": {
-    "NUXT_SITE_URL": "https://fiftymillimeter-portfolio.exposure-gmail-com.workers.dev",
+    "NUXT_SITE_URL": "https://fiftymillimeter.com",
     "CLOUDFLARE_R2_PUBLIC_URL": "https://pub-77d2c63f12a143a59270d491959246da.r2.dev"
   }
 }
