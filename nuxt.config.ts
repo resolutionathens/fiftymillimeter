@@ -12,7 +12,9 @@ export default defineNuxtConfig({
   
   css: ['~/assets/main.css'],
 
-  // Image optimization - direct R2 serving for now
+  // Image optimization - direct R2 serving 
+  // Note: Cloudflare transformations via /cdn-cgi/image/ don't work
+  // with external R2 URLs due to access restrictions
   image: {
     domains: ['pub-77d2c63f12a143a59270d491959246da.r2.dev'],
     alias: {}
