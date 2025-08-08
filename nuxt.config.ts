@@ -12,8 +12,26 @@ export default defineNuxtConfig({
   
   css: ['~/assets/main.css'],
 
-  // Image optimization - testing Workers cf.image API
+  // Image optimization with custom transformation API
   image: {
+    provider: 'custom',
+    providers: {
+      custom: {
+        name: 'custom',
+        provider: 'ipx',
+        options: {
+          baseURL: '/api/image',
+          modifiers: {
+            src: 'src',
+            width: 'w',
+            height: 'h',
+            fit: 'fit',
+            format: 'f',
+            quality: 'q'
+          }
+        }
+      }
+    },
     domains: ['pub-77d2c63f12a143a59270d491959246da.r2.dev'],
     alias: {}
   },
