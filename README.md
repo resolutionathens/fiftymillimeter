@@ -5,11 +5,13 @@ A modern photography portfolio built with Nuxt 4, showcasing photo collections w
 ## Features
 
 - **Modern Stack**: Nuxt 4 with Vue 3 and TypeScript
-- **Cloud Integration**: Cloudflare R2 for image storage and CDN delivery
+- **Cloud Integration**: Cloudflare R2 for image storage with Workers bindings
 - **Image Optimization**: Nuxt Image with Cloudflare provider
-- **Responsive Design**: Nuxt UI components with Tailwind CSS
+- **UI Components**: Nuxt UI v3 and Nuxt UI Pro v3 component libraries
+- **Responsive Design**: Tailwind CSS with custom color scheme (sky/slate)
+- **Icons**: Heroicons integration for consistent iconography
 - **EXIF Processing**: Image metadata extraction with exifr
-- **Static Generation**: Optimized for Cloudflare Pages deployment
+- **Deployment**: Cloudflare Workers with Wrangler v4
 
 ## Setup
 
@@ -55,12 +57,12 @@ bun run build
 bun run generate
 ```
 
-### Deploy to Cloudflare Pages
+### Deploy to Cloudflare Workers
 ```bash
 bun run deploy
 ```
 
-### Deploy Preview
+### Deploy Preview Version
 ```bash
 bun run deploy:preview
 ```
@@ -70,12 +72,14 @@ bun run deploy:preview
 ```
 ├── app/                    # Nuxt 4 app directory
 │   ├── pages/             # Vue pages with file-based routing
-│   ├── components/        # Reusable Vue components
-│   └── layouts/           # Layout components
-├── server/api/            # Server API routes
-│   ├── collections.get.ts # List photo collections
-│   └── images/            # Image API endpoints
+│   ├── components/        # Reusable Vue components (AppHeader, CollectionCard, ImageGallery)
+│   ├── layouts/           # Layout components
+│   └── app.config.ts      # UI configuration (color scheme)
+├── server/                # Server-side code
+│   ├── api/               # API routes for R2 integration
+│   └── utils/             # R2 utilities and gallery config
 ├── public/                # Static assets
+├── wrangler.jsonc         # Cloudflare Workers configuration
 └── CLAUDE.md              # AI development guidance
 ```
 
@@ -93,10 +97,17 @@ npx eslint .
 
 ## Architecture
 
-The application uses Cloudflare R2 for image storage with a structured approach:
-- Images organized in `gallery/{collection}/` folders
-- Server API routes handle R2 communication using AWS SDK  
-- Collections auto-discovered from R2 folder structure
+The application uses Cloudflare R2 for image storage with Workers bindings:
+- Images organized in root-level collection folders in R2 bucket
+- Server API routes handle R2 communication using native Workers bindings
+- Collections auto-discovered from R2 folder structure via `listR2Collections`
 - Images served through Cloudflare CDN with optimized delivery
+- R2 bucket binding configured in `wrangler.jsonc`
 
-Built for Cloudflare Pages with static site generation and SSR capabilities.
+## Deployment
+
+Built for Cloudflare Workers with:
+- **Wrangler v4**: Configuration in `wrangler.jsonc`
+- **R2 Integration**: Native Workers bindings for optimal performance
+- **Static Generation**: SSR with static site generation capabilities
+- **Asset Handling**: Optimized public asset delivery
