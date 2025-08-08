@@ -32,6 +32,12 @@ bun run preview
 # Generate static site
 bun run generate
 
+# Deploy to Cloudflare Pages
+bun run deploy
+
+# Deploy preview version
+bun run deploy:preview
+
 # Lint code
 npx eslint .
 ```
@@ -75,4 +81,26 @@ Critical environment variables for Cloudflare integration:
 
 ## Package Manager
 
-This project uses Bun as the package manager (evidenced by `bun.lock` file).
+This project uses Bun as the package manager (evidenced by `bun.lock` file). All development commands should use `bun` rather than npm, yarn, or pnpm.
+
+## Environment Variables
+
+The following environment variables are required for the application to function properly:
+
+### Cloudflare R2 Storage
+- `CLOUDFLARE_R2_ACCESS_KEY_ID`: R2 access key ID
+- `CLOUDFLARE_R2_SECRET_ACCESS_KEY`: R2 secret access key  
+- `CLOUDFLARE_R2_BUCKET_NAME`: Name of the R2 bucket containing images
+- `CLOUDFLARE_R2_ACCOUNT_ID`: Cloudflare account ID
+- `CLOUDFLARE_R2_PUBLIC_URL`: Public URL for R2 bucket (e.g., `https://your-domain.r2.dev`)
+
+### Site Configuration
+- `NUXT_SITE_URL`: Base URL of the site for SEO and og:image generation
+
+## Deployment
+
+The application is configured for deployment to Cloudflare Pages:
+- Uses `cloudflare-pages` preset in Nitro configuration
+- Includes `_headers` and `_redirects` files in public folder
+- Supports both static generation and SSR
+- Deploy commands available: `bun run deploy` and `bun run deploy:preview`
