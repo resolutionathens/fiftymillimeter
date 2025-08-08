@@ -1,5 +1,5 @@
 <template>
-  <div class="image-gallery">
+  <div class="w-full">
     <!-- Single Image View -->
     <div class="relative w-full">
       <!-- Navigation Controls -->
@@ -54,8 +54,8 @@
 
       <!-- Main Image Display -->
       <div
-        class="w-full bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden flex items-center justify-center"
-        style="height: calc(100vh - 180px);"
+        class="w-full overflow-hidden flex items-center justify-center"
+        style="height: calc(100vh - 120px);"
       >
         <NuxtImg
           v-if="currentImage"
@@ -64,6 +64,7 @@
           class="max-w-full max-h-full object-contain"
           :width="1600"
           :height="1200"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading="lazy"
         />
       </div>
@@ -130,9 +131,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style scoped>
-.image-gallery {
-  @apply w-full;
-}
-</style>
