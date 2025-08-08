@@ -10,7 +10,7 @@
       class="w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
       :width="600"
       :height="600"
-      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 384px, 384px"
       loading="lazy"
     />
     <div 
