@@ -6,7 +6,7 @@ A modern photography portfolio built with Nuxt 4, showcasing photo collections w
 
 - **Modern Stack**: Nuxt 4 with Vue 3 and TypeScript
 - **Cloud Integration**: Cloudflare R2 for image storage with Workers bindings
-- **Image Optimization**: Nuxt Image with Cloudflare provider
+- **Image Optimization**: Cloudflare Image Transformations with responsive srcsets and modern formats (WebP/AVIF)
 - **UI Components**: Nuxt UI v3 and Nuxt UI Pro v3 component libraries
 - **Responsive Design**: Tailwind CSS with custom color scheme (sky/slate)
 - **Icons**: Heroicons integration for consistent iconography
@@ -44,6 +44,19 @@ CLOUDFLARE_R2_PUBLIC_URL=https://your-domain.r2.dev
 # Site Configuration
 NUXT_SITE_URL=https://your-domain.com
 ```
+
+## Cloudflare Setup Requirements
+
+For image transformations to work properly, configure these settings in your Cloudflare dashboard:
+
+### Images > Transformations
+1. Enable transformations for your zone
+2. Enable **"Resize images from any origin"** OR add your R2 domain as an allowed origin
+3. Ensure SSL/TLS mode is set to **"Full (strict)"**
+
+### R2 Configuration
+- Configure R2 bucket bindings in `wrangler.jsonc`
+- Set up public R2 URLs for image access
 
 ## Build & Deployment
 
@@ -101,7 +114,8 @@ The application uses Cloudflare R2 for image storage with Workers bindings:
 - Images organized in root-level collection folders in R2 bucket
 - Server API routes handle R2 communication using native Workers bindings
 - Collections auto-discovered from R2 folder structure via `listR2Collections`
-- Images served through Cloudflare CDN with optimized delivery
+- Images served through Cloudflare CDN with optimized delivery and transformations
+- Cloudflare Image Transformations provide responsive images with automatic WebP/AVIF conversion
 - R2 bucket binding configured in `wrangler.jsonc`
 
 ## Deployment

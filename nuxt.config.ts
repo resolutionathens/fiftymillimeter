@@ -20,6 +20,9 @@ export default defineNuxtConfig({
       baseURL: 'https://fiftymillimeter.com'
     },
     domains: ['pub-77d2c63f12a143a59270d491959246da.r2.dev'],
+    modifiers: {
+      format: 'auto'
+    },
     alias: {}
   },
   // Runtime config for environment variables
