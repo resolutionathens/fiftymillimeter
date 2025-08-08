@@ -29,9 +29,6 @@
               :src="collection.coverImage"
               :alt="collection.displayName"
               class="w-full h-full object-cover group-hover:brightness-75 transition-all duration-300"
-              :width="800"
-              :height="1000"
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               loading="lazy"
             />
             <div
