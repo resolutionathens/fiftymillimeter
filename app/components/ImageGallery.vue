@@ -3,57 +3,28 @@
     <!-- Single Image View -->
     <div class="relative w-full">
       <!-- Navigation Controls -->
-      <div class="flex items-center justify-between mb-3 md:mb-6">
-        <!-- Previous Button -->
-        <UButton
-          v-if="currentImageIndex > 0"
-          variant="outline"
+      <div class="flex items-center justify-center mb-1 md:mb-6">
+        <UPagination
+          v-model:page="currentPage"
+          :total="images.length"
+          :items-per-page="1"
+          :sibling-count="1"
+          show-edges
           color="neutral"
-          size="md"
-          class="flex items-center gap-2"
-          @click="previousImage"
-        >
-          <UIcon
-            name="i-heroicons-chevron-left"
-            class="w-4 h-4 md:w-5 md:h-5"
-          />
-          <span class="hidden sm:inline">Previous</span>
-        </UButton>
-        <div
-          v-else
-          class="w-24"
-        />
-
-        <!-- Image Counter -->
-        <div class="text-center">
-          <span class="text-sm md:text-lg font-medium text-gray-900 dark:text-white">
-            {{ currentImageIndex + 1 }} of {{ images.length }}
-          </span>
-        </div>
-
-        <!-- Next Button -->
-        <UButton
-          v-if="currentImageIndex < images.length - 1"
           variant="outline"
-          color="neutral"
-          size="md"
-          class="flex items-center gap-2"
-          @click="nextImage"
-        >
-          <span class="hidden sm:inline">Next</span>
-          <UIcon
-            name="i-heroicons-chevron-right"
-            class="w-4 h-4 md:w-5 md:h-5"
-          />
-        </UButton>
-        <div
-          v-else
-          class="w-24"
+          size="sm"
+          class="md:!text-base"
         />
       </div>
 
       <!-- Main Image Display -->
-      <div class="w-full overflow-hidden flex items-center justify-center h-[calc(100vh-100px)] md:h-[calc(100vh-120px)]">
+      <div 
+        ref="imageContainer"
+        class="w-full overflow-hidden flex items-center justify-center h-[calc(100vh-80px)] md:h-[calc(100vh-120px)]"
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
+      >
         <NuxtImg
           v-if="currentImage"
           :src="currentImage.url"
@@ -90,22 +61,78 @@ const props = withDefaults(defineProps<Props>(), {
   columns: 1
 })
 
-const currentImageIndex = ref(0)
+const currentPage = ref(1)
+
+const currentImageIndex = computed(() => {
+  return currentPage.value - 1
+})
 
 const currentImage = computed(() => {
   return props.images[currentImageIndex.value]
 })
 
 const nextImage = () => {
-  if (currentImageIndex.value < props.images.length - 1) {
-    currentImageIndex.value++
+  if (currentPage.value < props.images.length) {
+    currentPage.value++
   }
 }
 
 const previousImage = () => {
-  if (currentImageIndex.value > 0) {
-    currentImageIndex.value--
+  if (currentPage.value > 1) {
+    currentPage.value--
   }
+}
+
+// Touch/swipe navigation
+const imageContainer = ref<HTMLElement>()
+let touchStartX = 0
+let touchStartY = 0
+let isSwiping = false
+
+const handleTouchStart = (event: TouchEvent) => {
+  touchStartX = event.touches[0].clientX
+  touchStartY = event.touches[0].clientY
+  isSwiping = false
+}
+
+const handleTouchMove = (event: TouchEvent) => {
+  if (!touchStartX || !touchStartY) return
+
+  const touchCurrentX = event.touches[0].clientX
+  const touchCurrentY = event.touches[0].clientY
+  
+  const diffX = touchStartX - touchCurrentX
+  const diffY = touchStartY - touchCurrentY
+  
+  // Only consider horizontal swipes (more horizontal than vertical movement)
+  if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+    isSwiping = true
+    // Prevent default scrolling behavior during swipe
+    event.preventDefault()
+  }
+}
+
+const handleTouchEnd = (event: TouchEvent) => {
+  if (!touchStartX || !isSwiping) return
+
+  const touchEndX = event.changedTouches[0].clientX
+  const diffX = touchStartX - touchEndX
+  const threshold = 50 // Minimum swipe distance
+
+  if (Math.abs(diffX) > threshold) {
+    if (diffX > 0) {
+      // Swiped left - next image
+      nextImage()
+    } else {
+      // Swiped right - previous image  
+      previousImage()
+    }
+  }
+
+  // Reset values
+  touchStartX = 0
+  touchStartY = 0
+  isSwiping = false
 }
 
 // Keyboard navigation

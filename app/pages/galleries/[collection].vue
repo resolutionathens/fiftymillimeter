@@ -1,19 +1,25 @@
 <template>
-  <div class="py-12">
+  <div class="py-2 md:py-12">
     <UContainer>
       <!-- Header -->
-      <div class="mb-12">
+      <div class="mb-2 md:mb-12">
         <!-- Breadcrumb -->
-        <nav class="mb-6">
-          <ol class="flex items-center space-x-2 text-sm text-gray-500">
+        <nav class="mb-1 md:mb-6">
+          <ol class="flex items-center space-x-2 text-xs md:text-sm text-gray-500">
             <li>
-              <NuxtLink to="/" class="hover:text-gray-700 dark:hover:text-gray-300">
+              <NuxtLink
+                to="/"
+                class="hover:text-gray-700 dark:hover:text-gray-300"
+              >
                 Home
               </NuxtLink>
             </li>
             <li>/</li>
             <li>
-              <NuxtLink to="/galleries" class="hover:text-gray-700 dark:hover:text-gray-300">
+              <NuxtLink
+                to="/galleries"
+                class="hover:text-gray-700 dark:hover:text-gray-300"
+              >
                 Galleries
               </NuxtLink>
             </li>
@@ -25,18 +31,18 @@
         </nav>
 
         <!-- Collection Title -->
-        <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
+        <h1 class="text-2xl md:text-6xl font-bold text-gray-900 dark:text-white mb-1 md:mb-4">
           {{ collectionDisplayName }}
         </h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300">
-          {{ imageCount }} {{ imageCount === 1 ? 'image' : 'images' }}
-        </p>
       </div>
 
       <!-- Loading State -->
-      <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <USkeleton 
-          v-for="i in 12" 
+      <div
+        v-if="pending"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <USkeleton
+          v-for="i in 12"
           :key="i"
           class="aspect-square rounded-lg"
         />
@@ -44,22 +50,28 @@
 
       <!-- Image Gallery -->
       <div v-else-if="images?.length">
-        <ImageGallery 
+        <ImageGallery
           :images="images"
           :columns="1"
         />
       </div>
 
       <!-- Empty State -->
-      <div v-else class="text-center py-20">
-        <UIcon name="i-heroicons-photo" class="w-20 h-20 text-gray-400 mx-auto mb-6" />
+      <div
+        v-else
+        class="text-center py-20"
+      >
+        <UIcon
+          name="i-heroicons-photo"
+          class="w-20 h-20 text-gray-400 mx-auto mb-6"
+        />
         <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
           No Images Found
         </h2>
         <p class="text-gray-600 dark:text-gray-400 mb-8">
           This collection doesn't contain any images yet, or they're still being processed.
         </p>
-        <UButton 
+        <UButton
           to="/galleries"
           variant="outline"
         >
@@ -68,15 +80,21 @@
       </div>
 
       <!-- Error State -->
-      <div v-if="error" class="text-center py-20">
-        <UIcon name="i-heroicons-exclamation-triangle" class="w-20 h-20 text-red-400 mx-auto mb-6" />
+      <div
+        v-if="error"
+        class="text-center py-20"
+      >
+        <UIcon
+          name="i-heroicons-exclamation-triangle"
+          class="w-20 h-20 text-red-400 mx-auto mb-6"
+        />
         <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
           Collection Not Found
         </h2>
         <p class="text-gray-600 dark:text-gray-400 mb-8">
           The requested collection could not be loaded. Please try again later.
         </p>
-        <UButton 
+        <UButton
           to="/galleries"
           variant="outline"
         >
@@ -109,7 +127,6 @@ const { data: collectionData, pending, error } = await useFetch(`/api/images/${c
 })
 
 const images = computed(() => collectionData.value?.images || [])
-const imageCount = computed(() => collectionData.value?.count || 0)
 
 // Handle 404 for non-existent collections
 if (error.value && error.value.statusCode === 500) {
