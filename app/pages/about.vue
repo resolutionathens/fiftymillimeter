@@ -4,32 +4,23 @@
       <!-- Hero Section -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
         <div>
-          <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          <h1
+            class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
+          >
             About
           </h1>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            In 1976, William Eggleston's MoMA exhibition was dismissed by one
-            critic as 'perfectly banal, perhaps.' Today, while many still
-            question his work, we understand that he was revealing the
-            extraordinary within the ordinary. I hope to embrace his democratic
-            vision, finding magic in the mundane corners of the contemporary
-            Southeast and beyond.
+            The first iteration of fiftymillimeter was launched in 2004 with a
+            bio which read, "Ian takes all of his photos one at a time with a
+            rusted shovel and a plastic spoon." At the time, I felt that most
+            writing about photography was pretentious and self-indulgent.
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            Like the work in Eggleston's haunting yet challenging 'Democratic
-            Forest,’ I intend these photographs to resist easy categorization or
-            immediate gratification. A backyard grill in Tucson, Arizona, an empty
-            parking lot in Athens, Georgia, a table set for the 4th of July that's
-            just too yellow… I want each image to ask the viewer to pause and
-            reconsider what deserves attention or what merits preservation. In
-            documenting both my southern surroundings and travels, I look for
-            where the familiar becomes foreign, where banality transforms into
-            beauty.
-          </p>
-          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            These images are meant to challenge conventional notions of the
-            picturesque, inviting viewers to question not just what makes a good
-            photograph, but what makes anything worth seeing at all.
+            I don't know what to say about photography. I don't really know how
+            to classify my work. Something like New Topographics mixed up with
+            magical realism? I do know that I often feel like I am pulling at
+            something that I lack the education or skill to portray. The beauty
+            in the banal. The majesty in the mundane.
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
             I am Ian Kennedy, a photographer based in Athens, Georgia.
