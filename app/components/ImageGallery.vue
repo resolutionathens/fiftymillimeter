@@ -18,9 +18,9 @@
       </div>
 
       <!-- Main Image Display -->
-      <div 
+      <div
         ref="imageContainer"
-        class="w-full overflow-hidden flex items-center justify-center h-[calc(100vh-80px)] md:h-[calc(100vh-120px)]"
+        class="w-full overflow-hidden flex items-center justify-center"
       >
         <NuxtImg
           v-if="currentImage"
@@ -41,7 +41,10 @@
       <!-- Fullscreen Image Modal -->
       <UModal v-model:open="isModalOpen" :fullscreen="true" :close="false">
         <template #content>
-          <div class="relative flex items-center justify-center h-screen bg-black p-4 md:p-8" @click.stop>
+          <div
+            class="relative flex items-center justify-center h-screen bg-black p-4 md:p-8"
+            @click.stop
+          >
             <!-- Previous Button -->
             <button
               v-if="currentPage > 1"
@@ -72,7 +75,9 @@
             </button>
 
             <!-- Image Counter -->
-            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 px-4 py-2 rounded-full bg-black/50 text-white text-sm font-medium">
+            <div
+              class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 px-4 py-2 rounded-full bg-black/50 text-white text-sm font-medium"
+            >
               {{ currentPage }} of {{ images.length }}
             </div>
 
@@ -90,214 +95,213 @@
           </div>
         </template>
       </UModal>
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 interface ImageData {
-  key: string
-  url: string
-  name: string
-  lastModified?: Date
-  size?: number
-  collection?: string
+  key: string;
+  url: string;
+  name: string;
+  lastModified?: Date;
+  size?: number;
+  collection?: string;
 }
 
 interface Props {
-  images: ImageData[]
-  columns?: 1 | 2 | 3 | 4
+  images: ImageData[];
+  columns?: 1 | 2 | 3 | 4;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  columns: 1
-})
+  columns: 1,
+});
 
-const currentPage = ref(1)
+const currentPage = ref(1);
 
 const currentImageIndex = computed(() => {
-  return currentPage.value - 1
-})
+  return currentPage.value - 1;
+});
 
 const currentImage = computed(() => {
-  return props.images[currentImageIndex.value]
-})
+  return props.images[currentImageIndex.value];
+});
 
 // Modal state
-const isModalOpen = ref(false)
+const isModalOpen = ref(false);
 
 const openModal = (event: Event) => {
-  event.preventDefault()
-  event.stopPropagation()
-  isModalOpen.value = true
-}
+  event.preventDefault();
+  event.stopPropagation();
+  isModalOpen.value = true;
+};
 
 const nextImage = () => {
   if (currentPage.value < props.images.length) {
-    currentPage.value++
+    currentPage.value++;
   }
-}
+};
 
 const previousImage = () => {
   if (currentPage.value > 1) {
-    currentPage.value--
+    currentPage.value--;
   }
-}
+};
 
-// Touch/swipe navigation  
-const imageContainer = ref<HTMLElement>()
-let touchStartX = 0
-let touchStartY = 0
-let isSwiping = false
+// Touch/swipe navigation
+const imageContainer = ref<HTMLElement>();
+let touchStartX = 0;
+let touchStartY = 0;
+let isSwiping = false;
 
 // Modal touch variables
-let modalTouchStartX = 0
-let modalTouchStartY = 0
-let isModalSwiping = false
+let modalTouchStartX = 0;
+let modalTouchStartY = 0;
+let isModalSwiping = false;
 
 const handleTouchStart = (event: TouchEvent) => {
-  const touch = event.touches[0]
+  const touch = event.touches[0];
   if (touch) {
-    touchStartX = touch.clientX
-    touchStartY = touch.clientY
-    isSwiping = false
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    isSwiping = false;
   }
-}
+};
 
 const handleTouchMove = (event: TouchEvent) => {
-  if (!touchStartX || !touchStartY) return
-  
-  const touch = event.touches[0]
-  if (!touch) return
+  if (!touchStartX || !touchStartY) return;
 
-  const touchCurrentX = touch.clientX
-  const touchCurrentY = touch.clientY
-  
-  const diffX = touchStartX - touchCurrentX
-  const diffY = touchStartY - touchCurrentY
-  
+  const touch = event.touches[0];
+  if (!touch) return;
+
+  const touchCurrentX = touch.clientX;
+  const touchCurrentY = touch.clientY;
+
+  const diffX = touchStartX - touchCurrentX;
+  const diffY = touchStartY - touchCurrentY;
+
   // Only consider horizontal swipes (more horizontal than vertical movement)
   if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
-    isSwiping = true
+    isSwiping = true;
     // Prevent default scrolling behavior during swipe
     if (event.cancelable) {
-      event.preventDefault()
+      event.preventDefault();
     }
   }
-}
+};
 
 const handleTouchEnd = (event: TouchEvent) => {
   if (!touchStartX || !isSwiping) {
     // Reset values even if not swiping
-    touchStartX = 0
-    touchStartY = 0
-    isSwiping = false
-    return
+    touchStartX = 0;
+    touchStartY = 0;
+    isSwiping = false;
+    return;
   }
 
-  const touch = event.changedTouches[0]
-  if (!touch) return
+  const touch = event.changedTouches[0];
+  if (!touch) return;
 
-  const touchEndX = touch.clientX
-  const diffX = touchStartX - touchEndX
-  const threshold = 50 // Minimum swipe distance
+  const touchEndX = touch.clientX;
+  const diffX = touchStartX - touchEndX;
+  const threshold = 50; // Minimum swipe distance
 
   if (Math.abs(diffX) > threshold) {
     // Prevent click event if we're swiping
-    event.preventDefault()
+    event.preventDefault();
     if (diffX > 0) {
       // Swiped left - next image
-      nextImage()
+      nextImage();
     } else {
-      // Swiped right - previous image  
-      previousImage()
+      // Swiped right - previous image
+      previousImage();
     }
   }
 
   // Reset values
-  touchStartX = 0
-  touchStartY = 0
-  isSwiping = false
-}
+  touchStartX = 0;
+  touchStartY = 0;
+  isSwiping = false;
+};
 
 // Modal touch handlers (non-interfering)
 const handleModalTouchStart = (event: TouchEvent) => {
-  const touch = event.touches[0]
+  const touch = event.touches[0];
   if (touch) {
-    modalTouchStartX = touch.clientX
-    modalTouchStartY = touch.clientY
-    isModalSwiping = false
+    modalTouchStartX = touch.clientX;
+    modalTouchStartY = touch.clientY;
+    isModalSwiping = false;
   }
-}
+};
 
 const handleModalTouchMove = (event: TouchEvent) => {
-  if (!modalTouchStartX || !modalTouchStartY) return
-  
-  const touch = event.touches[0]
-  if (!touch) return
+  if (!modalTouchStartX || !modalTouchStartY) return;
 
-  const touchCurrentX = touch.clientX
-  const touchCurrentY = touch.clientY
-  
-  const diffX = modalTouchStartX - touchCurrentX
-  const diffY = modalTouchStartY - touchCurrentY
-  
+  const touch = event.touches[0];
+  if (!touch) return;
+
+  const touchCurrentX = touch.clientX;
+  const touchCurrentY = touch.clientY;
+
+  const diffX = modalTouchStartX - touchCurrentX;
+  const diffY = modalTouchStartY - touchCurrentY;
+
   // Only consider horizontal swipes (more horizontal than vertical movement)
   if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
-    isModalSwiping = true
+    isModalSwiping = true;
   }
-}
+};
 
 const handleModalTouchEnd = (event: TouchEvent) => {
   if (!modalTouchStartX || !isModalSwiping) {
     // Reset values even if not swiping
-    modalTouchStartX = 0
-    modalTouchStartY = 0
-    isModalSwiping = false
-    return
+    modalTouchStartX = 0;
+    modalTouchStartY = 0;
+    isModalSwiping = false;
+    return;
   }
 
-  const touch = event.changedTouches[0]
-  if (!touch) return
+  const touch = event.changedTouches[0];
+  if (!touch) return;
 
-  const touchEndX = touch.clientX
-  const diffX = modalTouchStartX - touchEndX
-  const threshold = 50 // Minimum swipe distance
+  const touchEndX = touch.clientX;
+  const diffX = modalTouchStartX - touchEndX;
+  const threshold = 50; // Minimum swipe distance
 
   if (Math.abs(diffX) > threshold) {
     if (diffX > 0) {
       // Swiped left - next image
-      nextImage()
+      nextImage();
     } else {
-      // Swiped right - previous image  
-      previousImage()
+      // Swiped right - previous image
+      previousImage();
     }
   }
 
   // Reset values
-  modalTouchStartX = 0
-  modalTouchStartY = 0
-  isModalSwiping = false
-}
+  modalTouchStartX = 0;
+  modalTouchStartY = 0;
+  isModalSwiping = false;
+};
 
 // Keyboard navigation
 onMounted(() => {
   const handleKeydown = (event: KeyboardEvent) => {
     switch (event.key) {
-      case 'ArrowLeft':
-        previousImage()
-        break
-      case 'ArrowRight':
-        nextImage()
-        break
+      case "ArrowLeft":
+        previousImage();
+        break;
+      case "ArrowRight":
+        nextImage();
+        break;
     }
-  }
+  };
 
-  window.addEventListener('keydown', handleKeydown)
+  window.addEventListener("keydown", handleKeydown);
 
   onUnmounted(() => {
-    window.removeEventListener('keydown', handleKeydown)
-  })
-})
+    window.removeEventListener("keydown", handleKeydown);
+  });
+});
 </script>

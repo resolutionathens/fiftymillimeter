@@ -30,6 +30,7 @@
   "type": "module",
   "devDependencies": {
     "@iconify-json/heroicons": "^1.2.2",
+    "@iconify-json/lucide": "^1.2.66",
     "wrangler": "^4.0.0"
   }
 }
