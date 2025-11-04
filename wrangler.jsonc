@@ -14,8 +14,17 @@
       "experimental_remote": true
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "fiftymillimeter-shop",
+      "database_id": "YOUR_DATABASE_ID_HERE",
+      "preview_database_id": "YOUR_PREVIEW_DATABASE_ID_HERE"
+    }
+  ],
   "vars": {
     "NUXT_SITE_URL": "https://fiftymillimeter.com",
-    "CLOUDFLARE_R2_PUBLIC_URL": "https://pub-77d2c63f12a143a59270d491959246da.r2.dev"
+    "CLOUDFLARE_R2_PUBLIC_URL": "https://pub-77d2c63f12a143a59270d491959246da.r2.dev",
+    "STRIPE_PUBLISHABLE_KEY": "pk_test_YOUR_KEY_HERE"
   }
 }

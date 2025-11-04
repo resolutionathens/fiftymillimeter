@@ -33,10 +33,14 @@ export default defineNuxtConfig({
     cloudflareSecretAccessKey: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
     cloudflareR2BucketName: process.env.CLOUDFLARE_R2_BUCKET_NAME,
     cloudflareR2Endpoint: process.env.CLOUDFLARE_R2_ENDPOINT,
+    // Stripe server-side secrets
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
     // Public variables (available to client-side)
     public: {
       cloudflareR2PublicUrl: process.env.CLOUDFLARE_R2_PUBLIC_URL,
-      siteUrl: process.env.NUXT_SITE_URL || 'https://fiftymillimeter.pages.dev'
+      siteUrl: process.env.NUXT_SITE_URL || 'https://fiftymillimeter.pages.dev',
+      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY
     }
   },
   // SEO and meta optimization

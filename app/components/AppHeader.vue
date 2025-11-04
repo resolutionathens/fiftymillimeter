@@ -22,6 +22,12 @@ const navigationItems = computed<NavigationMenuItem[]>(() => {
       active: route.path === "/",
     },
     {
+      label: "Shop",
+      to: "/shop",
+      icon: "i-heroicons-shopping-bag",
+      active: route.path.startsWith("/shop"),
+    },
+    {
       label: "About",
       to: "/about",
       icon: "i-heroicons-user",
@@ -37,7 +43,7 @@ const navigationItems = computed<NavigationMenuItem[]>(() => {
 
   // Add galleries dropdown if we have collections
   if (collections.value.length > 0) {
-    items.splice(1, 0, {
+    items.splice(2, 0, {
       label: "Galleries",
       icon: "i-heroicons-photo",
       active: route.path.startsWith("/galleries"),
@@ -57,7 +63,7 @@ const navigationItems = computed<NavigationMenuItem[]>(() => {
     });
   } else {
     // Fallback when collections haven't loaded yet
-    items.splice(1, 0, {
+    items.splice(2, 0, {
       label: "Galleries",
       to: "/galleries",
       icon: "i-heroicons-photo",
