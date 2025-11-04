@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   // Optimize for Cloudflare Workers deployment
   nitro: {
-    preset: 'cloudflare'
+    preset: 'cloudflare-module'
   },
   // Enable static site generation
   ssr: true,
