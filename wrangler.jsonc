@@ -18,8 +18,8 @@
     {
       "binding": "DB",
       "database_name": "fiftymillimeter-shop",
-      "database_id": "YOUR_DATABASE_ID_HERE",
-      "preview_database_id": "YOUR_PREVIEW_DATABASE_ID_HERE"
+      "database_id": "5fe31ff8-4d07-4987-add7-a188ab6061bf",
+      "preview_database_id": "b358de7f-3d52-46e1-8494-470b1c7055df"
     }
   ],
   "vars": {
