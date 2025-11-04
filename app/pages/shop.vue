@@ -2,7 +2,10 @@
   <div class="py-12">
     <UContainer>
       <!-- Product Display -->
-      <div v-if="product" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div
+        v-if="product"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-12"
+      >
         <!-- Product Image -->
         <div>
           <NuxtImg
@@ -27,15 +30,35 @@
           </div>
 
           <!-- Stock Status -->
-          <div v-if="product.inStock" class="mb-6">
-            <UBadge color="green" variant="subtle" size="lg">
-              <UIcon name="i-heroicons-check-circle" class="w-4 h-4" />
+          <div
+            v-if="product.inStock"
+            class="mb-6"
+          >
+            <UBadge
+              color="success"
+              variant="subtle"
+              size="lg"
+            >
+              <UIcon
+                name="i-heroicons-check-circle"
+                class="w-4 h-4"
+              />
               In Stock ({{ product.stock_quantity }} available)
             </UBadge>
           </div>
-          <div v-else class="mb-6">
-            <UBadge color="red" variant="subtle" size="lg">
-              <UIcon name="i-heroicons-x-circle" class="w-4 h-4" />
+          <div
+            v-else
+            class="mb-6"
+          >
+            <UBadge
+              color="error"
+              variant="subtle"
+              size="lg"
+            >
+              <UIcon
+                name="i-heroicons-x-circle"
+                class="w-4 h-4"
+              />
               Out of Stock
             </UBadge>
           </div>
@@ -43,36 +66,51 @@
           <!-- Product Details -->
           <div class="mb-8 space-y-3 text-sm text-gray-600 dark:text-gray-300">
             <div class="flex items-start gap-2">
-              <UIcon name="i-heroicons-book-open" class="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <UIcon
+                name="i-heroicons-book-open"
+                class="w-5 h-5 flex-shrink-0 mt-0.5"
+              />
               <span>Limited edition photography zine</span>
             </div>
             <div class="flex items-start gap-2">
-              <UIcon name="i-heroicons-truck" class="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <UIcon
+                name="i-heroicons-truck"
+                class="w-5 h-5 flex-shrink-0 mt-0.5"
+              />
               <span>Shipping calculated at checkout</span>
             </div>
             <div class="flex items-start gap-2">
-              <UIcon name="i-heroicons-shield-check" class="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <UIcon
+                name="i-heroicons-shield-check"
+                class="w-5 h-5 flex-shrink-0 mt-0.5"
+              />
               <span>Secure payment powered by Stripe</span>
             </div>
           </div>
 
           <!-- Coming Soon Message -->
           <UAlert
-            color="blue"
+            color="primary"
             variant="subtle"
             title="Available Late November"
             description="Copies will be available for purchase at the end of November. Check back soon!"
             class="mb-4"
           >
             <template #icon>
-              <UIcon name="i-heroicons-clock" class="w-6 h-6" />
+              <UIcon
+                name="i-heroicons-clock"
+                class="w-6 h-6"
+              />
             </template>
           </UAlert>
         </div>
       </div>
 
       <!-- Loading State -->
-      <div v-if="pending" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div
+        v-if="pending"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-12"
+      >
         <USkeleton class="h-[600px] rounded-lg" />
         <div class="space-y-6">
           <USkeleton class="h-12 w-3/4" />
@@ -85,7 +123,7 @@
       <!-- Error State -->
       <UAlert
         v-if="error"
-        color="red"
+        color="error"
         variant="subtle"
         title="Failed to load product"
         :description="error.message"
@@ -96,6 +134,20 @@
 </template>
 
 <script setup lang="ts">
+interface Product {
+  id: string
+  name: string
+  description: string
+  price: number
+  image_url: string
+  inStock: boolean
+  stock_quantity: number
+}
+
+interface ProductResponse {
+  product: Product
+}
+
 useSeoMeta({
   title: 'Shop - Athens is a Subtropical Rainforest Zine',
   ogTitle: 'Shop - Athens is a Subtropical Rainforest Zine',
@@ -103,6 +155,6 @@ useSeoMeta({
   ogDescription: 'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy'
 })
 
-const { data: productData, pending, error } = await useFetch('/api/shop/product')
+const { data: productData, pending, error } = await useFetch<ProductResponse>('/api/shop/product')
 const product = computed(() => productData.value?.product)
 </script>

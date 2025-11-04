@@ -12,7 +12,8 @@ export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
   if (result.delimitedPrefixes) {
     for (const prefix of result.delimitedPrefixes) {
       const folderName = prefix.replace('/', '')
-      if (folderName) {
+      // Exclude the shop directory from galleries
+      if (folderName && folderName !== 'shop') {
         // Get first image from this folder for cover image
         const folderContents = await bucket.list({
           prefix: prefix,
