@@ -56,36 +56,18 @@
             </div>
           </div>
 
-          <!-- Checkout Form -->
-          <ShopCheckoutForm
-            v-if="product.inStock && !orderComplete"
-            :product="product"
-            @success="handleCheckoutSuccess"
-          />
-
-          <!-- Success Message -->
+          <!-- Coming Soon Message -->
           <UAlert
-            v-if="orderComplete"
-            color="green"
+            color="blue"
             variant="subtle"
-            title="Order Complete!"
-            description="Thank you for your purchase. You'll receive a confirmation email shortly with tracking information."
+            title="Available Late November"
+            description="Copies will be available for purchase at the end of November. Check back soon!"
             class="mb-4"
           >
             <template #icon>
-              <UIcon name="i-heroicons-check-circle" class="w-6 h-6" />
+              <UIcon name="i-heroicons-clock" class="w-6 h-6" />
             </template>
           </UAlert>
-
-          <UButton
-            v-if="orderComplete"
-            to="/galleries"
-            variant="soft"
-            size="lg"
-          >
-            <UIcon name="i-heroicons-photo" class="w-5 h-5" />
-            Browse Galleries
-          </UButton>
         </div>
       </div>
 
@@ -123,14 +105,4 @@ useSeoMeta({
 
 const { data: productData, pending, error } = await useFetch('/api/shop/product')
 const product = computed(() => productData.value?.product)
-const orderComplete = ref(false)
-
-const handleCheckoutSuccess = (paymentIntentId: string) => {
-  orderComplete.value = true
-
-  // Scroll to top to show success message
-  if (import.meta.client) {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-}
 </script>
