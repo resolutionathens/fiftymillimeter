@@ -2,6 +2,9 @@
 // Type imports for Cloudflare Workers R2
 /// <reference types="@cloudflare/workers-types" />
 
+// Folders to exclude from gallery listings
+const excludedFolders = ['shop', 'subtropical-andy', 'newyork']
+
 export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
   const collections = []
 
@@ -15,8 +18,8 @@ export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
   if (result.delimitedPrefixes) {
     for (const prefix of result.delimitedPrefixes) {
       const folderName = prefix.replace('/', '')
-      // Exclude the shop directory from galleries
-      if (folderName && folderName !== 'shop') {
+      // Exclude specified directories from galleries
+      if (folderName && !excludedFolders.includes(folderName)) {
         // Get first image from this folder for cover image
         const folderContents = await bucket.list({
           prefix: prefix,
