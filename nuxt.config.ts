@@ -2,13 +2,17 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  // Optimize for Cloudflare Workers deployment
+  // Cloudflare Workers deployment with dev bindings support
   nitro: {
-    preset: 'cloudflare-module'
+    preset: 'cloudflare-module',
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true
+    }
   },
   // Enable static site generation
   ssr: true,
-  modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxt/ui-pro'],
+  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui'],
   
   css: ['~/assets/main.css'],
 

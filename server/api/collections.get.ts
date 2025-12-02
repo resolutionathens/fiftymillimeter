@@ -3,7 +3,7 @@ import { listR2Collections } from '../utils/r2-dynamic'
 export default defineEventHandler(async (event) => {
   try {
     // Try to access the R2 bucket via Workers binding first
-    const bucket = event.context.cloudflare?.env?.R2_BUCKET || 
+    const bucket = event.context.cloudflare?.env?.R2_BUCKET ||
                    (globalThis as Record<string, unknown>)?.R2_BUCKET ||
                    (process.env as Record<string, string | undefined>)?.R2_BUCKET
     

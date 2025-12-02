@@ -10,8 +10,7 @@
     {
       "binding": "R2_BUCKET",
       "bucket_name": "fiftymillimeter",
-      "preview_bucket_name": "fiftymillimeter-dev",
-      "experimental_remote": true
+      "remote": true
     }
   ],
   "d1_databases": [
@@ -19,7 +18,7 @@
       "binding": "DB",
       "database_name": "fiftymillimeter-shop",
       "database_id": "5fe31ff8-4d07-4987-add7-a188ab6061bf",
-      "preview_database_id": "b358de7f-3d52-46e1-8494-470b1c7055df"
+      "remote": true
     }
   ],
   "vars": {

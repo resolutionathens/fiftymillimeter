@@ -1,73 +1,83 @@
 <template>
   <div>
-    <UCard>
+    <UCard class="shadow-lg">
       <template #header>
-        <h3 class="font-semibold text-lg">Checkout</h3>
+        <h3 class="font-semibold text-xl">Checkout</h3>
       </template>
 
       <!-- Customer Info Form -->
-      <form v-if="!showPayment" @submit.prevent="initializePayment" class="space-y-4">
-        <UFormGroup label="Email" required>
+      <form v-if="!showPayment" @submit.prevent="initializePayment" class="flex flex-col gap-6">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium">Full Name <span class="text-red-500">*</span></label>
+          <UInput
+            v-model="name"
+            placeholder="John Doe"
+            required
+            size="xl"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-sm font-medium">Email <span class="text-red-500">*</span></label>
           <UInput
             v-model="email"
             type="email"
             placeholder="your@email.com"
             required
-            size="lg"
+            size="xl"
           />
-        </UFormGroup>
+        </div>
 
-        <UFormGroup label="Full Name" required>
-          <UInput
-            v-model="name"
-            placeholder="John Doe"
-            required
-            size="lg"
-          />
-        </UFormGroup>
-
-        <UButton
-          type="submit"
-          block
-          size="lg"
-          :loading="loading"
-          color="primary"
-        >
-          Continue to Payment
-        </UButton>
+        <div class="pt-2">
+          <UButton
+            type="submit"
+            block
+            size="xl"
+            :loading="loading"
+            color="primary"
+          >
+            Continue to Payment
+          </UButton>
+        </div>
       </form>
 
       <!-- Stripe Payment Element -->
-      <div v-if="showPayment">
-        <div ref="paymentElement" class="mb-6"></div>
+      <div v-if="showPayment" class="space-y-6">
+        <div class="space-y-4">
+          <div ref="addressElement"></div>
+          <div ref="paymentElement"></div>
+        </div>
 
-        <UButton
-          @click="handleSubmit"
-          block
-          size="lg"
-          :loading="processing"
-          :disabled="!stripe || !elements"
-          color="primary"
-        >
-          Pay ${{ (product.price / 100).toFixed(2) }}
-        </UButton>
+        <div class="pt-2">
+          <UButton
+            @click="handleSubmit"
+            block
+            size="xl"
+            :loading="processing"
+            :disabled="!elementsReady"
+            color="primary"
+          >
+            Pay ${{ (product.price / 100).toFixed(2) }}
+          </UButton>
+        </div>
 
         <UAlert
           v-if="error"
-          color="red"
+          color="error"
           variant="soft"
           :title="error"
-          class="mt-4"
         />
 
-        <button
-          v-if="!processing"
-          type="button"
-          @click="resetForm"
-          class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 mt-4 underline"
-        >
-          Change customer information
-        </button>
+        <div class="text-center">
+          <button
+            v-if="!processing"
+            type="button"
+            @click="resetForm"
+            class="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 underline"
+          >
+            Change customer information
+          </button>
+        </div>
       </div>
     </UCard>
   </div>
@@ -99,10 +109,12 @@ const loading = ref(false)
 const processing = ref(false)
 const error = ref('')
 
+const addressElement = ref<HTMLElement>()
 const paymentElement = ref<HTMLElement>()
 let stripe: Stripe | null = null
 let elements: StripeElements | null = null
 let clientSecret = ''
+const elementsReady = ref(false)
 
 const initializePayment = async () => {
   if (!email.value || !name.value) return
@@ -153,10 +165,6 @@ const setupStripeElements = async () => {
     }
   })
 
-  const paymentElementInstance = elements.create('payment', {
-    layout: 'tabs'
-  })
-
   const addressElementInstance = elements.create('address', {
     mode: 'shipping',
     defaultValues: {
@@ -164,8 +172,35 @@ const setupStripeElements = async () => {
     }
   })
 
+  const paymentElementInstance = elements.create('payment', {
+    layout: 'tabs'
+  })
+
+  // Listen for ready events
+  let addressReady = false
+  let paymentReady = false
+
+  const checkReady = () => {
+    if (addressReady && paymentReady) {
+      elementsReady.value = true
+    }
+  }
+
+  addressElementInstance.on('ready', () => {
+    addressReady = true
+    checkReady()
+  })
+
+  paymentElementInstance.on('ready', () => {
+    paymentReady = true
+    checkReady()
+  })
+
+  if (addressElement.value) {
+    addressElementInstance.mount(addressElement.value)
+  }
+
   if (paymentElement.value) {
-    addressElementInstance.mount(paymentElement.value)
     paymentElementInstance.mount(paymentElement.value)
   }
 }
@@ -176,20 +211,21 @@ const handleSubmit = async () => {
   processing.value = true
   error.value = ''
 
-  const { error: submitError, paymentIntent } = await stripe.confirmPayment({
+  // Stripe will either redirect or complete inline
+  // If redirect is needed, user will be sent to return_url
+  // If payment completes inline, we manually navigate
+  const { error: submitError } = await stripe.confirmPayment({
     elements,
     confirmParams: {
       receipt_email: email.value,
       return_url: `${window.location.origin}/shop/success`
-    },
-    redirect: 'if_required'
+    }
   })
 
+  // If we get here, payment failed (successful payments redirect automatically)
   if (submitError) {
     error.value = submitError.message || 'Payment failed'
     processing.value = false
-  } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-    emit('success', paymentIntent.id)
   }
 }
 
@@ -199,5 +235,6 @@ const resetForm = () => {
   stripe = null
   elements = null
   clientSecret = ''
+  elementsReady.value = false
 }
 </script>

@@ -92,14 +92,60 @@
 const route = useRoute()
 const paymentIntentId = route.query.payment_intent as string
 
-const { data: orderData, pending } = await useFetch(
-  `/api/shop/order/${paymentIntentId}`,
-  {
-    lazy: true,
-    // Only fetch if payment_intent is provided
-    immediate: !!paymentIntentId
+const orderData = ref<any>(null)
+const pending = ref(true)
+const error = ref<string | null>(null)
+
+// Poll for order data (webhook might take a moment to create the order)
+const pollForOrder = async () => {
+  if (!paymentIntentId) {
+    error.value = 'No payment intent provided'
+    pending.value = false
+    return
   }
-)
+
+  const maxAttempts = 20 // 20 attempts
+  const intervalMs = 500 // Every 500ms
+  let attempts = 0
+
+  const poll = async () => {
+    try {
+      const response = await $fetch(`/api/shop/order/${paymentIntentId}`)
+
+      if (response?.order) {
+        // Order found!
+        orderData.value = response
+        pending.value = false
+        return true
+      }
+    } catch (err: any) {
+      // Order not found yet, continue polling
+      if (err.statusCode !== 404) {
+        // Real error, not just "not found yet"
+        console.error('Error fetching order:', err)
+      }
+    }
+
+    attempts++
+
+    if (attempts < maxAttempts) {
+      // Continue polling
+      setTimeout(poll, intervalMs)
+    } else {
+      // Timeout - order should exist by now
+      // Show success anyway, email will have details
+      pending.value = false
+    }
+  }
+
+  // Start polling
+  poll()
+}
+
+// Start polling on mount
+onMounted(() => {
+  pollForOrder()
+})
 
 const order = computed(() => orderData.value?.order)
 

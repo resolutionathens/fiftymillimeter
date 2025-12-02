@@ -43,7 +43,7 @@
                 name="i-heroicons-check-circle"
                 class="w-4 h-4"
               />
-              In Stock ({{ product.stock_quantity }} available)
+              In Stock ({{ product.stock_quantity }} of 100 available)
             </UBadge>
           </div>
           <div
@@ -70,14 +70,28 @@
                 name="i-heroicons-book-open"
                 class="w-5 h-5 flex-shrink-0 mt-0.5"
               />
-              <span>Limited edition photography zine</span>
+              <span>Landscape Golden Age format (7.38" × 10.25")</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <UIcon
+                name="i-heroicons-document-text"
+                class="w-5 h-5 flex-shrink-0 mt-0.5"
+              />
+              <span>48 pages, full-color printing on 100lb satin paper</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <UIcon
+                name="i-heroicons-scissors"
+                class="w-5 h-5 flex-shrink-0 mt-0.5"
+              />
+              <span>Perfect bound, edition of 100, hand-numbered</span>
             </div>
             <div class="flex items-start gap-2">
               <UIcon
                 name="i-heroicons-truck"
                 class="w-5 h-5 flex-shrink-0 mt-0.5"
               />
-              <span>Shipping calculated at checkout</span>
+              <span>Free shipping included</span>
             </div>
             <div class="flex items-start gap-2">
               <UIcon
@@ -88,21 +102,19 @@
             </div>
           </div>
 
-          <!-- Coming Soon Message -->
+          <!-- Checkout Form -->
+          <ShopCheckoutForm
+            v-if="product.inStock"
+            :product="product"
+            @success="handleCheckoutSuccess"
+          />
           <UAlert
-            color="primary"
+            v-else
+            color="warning"
             variant="subtle"
-            title="Available Late November"
-            description="Copies will be available for purchase at the end of November. Check back soon!"
-            class="mb-4"
-          >
-            <template #icon>
-              <UIcon
-                name="i-heroicons-clock"
-                class="w-6 h-6"
-              />
-            </template>
-          </UAlert>
+            title="Out of Stock"
+            description="This item is currently unavailable."
+          />
         </div>
       </div>
 
@@ -148,13 +160,23 @@ interface ProductResponse {
   product: Product
 }
 
+const { data: productData, pending, error } = await useFetch<ProductResponse>('/api/shop/product')
+const product = computed(() => productData.value?.product)
+
 useSeoMeta({
   title: 'Shop - Athens is a Subtropical Rainforest Zine',
   ogTitle: 'Shop - Athens is a Subtropical Rainforest Zine',
   description: 'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy',
-  ogDescription: 'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy'
+  ogDescription: 'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy',
+  ogImage: "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg",
+  ogImageWidth: '1200',
+  ogImageHeight: '1500',
+  ogImageType: 'image/jpeg',
+  twitterCard: 'summary_large_image',
+  twitterImage: "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg"
 })
 
-const { data: productData, pending, error } = await useFetch<ProductResponse>('/api/shop/product')
-const product = computed(() => productData.value?.product)
+const handleCheckoutSuccess = (paymentIntentId: string) => {
+  navigateTo(`/shop/success?payment_intent=${paymentIntentId}`)
+}
 </script>
