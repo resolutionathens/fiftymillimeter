@@ -32,12 +32,6 @@ const navigationItems = computed<NavigationMenuItem[]>(() => {
       to: "/about",
       icon: "i-heroicons-user",
       active: route.path === "/about",
-    },
-    {
-      label: "Contact",
-      to: "/contact",
-      icon: "i-heroicons-envelope",
-      active: route.path === "/contact",
     }
   ];
 

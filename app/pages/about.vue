@@ -39,6 +39,43 @@
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
             I am Ian Kennedy, a photographer based in Athens, Georgia.
           </p>
+
+          <!-- Contact -->
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center shrink-0"
+              >
+                <UIcon
+                  name="i-heroicons-envelope"
+                  class="w-5 h-5 text-gray-600 dark:text-gray-400"
+                />
+              </div>
+              <a
+                href="mailto:hello@fiftymillimeter.com"
+                class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+              >
+                hello@fiftymillimeter.com
+              </a>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center shrink-0"
+              >
+                <UIcon
+                  name="i-simple-icons-instagram"
+                  class="w-5 h-5 text-gray-600 dark:text-gray-400"
+                />
+              </div>
+              <a
+                href="https://instagram.com/fiftymillimeter_"
+                target="_blank"
+                class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+              >
+                @fiftymillimeter_
+              </a>
+            </div>
+          </div>
         </div>
 
       </div>
