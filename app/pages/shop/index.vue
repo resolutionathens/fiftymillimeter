@@ -102,7 +102,32 @@
             </div>
           </div>
 
-          <!-- Checkout Form -->
+        </div>
+      </div>
+
+      <!-- Checkout & Preview Section -->
+      <div
+        v-if="product"
+        class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12"
+      >
+        <!-- Preview Images Grid -->
+        <div class="bg-white rounded-lg p-6 md:p-8">
+          <div class="grid grid-cols-2 gap-4">
+            <NuxtImg
+              v-for="i in 6"
+              :key="i"
+              :src="`https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/0${i}.webp`"
+              :alt="`Zine preview ${i}`"
+              class="w-full rounded-lg"
+              width="400"
+              height="400"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Checkout Form -->
+        <div>
           <ShopCheckoutForm
             v-if="product.inStock"
             :product="product"
