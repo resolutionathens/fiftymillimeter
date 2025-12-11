@@ -46,8 +46,6 @@
               src="https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/sub-andy.webp"
               alt="Athens is a Subtropical Rainforest Zine"
               class="w-full rounded-lg mb-6 transition-transform duration-200 group-hover:scale-[1.02]"
-              width="800"
-              height="1000"
               loading="eager"
             />
           </NuxtLink>

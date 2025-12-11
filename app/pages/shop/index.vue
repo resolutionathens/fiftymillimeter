@@ -68,35 +68,35 @@
             <div class="flex items-start gap-2">
               <UIcon
                 name="i-heroicons-book-open"
-                class="w-5 h-5 flex-shrink-0 mt-0.5"
+                class="w-5 h-5 shrink-0 mt-0.5"
               />
               <span>Landscape Golden Age format (7.38" × 10.25")</span>
             </div>
             <div class="flex items-start gap-2">
               <UIcon
                 name="i-heroicons-document-text"
-                class="w-5 h-5 flex-shrink-0 mt-0.5"
+                class="w-5 h-5 shrink-0 mt-0.5"
               />
               <span>48 pages, full-color printing on 100lb satin paper</span>
             </div>
             <div class="flex items-start gap-2">
               <UIcon
                 name="i-heroicons-scissors"
-                class="w-5 h-5 flex-shrink-0 mt-0.5"
+                class="w-5 h-5 shrink-0 mt-0.5"
               />
               <span>Perfect bound, edition of 100, hand-numbered</span>
             </div>
             <div class="flex items-start gap-2">
               <UIcon
                 name="i-heroicons-truck"
-                class="w-5 h-5 flex-shrink-0 mt-0.5"
+                class="w-5 h-5 shrink-0 mt-0.5"
               />
               <span>Free shipping included</span>
             </div>
             <div class="flex items-start gap-2">
               <UIcon
                 name="i-heroicons-shield-check"
-                class="w-5 h-5 flex-shrink-0 mt-0.5"
+                class="w-5 h-5 shrink-0 mt-0.5"
               />
               <span>Secure payment powered by Stripe</span>
             </div>

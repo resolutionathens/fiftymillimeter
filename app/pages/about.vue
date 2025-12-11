@@ -25,12 +25,13 @@
             rusted shovel and a plastic spoon."
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            I don't know what to say about photography. I don't really know how
-            to classify my work; new topographics, social landscape, documenting space, banalography, mundaaang? I'm not
-            sure that it matters. I do
-            know that I often feel like I am pulling at
-            something that I lack the education or skill to portray. The beauty
-            in the banal. The majesty in the mundane.
+            I don't know what to say about photography. I don't really know how to classify my work… new topographics,
+            social landscape, documenting space, banalography, mundaaang?
+          </p>
+          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
+            I'm also not sure that it matters. What I do know is that I often feel like I am pulling at something that I
+            lack the education or skill to portray. The beauty in the banal. The majesty in the mundane. The shimmer in
+            a scene that transforms a photo into an emotion.
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
             I still take all of my photos one at a time.
