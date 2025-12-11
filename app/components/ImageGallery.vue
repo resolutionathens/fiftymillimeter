@@ -1,25 +1,61 @@
 <template>
   <div class="w-full">
-    <!-- Single Image View -->
     <div class="relative w-full">
       <!-- Navigation Controls -->
-      <div class="flex items-center justify-center mb-1 md:mb-6">
+      <div class="flex items-center justify-center gap-4 mb-4 md:mb-6">
         <UPagination
           v-model:page="currentPage"
           :total="images.length"
-          :items-per-page="1"
+          :items-per-page="itemsPerPage"
           :sibling-count="1"
           show-edges
           color="neutral"
           variant="outline"
           size="sm"
-          class="md:!text-base"
         />
+
+        <!-- View Toggle Button -->
+        <UButton
+          color="neutral"
+          variant="outline"
+          size="sm"
+          :title="viewMode === 'grid' ? 'Single image view' : 'Grid view'"
+          :aria-label="viewMode === 'grid' ? 'Switch to single image view' : 'Switch to grid view'"
+          @click="toggleViewMode"
+        >
+          <UIcon
+            :name="viewMode === 'grid' ? 'i-heroicons-square-2-stack' : 'i-heroicons-squares-2x2'"
+            class="w-4 h-4"
+          />
+        </UButton>
       </div>
 
-      <!-- Main Image Display -->
+      <!-- Grid View -->
       <div
-        ref="imageContainer"
+        v-if="viewMode === 'grid'"
+        class="grid grid-cols-2 md:grid-cols-3 gap-4"
+      >
+        <div
+          v-for="(image, index) in paginatedImages"
+          :key="image.key"
+          class="aspect-square cursor-pointer overflow-hidden rounded-lg"
+          @click="openModalAtIndex(pageStartIndex + index)"
+        >
+          <NuxtImg
+            :src="image.url"
+            :alt="image.name"
+            class="h-full w-full object-cover transition-transform duration-200 hover:scale-105"
+            width="400"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Single Image View -->
+      <div
+        v-else
+        ref="_imageContainer"
         class="w-full overflow-hidden flex items-center justify-center"
       >
         <NuxtImg
@@ -39,46 +75,59 @@
       </div>
 
       <!-- Fullscreen Image Modal -->
-      <UModal v-model:open="isModalOpen" :fullscreen="true" :close="false">
+      <UModal
+        v-model:open="isModalOpen"
+        :fullscreen="true"
+        :close="false"
+      >
         <template #content>
           <div
-            class="relative flex items-center justify-center h-screen bg-black p-4 md:p-8"
+            class="relative flex items-center justify-center h-screen bg-white/90 backdrop-blur-sm p-4 md:p-8"
             @click.stop
           >
             <!-- Previous Button -->
             <button
-              v-if="currentPage > 1"
-              class="absolute left-4 z-10 p-3 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+              v-if="currentImageIndex > 0"
+              class="absolute left-4 z-10 p-3 text-neutral-500 hover:text-neutral-700 transition-colors"
               aria-label="Previous image"
               @click="previousImage"
             >
-              <UIcon name="i-heroicons-chevron-left" class="w-6 h-6" />
+              <UIcon
+                name="i-heroicons-chevron-left"
+                class="w-6 h-6"
+              />
             </button>
 
             <!-- Next Button -->
             <button
-              v-if="currentPage < images.length"
-              class="absolute right-4 z-10 p-3 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+              v-if="currentImageIndex < images.length - 1"
+              class="absolute right-4 z-10 p-3 text-neutral-500 hover:text-neutral-700 transition-colors"
               aria-label="Next image"
               @click="nextImage"
             >
-              <UIcon name="i-heroicons-chevron-right" class="w-6 h-6" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="w-6 h-6"
+              />
             </button>
 
             <!-- Close Button -->
             <button
-              class="absolute top-4 right-4 z-10 p-3 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+              class="absolute top-4 right-4 z-10 p-3 text-neutral-500 hover:text-neutral-700 transition-colors"
               aria-label="Close modal"
               @click="isModalOpen = false"
             >
-              <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
+              <UIcon
+                name="i-heroicons-x-mark"
+                class="w-6 h-6"
+              />
             </button>
 
             <!-- Image Counter -->
             <div
-              class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 px-4 py-2 rounded-full bg-black/50 text-white text-sm font-medium"
+              class="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 px-4 py-2 text-neutral-500 text-sm font-medium"
             >
-              {{ currentPage }} of {{ images.length }}
+              {{ currentImageIndex + 1 }} of {{ images.length }}
             </div>
 
             <!-- Main Image -->
@@ -112,21 +161,43 @@ interface ImageData {
 interface Props {
   images: ImageData[];
   columns?: 1 | 2 | 3 | 4;
+  defaultView?: 'single' | 'grid';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   columns: 1,
+  defaultView: 'grid',
 });
 
+// View mode state
+const viewMode = ref<'single' | 'grid'>(props.defaultView);
+
 const currentPage = ref(1);
+const modalImageIndex = ref(0); // Separate index for modal navigation
+
+// Pagination computed properties
+const itemsPerPage = computed(() => viewMode.value === 'single' ? 1 : 9);
+const pageStartIndex = computed(() => (currentPage.value - 1) * itemsPerPage.value);
+
+const paginatedImages = computed(() => {
+  const start = pageStartIndex.value;
+  return props.images.slice(start, start + itemsPerPage.value);
+});
 
 const currentImageIndex = computed(() => {
-  return currentPage.value - 1;
+  // In single view mode, use page-based index; in grid mode, use modal index
+  return viewMode.value === 'single' ? currentPage.value - 1 : modalImageIndex.value;
 });
 
 const currentImage = computed(() => {
   return props.images[currentImageIndex.value];
 });
+
+// Toggle view mode and reset page
+const toggleViewMode = () => {
+  viewMode.value = viewMode.value === 'single' ? 'grid' : 'single';
+  currentPage.value = 1;
+};
 
 // Modal state
 const isModalOpen = ref(false);
@@ -137,20 +208,38 @@ const openModal = (event: Event) => {
   isModalOpen.value = true;
 };
 
+// Open modal at specific image index (for grid view)
+const openModalAtIndex = (index: number) => {
+  modalImageIndex.value = index;
+  isModalOpen.value = true;
+};
+
 const nextImage = () => {
-  if (currentPage.value < props.images.length) {
-    currentPage.value++;
+  if (viewMode.value === 'single') {
+    if (currentPage.value < props.images.length) {
+      currentPage.value++;
+    }
+  } else {
+    if (modalImageIndex.value < props.images.length - 1) {
+      modalImageIndex.value++;
+    }
   }
 };
 
 const previousImage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
+  if (viewMode.value === 'single') {
+    if (currentPage.value > 1) {
+      currentPage.value--;
+    }
+  } else {
+    if (modalImageIndex.value > 0) {
+      modalImageIndex.value--;
+    }
   }
 };
 
 // Touch/swipe navigation
-const imageContainer = ref<HTMLElement>();
+const _imageContainer = ref<HTMLElement>();
 let touchStartX = 0;
 let touchStartY = 0;
 let isSwiping = false;
