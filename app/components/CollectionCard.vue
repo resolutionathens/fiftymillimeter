@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink 
+  <NuxtLink
     :to="`/galleries/${collection.slug}`"
     class="group relative aspect-square overflow-hidden bg-gray-50 dark:bg-gray-900 rounded-lg hover:scale-[0.98] transition-transform duration-300"
   >
@@ -13,18 +13,23 @@
       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 384px, 384px"
       loading="lazy"
     />
-    <div 
+    <div
       v-else
       class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800"
     >
-      <UIcon name="i-heroicons-photo" class="w-8 h-8 text-gray-300" />
+      <UIcon
+        name="i-heroicons-photo"
+        class="w-8 h-8 text-gray-300"
+      />
     </div>
-    
+
     <!-- Subtle overlay on hover (desktop only) -->
     <div class="absolute inset-0 bg-black opacity-0 md:group-hover:opacity-20 transition-opacity duration-300" />
-    
+
     <!-- Collection title - always visible on mobile, hover on desktop -->
-    <div class="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+    <div
+      class="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
+    >
       <div class="text-center text-white px-4">
         <!-- Mobile: Black background with white text -->
         <div class="md:hidden bg-black bg-opacity-70 rounded-lg px-3 py-2">
@@ -44,7 +49,7 @@ interface Collection {
   name: string
   slug: string
   displayName: string
-  coverImage?: string
+  coverImage?: string | null
   imageCount?: number
 }
 
