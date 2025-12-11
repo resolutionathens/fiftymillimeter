@@ -3,7 +3,7 @@
 /// <reference types="@cloudflare/workers-types" />
 
 // Folders to exclude from gallery listings
-const excludedFolders = ['shop', 'subtropical-andy', 'newyork']
+const excludedFolders = ['shop', 'subtropical-andy', 'newyork', 'color']
 
 export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
   const collections = []

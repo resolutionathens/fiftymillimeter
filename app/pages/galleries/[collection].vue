@@ -31,18 +31,18 @@
         </nav>
 
         <!-- Collection Title -->
-        <h1 class="text-2xl md:text-6xl font-bold text-gray-900 dark:text-white mb-1 md:mb-4">
+        <!-- <h1 class="text-2xl md:text-6xl font-bold text-gray-900 dark:text-white mb-1 md:mb-4">
           {{ collectionDisplayName }}
-        </h1>
+        </h1> -->
       </div>
 
       <!-- Loading State -->
       <div
         v-if="pending"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        class="grid grid-cols-2 md:grid-cols-3 gap-4"
       >
         <USkeleton
-          v-for="i in 12"
+          v-for="i in 9"
           :key="i"
           class="aspect-square rounded-lg"
         />
@@ -52,7 +52,7 @@
       <div v-else-if="images?.length">
         <ImageGallery
           :images="images"
-          :columns="1"
+          default-view="grid"
         />
       </div>
 
@@ -126,7 +126,10 @@ const { data: collectionData, pending, error } = await useFetch(`/api/images/${c
   default: () => ({ images: [], count: 0, collection: collectionName })
 })
 
-const images = computed(() => collectionData.value?.images || [])
+const images = computed(() => collectionData.value?.images.map(img => ({
+  ...img,
+  lastModified: img.lastModified ? new Date(img.lastModified) : undefined
+})) || [])
 
 // Handle 404 for non-existent collections
 if (error.value && error.value.statusCode === 500) {

@@ -2,11 +2,11 @@
   <div class="py-12">
     <UContainer>
       <!-- Header -->
-      <div class="text-center mb-12">
+      <!-- <div class="text-center mb-12">
         <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
           Galleries
         </h1>
-      </div>
+      </div> -->
 
       <!-- Loading State -->
       <div
