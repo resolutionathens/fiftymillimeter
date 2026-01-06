@@ -4,69 +4,29 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 // Get current route for active state detection
 const route = useRoute();
 
-// Fetch collections for navigation (client-side to avoid SSR issues with R2 bindings)
-const { data: collectionsData } = await useLazyFetch('/api/collections', {
-  default: () => ({ collections: [], count: 0 }),
-  server: false // Force client-side fetching to avoid R2 binding issues during SSR
-});
-
-const collections = computed(() => collectionsData.value?.collections || []);
-
-// Create navigation items
-const navigationItems = computed<NavigationMenuItem[]>(() => {
-  const items: NavigationMenuItem[] = [
-    {
-      label: "Home",
-      to: "/",
-      icon: "i-heroicons-home",
-      active: route.path === "/",
-    },
-    {
-      label: "Shop",
-      to: "/shop",
-      icon: "i-heroicons-shopping-bag",
-      active: route.path.startsWith("/shop"),
-    },
-    {
-      label: "About",
-      to: "/about",
-      icon: "i-heroicons-user",
-      active: route.path === "/about",
-    }
-  ];
-
-  // Add galleries dropdown if we have collections
-  if (collections.value.length > 0) {
-    items.splice(2, 0, {
-      label: "Galleries",
-      icon: "i-heroicons-photo",
-      active: route.path.startsWith("/galleries"),
-      children: [
-        {
-          label: "All Galleries",
-          to: "/galleries",
-          icon: "i-heroicons-squares-2x2"
-        },
-        { type: "separator" },
-        ...collections.value.map(collection => ({
-          label: collection.displayName,
-          icon: "i-heroicons-camera",
-          to: `/galleries/${collection.slug}`,
-        }))
-      ],
-    });
-  } else {
-    // Fallback when collections haven't loaded yet
-    items.splice(2, 0, {
-      label: "Galleries",
-      to: "/galleries",
-      icon: "i-heroicons-photo",
-      active: route.path.startsWith("/galleries"),
-    });
+// Simplified navigation items - no icons, no dropdowns
+const navigationItems = computed<NavigationMenuItem[]>(() => [
+  {
+    label: "Home",
+    to: "/",
+    active: route.path === "/",
+  },
+  {
+    label: "Shop",
+    to: "/shop",
+    active: route.path.startsWith("/shop"),
+  },
+  {
+    label: "Galleries",
+    to: "/galleries",
+    active: route.path.startsWith("/galleries"),
+  },
+  {
+    label: "About",
+    to: "/about",
+    active: route.path === "/about",
   }
-
-  return items;
-});
+]);
 </script>
 
 <template>
@@ -74,16 +34,9 @@ const navigationItems = computed<NavigationMenuItem[]>(() => {
     toggle-side="right"
     mode="slideover"
     to="/"
-    class="mb-8"
   >
     <template #title>
-      <div class="flex items-center gap-2">
-        <UIcon
-          name="i-heroicons-camera"
-          class="h-6 w-6"
-        />
-        <span class="font-light tracking-wide">fiftymillimeter</span>
-      </div>
+      <span class="font-light tracking-wider text-lg">fiftymillimeter</span>
     </template>
 
     <!-- Desktop Navigation -->

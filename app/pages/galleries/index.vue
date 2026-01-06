@@ -1,5 +1,5 @@
 <template>
-  <div class="py-12">
+  <div class="py-16 lg:py-24">
     <UContainer>
       <!-- Header -->
       <!-- <div class="text-center mb-12">
@@ -11,19 +11,19 @@
       <!-- Loading State -->
       <div
         v-if="pending"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         <USkeleton
           v-for="i in 9"
           :key="i"
-          class="h-64 rounded-lg"
+          class="h-64"
         />
       </div>
 
       <!-- Collections Grid -->
       <div
         v-else-if="collections?.length"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         <CollectionCard
           v-for="collection in collections"
@@ -37,22 +37,18 @@
         v-else
         class="text-center py-20"
       >
-        <UIcon
-          name="i-heroicons-photo"
-          class="w-20 h-20 text-gray-400 mx-auto mb-6"
-        />
-        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+        <h2 class="text-2xl text-gray-900 dark:text-white mb-4">
           No Collections Available
         </h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-8">
-          Collections are being prepared and will be available soon. Please check back later.
+        <p class="text-gray-400 mb-8">
+          Collections are being prepared and will be available soon.
         </p>
-        <UButton
+        <NuxtLink
           to="/"
-          variant="outline"
+          class="text-gray-400 hover:text-gray-900 dark:hover:text-white"
         >
           Return Home
-        </UButton>
+        </NuxtLink>
       </div>
     </UContainer>
   </div>
