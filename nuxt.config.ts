@@ -12,7 +12,15 @@ export default defineNuxtConfig({
   },
   // Enable static site generation
   ssr: true,
-  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui'],
+  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxt/fonts'],
+
+  // Font configuration
+  fonts: {
+    families: [
+      { name: 'Inter', provider: 'google' },
+      { name: 'Inconsolata', provider: 'google' }
+    ]
+  },
   
   css: ['~/assets/main.css'],
 

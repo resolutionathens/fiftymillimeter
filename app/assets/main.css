@@ -1,2 +1,59 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply font-light tracking-wide;
+}
+
+/* Inconsolata for all display text */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+button,
+a {
+  font-family: 'Inconsolata', monospace;
+  @apply font-light tracking-wider;
+}
+
+/* Links with subtle hover */
+a {
+  @apply transition-colors duration-200;
+}
+
+/* Remove header border */
+header {
+  border-bottom: none !important;
+}
+
+/* Black nav links to match logo */
+header nav a {
+  color: black;
+}
+
+:root.dark header nav a {
+  color: white;
+}
+
+/* Navigation: underline instead of background for active state */
+nav a[aria-current="page"] {
+  position: relative;
+}
+
+nav a[aria-current="page"]::before {
+  background: transparent !important;
+}
+
+nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+}
