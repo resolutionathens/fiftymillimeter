@@ -2,152 +2,103 @@
   <div class="py-12">
     <UContainer>
       <!-- Product Display -->
-      <div
-        v-if="product"
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12"
-      >
-        <!-- Product Image -->
-        <div>
-          <NuxtImg
-            :src="product.image_url"
-            :alt="product.name"
-            class="w-full rounded-lg shadow-xl"
-            :width="800"
-            :height="1000"
-            loading="eager"
-          />
+      <!-- Product Details & Checkout -->
+      <div v-if="product">
+        <h1 class="text-4xl font-bold mb-4">{{ product.name }}</h1>
+        <p class="text-3xl text-primary font-semibold mb-6">
+          ${{ (product.price / 100).toFixed(2) }}
+        </p>
+
+        <div class="prose dark:prose-invert mb-8 max-w-none">
+          <p class="text-lg">{{ product.description }}</p>
         </div>
 
-        <!-- Product Details & Checkout -->
-        <div>
-          <h1 class="text-4xl font-bold mb-4">{{ product.name }}</h1>
-          <p class="text-3xl text-primary font-semibold mb-6">
-            ${{ (product.price / 100).toFixed(2) }}
-          </p>
-
-          <div class="prose dark:prose-invert mb-8 max-w-none">
-            <p class="text-lg">{{ product.description }}</p>
+        <!-- Product Details -->
+        <div class="mb-8 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+          <div class="flex items-start gap-2">
+            <UIcon
+              name="i-heroicons-book-open"
+              class="w-5 h-5 shrink-0 mt-0.5"
+            />
+            <span>Landscape Golden Age format (7.38" × 10.25")</span>
           </div>
-
-          <!-- Stock Status -->
-          <div
-            v-if="product.inStock"
-            class="mb-6"
-          >
-            <UBadge
-              color="success"
-              variant="subtle"
-              size="lg"
-            >
-              <UIcon
-                name="i-heroicons-check-circle"
-                class="w-4 h-4"
-              />
-              In Stock ({{ product.stock_quantity }} of 100 available)
-            </UBadge>
+          <div class="flex items-start gap-2">
+            <UIcon
+              name="i-heroicons-document-text"
+              class="w-5 h-5 shrink-0 mt-0.5"
+            />
+            <span>48 pages, full-color printing on 100lb satin paper</span>
           </div>
-          <div
-            v-else
-            class="mb-6"
-          >
-            <UBadge
-              color="error"
-              variant="subtle"
-              size="lg"
-            >
-              <UIcon
-                name="i-heroicons-x-circle"
-                class="w-4 h-4"
-              />
-              Out of Stock
-            </UBadge>
+          <div class="flex items-start gap-2">
+            <UIcon
+              name="i-heroicons-scissors"
+              class="w-5 h-5 shrink-0 mt-0.5"
+            />
+            <span>Perfect bound, edition of 100, hand-numbered</span>
           </div>
-
-          <!-- Product Details -->
-          <div class="mb-8 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-            <div class="flex items-start gap-2">
-              <UIcon
-                name="i-heroicons-book-open"
-                class="w-5 h-5 shrink-0 mt-0.5"
-              />
-              <span>Landscape Golden Age format (7.38" × 10.25")</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <UIcon
-                name="i-heroicons-document-text"
-                class="w-5 h-5 shrink-0 mt-0.5"
-              />
-              <span>48 pages, full-color printing on 100lb satin paper</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <UIcon
-                name="i-heroicons-scissors"
-                class="w-5 h-5 shrink-0 mt-0.5"
-              />
-              <span>Perfect bound, edition of 100, hand-numbered</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <UIcon
-                name="i-heroicons-truck"
-                class="w-5 h-5 shrink-0 mt-0.5"
-              />
-              <span>Free shipping included</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <UIcon
-                name="i-heroicons-shield-check"
-                class="w-5 h-5 shrink-0 mt-0.5"
-              />
-              <span>Secure payment powered by Stripe</span>
-            </div>
+          <div class="flex items-start gap-2">
+            <UIcon name="i-heroicons-truck" class="w-5 h-5 shrink-0 mt-0.5" />
+            <span>Free shipping included</span>
           </div>
-
+          <div class="flex items-start gap-2">
+            <UIcon
+              name="i-heroicons-shield-check"
+              class="w-5 h-5 shrink-0 mt-0.5"
+            />
+            <span>Secure payment powered by Stripe</span>
+          </div>
+        </div>
+        <!-- Stock Status -->
+        <div v-if="product.inStock" class="mb-6">
+          <UBadge color="success" variant="subtle" size="lg">
+            <UIcon name="i-heroicons-check-circle" class="w-4 h-4" />
+            In Stock ({{ product.stock_quantity }} of 100 available)
+          </UBadge>
+        </div>
+        <div v-else class="mb-6">
+          <UBadge color="error" variant="subtle" size="lg">
+            <UIcon name="i-heroicons-x-circle" class="w-4 h-4" />
+            Out of Stock
+          </UBadge>
         </div>
       </div>
-
+      <div v-if="product">
+        <UCarousel
+          v-slot="{ item }"
+          :items="previewImages"
+          :ui="{ item: 'basis-1/3' }"
+          arrows
+          class="w-full"
+        >
+          <NuxtImg
+            :src="item"
+            alt="Zine preview"
+            class="w-full"
+            width="800"
+            height="800"
+            loading="lazy"
+          />
+        </UCarousel>
+      </div>
       <!-- Checkout & Preview Section -->
-      <div
-        v-if="product"
-        class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12"
-      >
-        <!-- Preview Images Grid -->
-        <div class="bg-white rounded-lg p-6 md:p-8">
-          <div class="grid grid-cols-2 gap-4">
-            <NuxtImg
-              v-for="i in 6"
-              :key="i"
-              :src="`https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/0${i}.webp`"
-              :alt="`Zine preview ${i}`"
-              class="w-full rounded-lg"
-              width="400"
-              height="400"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-        <!-- Checkout Form -->
-        <div>
-          <ShopCheckoutForm
-            v-if="product.inStock"
-            :product="product"
-            @success="handleCheckoutSuccess"
-          />
-          <UAlert
-            v-else
-            color="warning"
-            variant="subtle"
-            title="Out of Stock"
-            description="This item is currently unavailable."
-          />
-        </div>
+      <!-- Checkout Form -->
+      <div v-if="product">
+        <ShopCheckoutForm
+          v-if="product.inStock"
+          :product="product"
+          @success="handleCheckoutSuccess"
+        />
+        <UAlert
+          v-else
+          color="warning"
+          variant="subtle"
+          title="Out of Stock"
+          description="This item is currently unavailable."
+        />
       </div>
 
       <!-- Loading State -->
-      <div
-        v-if="pending"
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12"
-      >
+      <div v-if="pending" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <USkeleton class="h-[600px] rounded-lg" />
         <div class="space-y-6">
           <USkeleton class="h-12 w-3/4" />
@@ -172,36 +123,53 @@
 
 <script setup lang="ts">
 interface Product {
-  id: string
-  name: string
-  description: string
-  price: number
-  image_url: string
-  inStock: boolean
-  stock_quantity: number
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+  inStock: boolean;
+  stock_quantity: number;
 }
 
 interface ProductResponse {
-  product: Product
+  product: Product;
 }
 
-const { data: productData, pending, error } = await useFetch<ProductResponse>('/api/shop/product')
-const product = computed(() => productData.value?.product)
+const {
+  data: productData,
+  pending,
+  error,
+} = await useFetch<ProductResponse>("/api/shop/product");
+const product = computed(() => productData.value?.product);
+
+const previewImages = [
+  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/01.webp",
+  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/02.webp",
+  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/03.webp",
+  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/04.webp",
+  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/05.webp",
+  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/06.webp",
+];
 
 useSeoMeta({
-  title: 'Shop - Athens is a Subtropical Rainforest Zine',
-  ogTitle: 'Shop - Athens is a Subtropical Rainforest Zine',
-  description: 'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy',
-  ogDescription: 'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy',
-  ogImage: "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg",
-  ogImageWidth: '1200',
-  ogImageHeight: '1500',
-  ogImageType: 'image/jpeg',
-  twitterCard: 'summary_large_image',
-  twitterImage: "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg"
-})
+  title: "Shop - Athens is a Subtropical Rainforest Zine",
+  ogTitle: "Shop - Athens is a Subtropical Rainforest Zine",
+  description:
+    'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy',
+  ogDescription:
+    'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy',
+  ogImage:
+    "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg",
+  ogImageWidth: "1200",
+  ogImageHeight: "1500",
+  ogImageType: "image/jpeg",
+  twitterCard: "summary_large_image",
+  twitterImage:
+    "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg",
+});
 
 const handleCheckoutSuccess = (paymentIntentId: string) => {
-  navigateTo(`/shop/success?payment_intent=${paymentIntentId}`)
-}
+  navigateTo(`/shop/success?payment_intent=${paymentIntentId}`);
+};
 </script>
