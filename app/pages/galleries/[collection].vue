@@ -52,7 +52,7 @@
       <div v-else-if="images?.length">
         <ImageGallery
           :images="images"
-          default-view="grid"
+          default-view="single"
         />
       </div>
 
