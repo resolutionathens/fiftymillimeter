@@ -2,67 +2,89 @@
   <div class="py-12">
     <UContainer>
       <!-- Product Display -->
-      <!-- Product Details & Checkout -->
       <div v-if="product">
-        <h1 class="text-4xl font-bold mb-4">{{ product.name }}</h1>
-        <p class="text-3xl text-primary font-semibold mb-6">
-          ${{ (product.price / 100).toFixed(2) }}
-        </p>
+        <!-- Two-column layout: Product Info + Checkout Form -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+          <!-- Left Column: Product Details -->
+          <div>
+            <h1 class="text-4xl font-bold mb-4">{{ product.name }}</h1>
+            <p class="text-3xl text-primary font-semibold mb-6">
+              ${{ (product.price / 100).toFixed(2) }}
+            </p>
 
-        <div class="prose dark:prose-invert mb-8 max-w-none">
-          <p class="text-lg">{{ product.description }}</p>
+            <div class="prose dark:prose-invert mb-8 max-w-none">
+              <p class="text-lg">{{ product.description }}</p>
+            </div>
+
+            <!-- Product Details -->
+            <div class="mb-8 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+              <div class="flex items-start gap-2">
+                <UIcon
+                  name="i-heroicons-book-open"
+                  class="w-5 h-5 shrink-0 mt-0.5"
+                />
+                <span>Landscape Golden Age format (7.38" × 10.25")</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <UIcon
+                  name="i-heroicons-document-text"
+                  class="w-5 h-5 shrink-0 mt-0.5"
+                />
+                <span>48 pages, full-color printing on 100lb satin paper</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <UIcon
+                  name="i-heroicons-scissors"
+                  class="w-5 h-5 shrink-0 mt-0.5"
+                />
+                <span>Perfect bound, edition of 100, hand-numbered</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <UIcon name="i-heroicons-truck" class="w-5 h-5 shrink-0 mt-0.5" />
+                <span>Free shipping included</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <UIcon
+                  name="i-heroicons-shield-check"
+                  class="w-5 h-5 shrink-0 mt-0.5"
+                />
+                <span>Secure payment powered by Stripe</span>
+              </div>
+            </div>
+
+            <!-- Stock Status -->
+            <div v-if="product.inStock">
+              <UBadge color="success" variant="subtle" size="lg">
+                <UIcon name="i-heroicons-check-circle" class="w-4 h-4" />
+                In Stock ({{ product.stock_quantity }} of 100 available)
+              </UBadge>
+            </div>
+            <div v-else>
+              <UBadge color="error" variant="subtle" size="lg">
+                <UIcon name="i-heroicons-x-circle" class="w-4 h-4" />
+                Out of Stock
+              </UBadge>
+            </div>
+          </div>
+
+          <!-- Right Column: Checkout Form -->
+          <div>
+            <ShopCheckoutForm
+              v-if="product.inStock"
+              :product="product"
+              @success="handleCheckoutSuccess"
+            />
+            <UAlert
+              v-else
+              color="warning"
+              variant="subtle"
+              title="Out of Stock"
+              description="This item is currently unavailable."
+            />
+          </div>
         </div>
 
-        <!-- Product Details -->
-        <div class="mb-8 space-y-3 text-sm text-gray-600 dark:text-gray-300">
-          <div class="flex items-start gap-2">
-            <UIcon
-              name="i-heroicons-book-open"
-              class="w-5 h-5 shrink-0 mt-0.5"
-            />
-            <span>Landscape Golden Age format (7.38" × 10.25")</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <UIcon
-              name="i-heroicons-document-text"
-              class="w-5 h-5 shrink-0 mt-0.5"
-            />
-            <span>48 pages, full-color printing on 100lb satin paper</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <UIcon
-              name="i-heroicons-scissors"
-              class="w-5 h-5 shrink-0 mt-0.5"
-            />
-            <span>Perfect bound, edition of 100, hand-numbered</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <UIcon name="i-heroicons-truck" class="w-5 h-5 shrink-0 mt-0.5" />
-            <span>Free shipping included</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <UIcon
-              name="i-heroicons-shield-check"
-              class="w-5 h-5 shrink-0 mt-0.5"
-            />
-            <span>Secure payment powered by Stripe</span>
-          </div>
-        </div>
-        <!-- Stock Status -->
-        <div v-if="product.inStock" class="mb-6">
-          <UBadge color="success" variant="subtle" size="lg">
-            <UIcon name="i-heroicons-check-circle" class="w-4 h-4" />
-            In Stock ({{ product.stock_quantity }} of 100 available)
-          </UBadge>
-        </div>
-        <div v-else class="mb-6">
-          <UBadge color="error" variant="subtle" size="lg">
-            <UIcon name="i-heroicons-x-circle" class="w-4 h-4" />
-            Out of Stock
-          </UBadge>
-        </div>
-      </div>
-      <div v-if="product">
+        <!-- Carousel below both columns -->
         <UCarousel
           v-slot="{ item }"
           :items="previewImages"
@@ -79,22 +101,6 @@
             loading="lazy"
           />
         </UCarousel>
-      </div>
-      <!-- Checkout & Preview Section -->
-      <!-- Checkout Form -->
-      <div v-if="product">
-        <ShopCheckoutForm
-          v-if="product.inStock"
-          :product="product"
-          @success="handleCheckoutSuccess"
-        />
-        <UAlert
-          v-else
-          color="warning"
-          variant="subtle"
-          title="Out of Stock"
-          description="This item is currently unavailable."
-        />
       </div>
 
       <!-- Loading State -->
