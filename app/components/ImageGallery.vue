@@ -20,11 +20,19 @@
           variant="outline"
           size="sm"
           :title="viewMode === 'grid' ? 'Single image view' : 'Grid view'"
-          :aria-label="viewMode === 'grid' ? 'Switch to single image view' : 'Switch to grid view'"
+          :aria-label="
+            viewMode === 'grid'
+              ? 'Switch to single image view'
+              : 'Switch to grid view'
+          "
           @click="toggleViewMode"
         >
           <UIcon
-            :name="viewMode === 'grid' ? 'i-heroicons-square-2-stack' : 'i-heroicons-squares-2x2'"
+            :name="
+              viewMode === 'grid'
+                ? 'i-heroicons-square-2-stack'
+                : 'i-heroicons-squares-2x2'
+            "
             class="w-4 h-4"
           />
         </UButton>
@@ -56,30 +64,53 @@
       <div
         v-else
         ref="_imageContainer"
-        class="w-full overflow-hidden flex items-center justify-center"
+        class="relative w-full overflow-hidden flex items-center justify-center min-h-[60vh]"
       >
+        <!-- Loading Indicator -->
+        <div
+          v-if="isImageLoading"
+          class="absolute inset-0 flex items-center justify-center"
+        >
+          <UIcon
+            name="i-heroicons-arrow-path"
+            class="w-8 h-8 text-neutral-400 animate-spin"
+          />
+        </div>
+
         <NuxtImg
           v-if="currentImage"
           :src="currentImage.url"
           :alt="currentImage.name"
-          class="max-w-full max-h-full object-contain cursor-pointer"
-          :width="1600"
-          :height="1200"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+          class="max-w-[90vw] max-h-[80vh] object-contain cursor-pointer transition-opacity duration-300"
+          :class="isImageLoading ? 'opacity-0' : 'opacity-100'"
+          width="1600"
+          height="1200"
+          format="webp"
           loading="lazy"
+          @load="onImageLoad"
           @click.stop="openModal"
           @touchstart.passive="handleTouchStart"
           @touchmove.passive="handleTouchMove"
           @touchend.passive="handleTouchEnd"
         />
+
+        <!-- Hidden preload images - uses same NuxtImg to guarantee URL match -->
+        <div class="hidden">
+          <NuxtImg
+            v-for="image in imagesToPreload"
+            :key="image.key"
+            :src="image.url"
+            :alt="image.name"
+            width="1600"
+            height="1200"
+            format="webp"
+            loading="eager"
+          />
+        </div>
       </div>
 
       <!-- Fullscreen Image Modal -->
-      <UModal
-        v-model:open="isModalOpen"
-        :fullscreen="true"
-        :close="false"
-      >
+      <UModal v-model:open="isModalOpen" :fullscreen="true" :close="false">
         <template #content>
           <div
             class="relative flex items-center justify-center h-screen bg-white/90 backdrop-blur-sm p-4 md:p-8"
@@ -92,10 +123,7 @@
               aria-label="Previous image"
               @click="previousImage"
             >
-              <UIcon
-                name="i-heroicons-chevron-left"
-                class="w-6 h-6"
-              />
+              <UIcon name="i-heroicons-chevron-left" class="w-6 h-6" />
             </button>
 
             <!-- Next Button -->
@@ -105,10 +133,7 @@
               aria-label="Next image"
               @click="nextImage"
             >
-              <UIcon
-                name="i-heroicons-chevron-right"
-                class="w-6 h-6"
-              />
+              <UIcon name="i-heroicons-chevron-right" class="w-6 h-6" />
             </button>
 
             <!-- Close Button -->
@@ -117,10 +142,7 @@
               aria-label="Close modal"
               @click="isModalOpen = false"
             >
-              <UIcon
-                name="i-heroicons-x-mark"
-                class="w-6 h-6"
-              />
+              <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
             </button>
 
             <!-- Image Counter -->
@@ -131,11 +153,14 @@
             </div>
 
             <!-- Main Image -->
-            <img
+            <NuxtImg
               v-if="currentImage"
               :src="currentImage.url"
               :alt="currentImage.name"
               class="max-w-[calc(100vw-8rem)] max-h-[calc(100vh-8rem)] w-auto h-auto object-contain"
+              width="1920"
+              height="1440"
+              format="webp"
               loading="lazy"
               @touchstart="handleModalTouchStart"
               @touchmove="handleModalTouchMove"
@@ -161,23 +186,25 @@ interface ImageData {
 interface Props {
   images: ImageData[];
   columns?: 1 | 2 | 3 | 4;
-  defaultView?: 'single' | 'grid';
+  defaultView?: "single" | "grid";
 }
 
 const props = withDefaults(defineProps<Props>(), {
   columns: 1,
-  defaultView: 'grid',
+  defaultView: "grid",
 });
 
 // View mode state
-const viewMode = ref<'single' | 'grid'>(props.defaultView);
+const viewMode = ref<"single" | "grid">(props.defaultView);
 
 const currentPage = ref(1);
 const modalImageIndex = ref(0); // Separate index for modal navigation
 
 // Pagination computed properties
-const itemsPerPage = computed(() => viewMode.value === 'single' ? 1 : 9);
-const pageStartIndex = computed(() => (currentPage.value - 1) * itemsPerPage.value);
+const itemsPerPage = computed(() => (viewMode.value === "single" ? 1 : 9));
+const pageStartIndex = computed(
+  () => (currentPage.value - 1) * itemsPerPage.value,
+);
 
 const paginatedImages = computed(() => {
   const start = pageStartIndex.value;
@@ -186,7 +213,9 @@ const paginatedImages = computed(() => {
 
 const currentImageIndex = computed(() => {
   // In single view mode, use page-based index; in grid mode, use modal index
-  return viewMode.value === 'single' ? currentPage.value - 1 : modalImageIndex.value;
+  return viewMode.value === "single"
+    ? currentPage.value - 1
+    : modalImageIndex.value;
 });
 
 const currentImage = computed(() => {
@@ -195,12 +224,48 @@ const currentImage = computed(() => {
 
 // Toggle view mode and reset page
 const toggleViewMode = () => {
-  viewMode.value = viewMode.value === 'single' ? 'grid' : 'single';
+  viewMode.value = viewMode.value === "single" ? "grid" : "single";
   currentPage.value = 1;
 };
 
 // Modal state
 const isModalOpen = ref(false);
+
+// Loading state for single image view
+const isImageLoading = ref(true);
+
+// Reset loading state when image changes
+watch(currentImageIndex, () => {
+  isImageLoading.value = true;
+});
+
+// Computed list of images to preload (next 3 + previous 1)
+const imagesToPreload = computed(() => {
+  if (viewMode.value !== "single") return [];
+
+  const currentIdx = currentImageIndex.value;
+  const preloadImages: typeof props.images = [];
+
+  // Next 3 images
+  for (let i = 1; i <= 3; i++) {
+    const nextImage = props.images[currentIdx + i];
+    if (nextImage) {
+      preloadImages.push(nextImage);
+    }
+  }
+
+  // Previous 1 image
+  const prevImage = props.images[currentIdx - 1];
+  if (prevImage) {
+    preloadImages.push(prevImage);
+  }
+
+  return preloadImages;
+});
+
+const onImageLoad = () => {
+  isImageLoading.value = false;
+};
 
 const openModal = (event: Event) => {
   event.preventDefault();
@@ -215,7 +280,7 @@ const openModalAtIndex = (index: number) => {
 };
 
 const nextImage = () => {
-  if (viewMode.value === 'single') {
+  if (viewMode.value === "single") {
     if (currentPage.value < props.images.length) {
       currentPage.value++;
     }
@@ -227,7 +292,7 @@ const nextImage = () => {
 };
 
 const previousImage = () => {
-  if (viewMode.value === 'single') {
+  if (viewMode.value === "single") {
     if (currentPage.value > 1) {
       currentPage.value--;
     }
