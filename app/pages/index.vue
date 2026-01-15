@@ -3,13 +3,29 @@
     <NuxtLink
       v-if="randomImage"
       :to="`/galleries/${randomImage.collection}`"
-      class="block max-w-4xl mx-auto px-4"
+      class="relative block max-w-4xl mx-auto px-4"
     >
+      <!-- Loading Indicator -->
+      <div
+        v-if="isImageLoading"
+        class="absolute inset-0 flex items-center justify-center"
+      >
+        <UIcon
+          name="i-heroicons-arrow-path"
+          class="w-8 h-8 text-neutral-400 animate-spin"
+        />
+      </div>
+
       <NuxtImg
         :src="randomImage.url"
         :alt="`From the ${randomImage.collection} collection`"
-        class="w-full h-auto max-h-[80vh] object-contain"
+        class="w-full h-auto max-w-[90vw] object-contain transition-opacity duration-300"
+        :class="isImageLoading ? 'opacity-0' : 'opacity-100'"
         loading="eager"
+        width="1800"
+        format="auto"
+        fit="contain"
+        @load="isImageLoading = false"
       />
     </NuxtLink>
     <div
@@ -20,46 +36,56 @@
 </template>
 
 <script setup lang="ts">
+// Loading state for hero image
+const isImageLoading = ref(true);
+
 interface Image {
-  key: string
-  name: string
-  url: string
-  collection: string
-  size: number
-  lastModified: Date
+  key: string;
+  name: string;
+  url: string;
+  collection: string;
+  size: number;
+  lastModified: Date;
 }
 
 interface ImagesResponse {
-  collection: string
-  images: Image[]
-  count: number
+  collection: string;
+  images: Image[];
+  count: number;
 }
 
 // SEO
 useSeoMeta({
-  title: 'Fiftymillimeter',
-  ogTitle: 'Fiftymillimeter',
-  description: 'Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.',
-  ogDescription: 'Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.',
-  ogUrl: 'https://fiftymillimeter.com',
-  ogImage: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp',
-  ogImageWidth: '1200',
-  ogImageHeight: '630',
-  ogImageType: 'image/jpeg',
-  twitterCard: 'summary_large_image',
-  twitterImage: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp',
-})
+  title: "Fiftymillimeter",
+  ogTitle: "Fiftymillimeter",
+  description:
+    "Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.",
+  ogDescription:
+    "Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.",
+  ogUrl: "https://fiftymillimeter.com",
+  ogImage:
+    "https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp",
+  ogImageWidth: "1200",
+  ogImageHeight: "630",
+  ogImageType: "image/jpeg",
+  twitterCard: "summary_large_image",
+  twitterImage:
+    "https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp",
+});
 
 // Fetch Athens images for random display
-const { data: athensData } = await useFetch<ImagesResponse>('/api/images/athens', {
-  default: () => ({ collection: 'athens', images: [], count: 0 })
-})
+const { data: athensData } = await useFetch<ImagesResponse>(
+  "/api/images/maps",
+  {
+    default: () => ({ collection: "athens", images: [], count: 0 }),
+  },
+);
 
 // Select a random image from Athens collection
 const randomImage = computed(() => {
-  const images = athensData.value?.images || []
-  if (images.length === 0) return null
-  const randomIndex = Math.floor(Math.random() * images.length)
-  return images[randomIndex]
-})
+  const images = athensData.value?.images || [];
+  if (images.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * images.length);
+  return images[randomIndex];
+});
 </script>

@@ -81,7 +81,7 @@
           v-if="currentImage"
           :src="currentImage.url"
           :alt="currentImage.name"
-          class="max-w-[90vw] max-h-[80vh] object-contain cursor-pointer transition-opacity duration-300"
+          class="w-auto h-auto max-w-[90vw] max-h-[80vh] object-contain cursor-pointer transition-opacity duration-300"
           :class="isImageLoading ? 'opacity-0' : 'opacity-100'"
           width="1600"
           height="1200"
@@ -157,7 +157,7 @@
               v-if="currentImage"
               :src="currentImage.url"
               :alt="currentImage.name"
-              class="max-w-[calc(100vw-8rem)] max-h-[calc(100vh-8rem)] w-auto h-auto object-contain"
+              class="w-auto h-auto max-w-[calc(100vw-8rem)] max-h-[calc(100vh-8rem)] object-contain"
               width="1920"
               height="1440"
               format="webp"
@@ -194,11 +194,40 @@ const props = withDefaults(defineProps<Props>(), {
   defaultView: "grid",
 });
 
+const route = useRoute();
+const router = useRouter();
+
 // View mode state
 const viewMode = ref<"single" | "grid">(props.defaultView);
 
-const currentPage = ref(1);
+// Initialize page from URL query param
+const getInitialPage = () => {
+  const pageParam = route.query.p;
+  if (pageParam) {
+    const page = parseInt(pageParam as string, 10);
+    if (!isNaN(page) && page >= 1) {
+      return page;
+    }
+  }
+  return 1;
+};
+
+const currentPage = ref(getInitialPage());
 const modalImageIndex = ref(0); // Separate index for modal navigation
+
+// Sync currentPage to URL (only update if different to avoid loops)
+watch(currentPage, (newPage) => {
+  const currentQueryPage = route.query.p ? parseInt(route.query.p as string, 10) : 1;
+  if (newPage !== currentQueryPage) {
+    const query = { ...route.query };
+    if (newPage === 1) {
+      delete query.p; // Keep URL clean when on first page
+    } else {
+      query.p = newPage.toString();
+    }
+    router.replace({ query });
+  }
+});
 
 // Pagination computed properties
 const itemsPerPage = computed(() => (viewMode.value === "single" ? 1 : 9));

@@ -3,15 +3,28 @@
     :to="`/galleries/${collection.slug}`"
     class="group relative aspect-square overflow-hidden bg-gray-50 dark:bg-gray-900"
   >
+    <!-- Loading Indicator -->
+    <div
+      v-if="isImageLoading && collection.coverImage"
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <UIcon
+        name="i-heroicons-arrow-path"
+        class="w-6 h-6 text-neutral-400 animate-spin"
+      />
+    </div>
+
     <NuxtImg
       v-if="collection.coverImage"
       :src="collection.coverImage"
       :alt="collection.displayName"
-      class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-80"
+      class="w-full h-full object-cover transition-opacity duration-300"
+      :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-80'"
       :width="600"
       :height="600"
       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 384px, 384px"
       loading="lazy"
+      @load="isImageLoading = false"
     />
     <div
       v-else
@@ -37,6 +50,9 @@
 </template>
 
 <script setup lang="ts">
+// Loading state for cover image
+const isImageLoading = ref(true);
+
 interface Collection {
   name: string
   slug: string
