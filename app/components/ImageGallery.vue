@@ -46,14 +46,14 @@
         <div
           v-for="(image, index) in paginatedImages"
           :key="image.key"
-          class="aspect-square cursor-pointer overflow-hidden rounded-lg"
+          class="aspect-[3/2] cursor-pointer overflow-hidden rounded-lg"
           @click="openModalAtIndex(pageStartIndex + index)"
         >
           <NuxtImg
             :src="image.url"
             :alt="image.name"
             class="h-full w-full object-cover transition-transform duration-200 hover:scale-105"
-            width="400"
+            width="600"
             height="400"
             loading="lazy"
           />
@@ -84,7 +84,7 @@
           class="w-auto h-auto max-w-[90vw] max-h-[80vh] object-contain cursor-pointer transition-opacity duration-300"
           :class="isImageLoading ? 'opacity-0' : 'opacity-100'"
           width="1600"
-          height="1200"
+          height="1067"
           format="webp"
           loading="lazy"
           @load="onImageLoad"
@@ -102,7 +102,7 @@
             :src="image.url"
             :alt="image.name"
             width="1600"
-            height="1200"
+            height="1067"
             format="webp"
             loading="eager"
           />
@@ -159,7 +159,7 @@
               :alt="currentImage.name"
               class="w-auto h-auto max-w-[calc(100vw-8rem)] max-h-[calc(100vh-8rem)] object-contain"
               width="1920"
-              height="1440"
+              height="1280"
               format="webp"
               loading="lazy"
               @touchstart="handleModalTouchStart"
