@@ -81,7 +81,7 @@
           v-if="currentImage"
           :src="currentImage.url"
           :alt="currentImage.name"
-          class="w-auto h-auto max-w-[90vw] max-h-[80vh] object-contain cursor-pointer transition-opacity duration-300"
+          class="w-full max-w-[min(90vw,120vh*1.5)] aspect-[3/2] object-contain cursor-pointer transition-opacity duration-300"
           :class="isImageLoading ? 'opacity-0' : 'opacity-100'"
           width="1600"
           height="1067"
