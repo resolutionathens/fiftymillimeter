@@ -40,10 +40,11 @@ Plans:
   2. Individual post pages at `/blog/[slug]` render markdown content with frontmatter
   3. Images embedded in markdown posts display correctly at appropriate sizes
   4. Post metadata (title, date, description) displays on index and individual pages
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: [Plan TBD]
+- [ ] 02-01-PLAN.md — Define blog schema and create sample post
+- [ ] 02-02-PLAN.md — Build blog index and post pages
 
 ### Phase 3: Integration
 **Goal**: Blog fully integrated with site navigation, categories, and RSS feed
@@ -67,7 +68,7 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 1/1 | Complete | 2026-01-29 |
-| 2. Content Display | 0/1 | Not started | - |
+| 2. Content Display | 0/2 | Not started | - |
 | 3. Integration | 0/1 | Not started | - |
 
 ---
