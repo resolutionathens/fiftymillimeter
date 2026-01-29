@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   },
   // Enable static site generation
   ssr: true,
-  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxt/fonts'],
+  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxt/fonts', '@nuxt/content'],
 
   // Font configuration
   fonts: {
@@ -23,6 +23,14 @@ export default defineNuxtConfig({
   },
   
   css: ['~/assets/main.css'],
+
+  // Nuxt Content configuration
+  content: {
+    database: {
+      type: 'libsql',
+      url: 'file:.data/content.db'
+    }
+  },
 
   // Image optimization with Cloudflare transformations
   image: {
