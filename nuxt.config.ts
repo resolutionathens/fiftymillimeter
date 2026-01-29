@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true
+    },
+    prerender: {
+      routes: ['/rss.xml']
     }
   },
   // Enable static site generation
@@ -84,7 +87,8 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'alternate', type: 'application/rss+xml', title: 'Fiftymillimeter Blog RSS Feed', href: '/rss.xml' }
       ]
     }
   }
