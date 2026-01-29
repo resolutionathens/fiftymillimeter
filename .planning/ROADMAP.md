@@ -13,7 +13,7 @@ Add a markdown-based blog to the existing photography portfolio using Nuxt Conte
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Nuxt Content installed and routes configured ✓
-- [ ] **Phase 2: Content Display** - Blog index and post pages working
+- [x] **Phase 2: Content Display** - Blog index and post pages working ✓
 - [ ] **Phase 3: Integration** - Categories, RSS, and navigation complete
 
 ## Phase Details
@@ -43,8 +43,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Define blog schema and create sample post
-- [ ] 02-02-PLAN.md — Build blog index and post pages
+- [x] 02-01-PLAN.md — Define blog schema and create sample post ✓
+- [x] 02-02-PLAN.md — Build blog index and post pages ✓
 
 ### Phase 3: Integration
 **Goal**: Blog fully integrated with site navigation, categories, and RSS feed
@@ -68,7 +68,7 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 1/1 | Complete | 2026-01-29 |
-| 2. Content Display | 0/2 | Not started | - |
+| 2. Content Display | 2/2 | Complete | 2026-01-29 |
 | 3. Integration | 0/1 | Not started | - |
 
 ---

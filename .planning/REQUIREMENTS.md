@@ -14,10 +14,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Content
 
-- [ ] **CONT-01**: Blog index page displays posts in reverse chronological order
-- [ ] **CONT-02**: Individual post pages render markdown with images
-- [ ] **CONT-03**: Posts support frontmatter (title, date, category, description)
-- [ ] **CONT-04**: Images embedded in posts display correctly
+- [x] **CONT-01**: Blog index page displays posts in reverse chronological order ✓
+- [x] **CONT-02**: Individual post pages render markdown with images ✓
+- [x] **CONT-03**: Posts support frontmatter (title, date, category, description) ✓
+- [x] **CONT-04**: Images embedded in posts display correctly ✓
 
 ### Organization
 
@@ -58,10 +58,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | SETUP-01 | Phase 1 | Complete |
 | SETUP-02 | Phase 1 | Complete |
-| CONT-01 | Phase 2 | Pending |
-| CONT-02 | Phase 2 | Pending |
-| CONT-03 | Phase 2 | Pending |
-| CONT-04 | Phase 2 | Pending |
+| CONT-01 | Phase 2 | Complete |
+| CONT-02 | Phase 2 | Complete |
+| CONT-03 | Phase 2 | Complete |
+| CONT-04 | Phase 2 | Complete |
 | ORG-01 | Phase 3 | Pending |
 | ORG-02 | Phase 3 | Pending |
 | DIST-01 | Phase 3 | Pending |
