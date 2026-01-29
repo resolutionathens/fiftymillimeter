@@ -26,10 +26,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. Nuxt Content module is installed and configured in nuxt.config.ts
   2. Blog route at `/blog` returns 200 status (even if showing placeholder)
   3. Development server runs without errors after Nuxt Content integration
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 01-01: [Plan TBD]
+- [ ] 01-01-PLAN.md — Install Nuxt Content and create blog route
 
 ### Phase 2: Content Display
 **Goal**: Visitors can read blog posts and browse chronologically
