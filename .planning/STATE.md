@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 2 of 3 (Content Display)
-Plan: 1 of 3
+Plan: 2 of 3
 Status: In progress
-Last activity: 2026-01-29 — Completed 02-01-PLAN.md (Blog schema and sample post)
+Last activity: 2026-01-29 — Completed 02-02-PLAN.md (Blog index and individual post pages)
 
-Progress: [███░░░░░░░] 33% (1/3 phases, 2/7 plans)
+Progress: [████░░░░░░] 43% (1/3 phases, 3/7 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 3.5 min
-- Total execution time: 0.12 hours
+- Total plans completed: 3
+- Average duration: 6.3 min
+- Total execution time: 0.32 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 1 | 5 min | 5 min |
-| 2. Content Display | 1 | 2 min | 2 min |
+| 2. Content Display | 2 | 14 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (5 min), 02-01 (2 min)
-- Trend: Accelerating (2 min vs 5 min avg)
+- Last 5 plans: 01-01 (5 min), 02-01 (2 min), 02-02 (12 min)
+- Trend: Variable (12 min vs 6.3 min avg)
 
 *Updated after each plan completion*
 
@@ -48,9 +48,11 @@ Recent decisions affecting current work:
 - Categories without tags - simpler organization
 - No comments - keep blog read-only
 - **[01-01]** Used libSQL file-based database for Nuxt Content during development (instead of D1)
-- **[01-01]** Used queryContent composable with useAsyncData for content queries
+- **[01-01]** Used queryContent composable with useAsyncData for content queries (later found unavailable)
 - **[02-01]** Added optional category field to schema proactively for Phase 3
 - **[02-01]** Used string type for dates to allow flexible ISO date format
+- **[02-02]** Custom file-based content API instead of Nuxt Content database queries - v3 database mode APIs not properly exposed
+- **[02-02]** Direct markdown-to-HTML conversion with marked instead of ContentRenderer - simpler and more reliable
 
 ### Pending Todos
 
@@ -58,10 +60,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None - .gitkeep warning resolved by adding actual content.
+**Nuxt Content v3 API instability** - Database mode query composables not accessible. Worked around with custom file-based APIs. May want to remove database mode from nuxt.config.ts in future cleanup, or wait for Nuxt Content v3 to stabilize.
 
 ## Session Continuity
 
-Last session: 2026-01-29T12:57:35Z
-Stopped at: Completed 02-01-PLAN.md (Blog schema and sample post)
+Last session: 2026-01-29T13:12:12Z
+Stopped at: Completed 02-02-PLAN.md (Blog index and individual post pages)
 Resume file: None
