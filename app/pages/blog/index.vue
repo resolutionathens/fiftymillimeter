@@ -18,15 +18,9 @@
 </template>
 
 <script setup lang="ts">
-// Query blog posts sorted by date (newest first)
-const { data: posts } = await useAsyncData('blog-posts', () =>
-  queryContent('blog')
-    .sort({ date: -1 })
-    .find()
-)
-
-// Provide default empty array if posts is null/undefined
-const postsList = computed(() => posts.value || [])
+// Fetch blog posts from the content API
+const { data } = await useFetch('/api/content/blog')
+const postsList = computed(() => data.value || [])
 
 // SEO
 useSeoMeta({
