@@ -53,12 +53,12 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Posts can have a category assigned via frontmatter
   2. Category displays on both blog index and individual post pages
-  3. RSS feed is accessible at `/blog/rss.xml` with valid XML structure
+  3. RSS feed is accessible at `/rss.xml` with valid XML structure
   4. Blog link appears in site header navigation and routes to `/blog`
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 03-01: [Plan TBD]
+- [ ] 03-01-PLAN.md — Add navigation, category display, and RSS feed
 
 ## Progress
 
