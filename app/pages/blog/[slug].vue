@@ -30,6 +30,16 @@
           </ol>
         </nav>
 
+        <!-- Category badge -->
+        <UBadge
+          v-if="post?.category"
+          :label="post.category"
+          color="primary"
+          variant="soft"
+          size="md"
+          class="mb-4"
+        />
+
         <!-- Post header -->
         <div class="mb-8">
           <h1 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">

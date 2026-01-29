@@ -5,6 +5,15 @@
   >
     <!-- Post metadata -->
     <div class="mb-3">
+      <!-- Category badge -->
+      <UBadge
+        v-if="post.category"
+        :label="post.category"
+        color="primary"
+        variant="soft"
+        size="sm"
+        class="mb-2"
+      />
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
         {{ post.title }}
       </h3>
@@ -39,6 +48,7 @@ interface BlogPost {
   date: string
   description: string
   image?: string
+  category?: string
 }
 
 interface Props {

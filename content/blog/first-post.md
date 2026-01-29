@@ -2,6 +2,7 @@
 title: "Welcome to the Blog"
 date: "2026-01-29"
 description: "Introducing a new space to share stories, techniques, and reflections on photography and the creative process."
+category: "Updates"
 ---
 
 ## A New Beginning
