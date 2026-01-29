@@ -12,6 +12,11 @@ const navigationItems = computed<NavigationMenuItem[]>(() => [
     active: route.path === "/",
   },
   {
+    label: "Blog",
+    to: "/blog",
+    active: route.path.startsWith("/blog"),
+  },
+  {
     label: "Shop",
     to: "/shop",
     active: route.path.startsWith("/shop"),
