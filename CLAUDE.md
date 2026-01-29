@@ -52,7 +52,7 @@ The application integrates with Cloudflare R2 for image storage using Workers bi
 - Images are organized in root-level collection folders in R2 bucket
 - Server API routes (`/server/api/`) handle R2 communication using native Workers bindings
 - Collections are auto-discovered from R2 folder structure via `listR2Collections`
-- Images are served through Cloudflare's CDN with public URLs
+- Images are served through Cloudflare's CDN with custom domain: `https://cdn.fiftymillimeter.com`
 - R2 bucket binding configured in `wrangler.jsonc` as `R2_BUCKET`
 - Supports both production and preview buckets
 
@@ -103,10 +103,10 @@ The following environment variables are required for the application to function
 
 ### Cloudflare R2 Storage
 - `CLOUDFLARE_R2_ACCESS_KEY_ID`: R2 access key ID
-- `CLOUDFLARE_R2_SECRET_ACCESS_KEY`: R2 secret access key  
+- `CLOUDFLARE_R2_SECRET_ACCESS_KEY`: R2 secret access key
 - `CLOUDFLARE_R2_BUCKET_NAME`: Name of the R2 bucket containing images
 - `CLOUDFLARE_R2_ACCOUNT_ID`: Cloudflare account ID
-- `CLOUDFLARE_R2_PUBLIC_URL`: Public URL for R2 bucket (e.g., `https://your-domain.r2.dev`)
+- `CLOUDFLARE_R2_PUBLIC_URL`: Public URL for R2 bucket (custom domain: `https://cdn.fiftymillimeter.com`)
 
 ### Site Configuration
 - `NUXT_SITE_URL`: Base URL of the site for SEO and og:image generation

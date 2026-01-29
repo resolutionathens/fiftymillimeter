@@ -64,7 +64,7 @@
   - Binding: `R2_BUCKET`
   - Production bucket: `fiftymillimeter`
   - Preview bucket: `fiftymillimeter-dev`
-  - Public URL: `https://pub-77d2c63f12a143a59270d491959246da.r2.dev`
+  - Public URL: `https://cdn.fiftymillimeter.com` (custom domain)
   - Deployment: Remote (production)
   - Organization: Root-level collection folders + root-level images
   - Usage: Photo collections with dynamic discovery
@@ -124,7 +124,7 @@ bun run dev:remote          # Local dev with Wrangler: nuxt build && wrangler de
 - `STRIPE_WEBHOOK_SECRET` - Webhook signature verification secret
 
 **Cloudflare R2:**
-- `CLOUDFLARE_R2_PUBLIC_URL` - Public URL for R2 bucket (e.g., `https://pub-77d2c63f12a143a59270d491959246da.r2.dev`)
+- `CLOUDFLARE_R2_PUBLIC_URL` - Public URL for R2 bucket (custom domain: `https://cdn.fiftymillimeter.com`)
 - `CLOUDFLARE_R2_BUCKET_NAME` - Bucket name (configured as `fiftymillimeter`)
 - `CLOUDFLARE_R2_ACCESS_KEY_ID` - R2 API access key (for S3-compatible API, if used)
 - `CLOUDFLARE_R2_SECRET_ACCESS_KEY` - R2 API secret key (for S3-compatible API, if used)
