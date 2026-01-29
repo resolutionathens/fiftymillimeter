@@ -21,16 +21,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Organization
 
-- [ ] **ORG-01**: Posts can be assigned to a category
-- [ ] **ORG-02**: Category displayed on post listing and individual posts
+- [x] **ORG-01**: Posts can be assigned to a category ✓
+- [x] **ORG-02**: Category displayed on post listing and individual posts ✓
 
 ### Distribution
 
-- [ ] **DIST-01**: RSS feed available at `/blog/rss.xml` or similar
+- [x] **DIST-01**: RSS feed available at `/rss.xml` ✓
 
 ### Navigation
 
-- [ ] **NAV-01**: Blog link added to site header
+- [x] **NAV-01**: Blog link added to site header ✓
 
 ## v2 Requirements
 
@@ -62,10 +62,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONT-02 | Phase 2 | Complete |
 | CONT-03 | Phase 2 | Complete |
 | CONT-04 | Phase 2 | Complete |
-| ORG-01 | Phase 3 | Pending |
-| ORG-02 | Phase 3 | Pending |
-| DIST-01 | Phase 3 | Pending |
-| NAV-01 | Phase 3 | Pending |
+| ORG-01 | Phase 3 | Complete |
+| ORG-02 | Phase 3 | Complete |
+| DIST-01 | Phase 3 | Complete |
+| NAV-01 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 10 total
