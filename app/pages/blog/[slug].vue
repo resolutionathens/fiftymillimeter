@@ -57,9 +57,8 @@
                prose-p:text-gray-700 dark:prose-p:text-gray-300
                prose-a:text-primary-600 dark:prose-a:text-primary-400
                prose-img:rounded-lg"
-      >
-        <ContentRenderer :value="post" />
-      </article>
+        v-html="post.html"
+      />
 
       <!-- Error State -->
       <div
@@ -91,12 +90,8 @@
 const route = useRoute()
 const slug = route.params.slug as string
 
-// Query the specific post
-const { data: post } = await useAsyncData(`blog-${slug}`, () =>
-  queryContent('blog')
-    .where({ _path: `/blog/${slug}` })
-    .findOne()
-)
+// Fetch the specific post from the API
+const { data: post, error } = await useFetch(`/api/content/blog/${slug}`)
 
 // Format date
 const formattedDate = computed(() => {
