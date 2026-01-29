@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Visitors can read posts about photography experiences and see the images that go with them.
-**Current focus:** Phase 1 - Foundation
+**Current focus:** Phase 2 - Content Display
 
 ## Current Position
 
-Phase: 1 of 3 (Foundation)
-Plan: 1 of 1 (Nuxt Content Setup)
-Status: Phase 1 complete
-Last activity: 2026-01-29 — Completed 01-01-PLAN.md (Nuxt Content setup)
+Phase: 2 of 3 (Content Display)
+Plan: Ready to plan
+Status: Phase 1 complete, Phase 2 ready
+Last activity: 2026-01-29 — Phase 1 Foundation complete
 
 Progress: [███░░░░░░░] 33% (1/3 phases)
 
