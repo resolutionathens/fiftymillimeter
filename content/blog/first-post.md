@@ -1,18 +1,28 @@
 ---
-title: "Welcome to the Blog"
-date: "2026-01-29"
-description: "Introducing a new space to share stories, techniques, and reflections on photography and the creative process."
-category: "Updates"
+title: "Starting with Old Tweets (Because Why Not?)"
+date: "2026-01-30"
+description: "First blog post where I share some old tweets my wife sent me. Not sure where this blog is going yet, but here we are."
+category: "Personal"
 ---
 
-## A New Beginning
+## Well, Here Goes Nothing
 
-Welcome to the blog section of Fiftymillimeter. This space will serve as a home for stories behind the images, technical explorations, and reflections on the photographic process. Whether you're a fellow photographer or simply curious about the work, I hope you'll find something of interest here.
+So I built this blog section, which is great and all, except now I actually have to write stuff for it. Turns out that's the hard part.
 
-Photography is as much about seeing as it is about capturing. Each image represents a moment of discovery—finding the extraordinary within the ordinary, recognizing patterns in chaos, or appreciating the quiet beauty of everyday scenes. Through these posts, I'll share insights into what draws me to particular subjects, the decisions made in the field and during post-processing, and the ongoing evolution of my artistic vision.
+I'm not entirely sure what this space is going to be yet. Photography things? Personal rambles? A mix of whatever feels right? Who knows. I figure I'll just start somewhere and see what happens.
 
-This blog will explore both the technical and philosophical aspects of photography. From discussions of gear and technique to musings on composition and visual storytelling, the goal is to provide a deeper context for the work showcased in the galleries.
+My wife recently sent me a bunch of screenshots of old tweets I'd posted ages ago—things I'd completely forgotten about. Looking back at them felt like finding notes from a past version of myself. Some are funny, some are dumb, and some actually made me think "huh, that's not bad."
 
-![Placeholder for future image](./images/example.jpg)
+Anyway, they seemed like as good a place to start as any. So here they are:
 
-Stay tuned for more posts exploring the craft and art of photography.
+![Tweet 1](https://cdn.fiftymillimeter.com/blog/tweets/tweet-1.png)
+
+![Tweet 2](https://cdn.fiftymillimeter.com/blog/tweets/tweet-2.png)
+
+![Tweet 3](https://cdn.fiftymillimeter.com/blog/tweets/tweet-3.png)
+
+![Tweet 4](https://cdn.fiftymillimeter.com/blog/tweets/tweet-4.png)
+
+Maybe this blog will eventually turn into something more focused. Maybe it won't. For now, it's just a place to put thoughts and see what sticks.
+
+Thanks for reading—if you made it this far, you're either very supportive or very bored. Either way, I appreciate it.
