@@ -45,7 +45,7 @@ export default defineNuxtConfig({
         format: 'auto'
       }
     },
-    domains: ['pub-77d2c63f12a143a59270d491959246da.r2.dev'],
+    domains: ['cdn.fiftymillimeter.com', 'pub-77d2c63f12a143a59270d491959246da.r2.dev'],
     alias: {}
   },
   // Runtime config for environment variables
@@ -77,12 +77,12 @@ export default defineNuxtConfig({
         { property: 'og:title', content: 'Fiftymillimeter - Photography Portfolio' },
         { property: 'og:description', content: 'Photography by Ian Kennedy exploring the extraordinary within the ordinary. Contemporary scenes from the Southeast and beyond that challenge conventional notions of the picturesque.' },
         { property: 'og:url', content: 'https://fiftymillimeter.com' },
-        { property: 'og:image', content: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp' },
+        { property: 'og:image', content: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://cdn.fiftymillimeter.com/maine/maine-00003.webp' },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
         { property: 'og:image:type', content: 'image/jpeg' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:image', content: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/maine/maine-00003.webp' }
+        { name: 'twitter:image', content: 'https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://cdn.fiftymillimeter.com/maine/maine-00003.webp' }
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },

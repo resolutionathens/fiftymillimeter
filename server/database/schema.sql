@@ -30,5 +30,5 @@ VALUES (
   'A photo zine documenting Athens, GA in 2025.',
   2000, -- $20.00
   100, -- Initial stock of 100 copies
-  'https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg'
+  'https://cdn.fiftymillimeter.com/shop/athens-rainforest-cover.jpg'
 );

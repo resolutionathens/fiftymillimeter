@@ -5,7 +5,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-16">
         <div>
           <NuxtImg
-            src="https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/ian.webp"
+            src="https://cdn.fiftymillimeter.com/shop/eponymous.jpg"
             alt="Ian Kennedy"
             class="w-full"
             width="800"

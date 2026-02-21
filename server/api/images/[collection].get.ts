@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     const publicUrl = event.context.cloudflare?.env?.CLOUDFLARE_R2_PUBLIC_URL ||
       (globalThis as Record<string, unknown>)?.CLOUDFLARE_R2_PUBLIC_URL ||
       process.env.CLOUDFLARE_R2_PUBLIC_URL ||
-      'https://pub-77d2c63f12a143a59270d491959246da.r2.dev'
+      'https://cdn.fiftymillimeter.com'
 
     let images
 

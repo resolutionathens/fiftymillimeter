@@ -150,12 +150,12 @@ const {
 const product = computed(() => productData.value?.product);
 
 const previewImages = [
-  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/01.webp",
-  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/02.webp",
-  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/03.webp",
-  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/04.webp",
-  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/05.webp",
-  "https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/06.webp",
+  "https://cdn.fiftymillimeter.com/shop/01.webp",
+  "https://cdn.fiftymillimeter.com/shop/02.webp",
+  "https://cdn.fiftymillimeter.com/shop/03.webp",
+  "https://cdn.fiftymillimeter.com/shop/04.webp",
+  "https://cdn.fiftymillimeter.com/shop/05.webp",
+  "https://cdn.fiftymillimeter.com/shop/06.webp",
 ];
 
 useSeoMeta({
@@ -166,13 +166,13 @@ useSeoMeta({
   ogDescription:
     'Purchase the limited edition photography zine "Athens is a Subtropical Rainforest" by Ian Kennedy',
   ogImage:
-    "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg",
+    "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://cdn.fiftymillimeter.com/shop/athens-rainforest-cover.jpg",
   ogImageWidth: "1200",
   ogImageHeight: "1500",
   ogImageType: "image/jpeg",
   twitterCard: "summary_large_image",
   twitterImage:
-    "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://pub-77d2c63f12a143a59270d491959246da.r2.dev/shop/athens-rainforest-cover.jpg",
+    "https://fiftymillimeter.com/cdn-cgi/image/f=auto,w=1600,h=2000/https://cdn.fiftymillimeter.com/shop/athens-rainforest-cover.jpg",
 });
 
 const handleCheckoutSuccess = (paymentIntentId: string) => {

@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Validate that it's an R2 URL (security check)
-  if (!src.includes('pub-77d2c63f12a143a59270d491959246da.r2.dev')) {
+  if (!src.includes('cdn.fiftymillimeter.com') && !src.includes('pub-77d2c63f12a143a59270d491959246da.r2.dev')) {
     throw createError({
       statusCode: 403,
       statusMessage: 'Invalid image source'
