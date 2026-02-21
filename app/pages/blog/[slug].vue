@@ -5,7 +5,9 @@
       <div class="mb-8 md:mb-12">
         <!-- Breadcrumb -->
         <nav class="mb-4 md:mb-6">
-          <ol class="flex items-center space-x-2 text-xs md:text-sm text-gray-500">
+          <ol
+            class="flex items-center space-x-2 text-xs md:text-sm text-gray-500"
+          >
             <li>
               <NuxtLink
                 to="/"
@@ -30,51 +32,32 @@
           </ol>
         </nav>
 
-        <!-- Category badge -->
-        <UBadge
-          v-if="post?.category"
-          :label="post.category"
-          color="primary"
-          variant="soft"
-          size="md"
-          class="mb-4"
-        />
-
         <!-- Post header -->
         <div class="mb-8">
-          <h1 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1
+            class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
+          >
             {{ post?.title }}
           </h1>
-          <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+          <div
+            class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400"
+          >
             <time :datetime="post?.date">
               {{ formattedDate }}
             </time>
           </div>
-          <p
-            v-if="post?.description"
-            class="mt-4 text-lg text-gray-600 dark:text-gray-300"
-          >
-            {{ post.description }}
-          </p>
         </div>
       </div>
 
       <!-- Post content -->
       <article
         v-if="post"
-        class="prose prose-gray dark:prose-invert max-w-none
-               prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
-               prose-p:text-gray-700 dark:prose-p:text-gray-300
-               prose-a:text-primary-600 dark:prose-a:text-primary-400
-               prose-img:rounded-lg"
+        class="prose prose-gray dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-img:rounded-lg"
         v-html="post.html"
       />
 
       <!-- Error State -->
-      <div
-        v-else
-        class="text-center py-20"
-      >
+      <div v-else class="text-center py-20">
         <UIcon
           name="i-heroicons-exclamation-triangle"
           class="w-20 h-20 text-red-400 mx-auto mb-6"
@@ -83,50 +66,54 @@
           Post Not Found
         </h2>
         <p class="text-gray-600 dark:text-gray-400 mb-8">
-          The requested blog post could not be found. It may have been moved or deleted.
+          The requested blog post could not be found. It may have been moved or
+          deleted.
         </p>
-        <UButton
-          to="/blog"
-          variant="outline"
-        >
-          Back to Blog
-        </UButton>
+        <UButton to="/blog" variant="outline"> Back to Blog </UButton>
       </div>
     </UContainer>
   </div>
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
-const slug = route.params.slug as string
+const route = useRoute();
+const slug = route.params.slug as string;
 
 // Fetch the specific post from the API
-const { data: post, error } = await useFetch(`/api/content/blog/${slug}`)
+const { data: post, error } = await useFetch(`/api/content/blog/${slug}`);
 
 // Format date
 const formattedDate = computed(() => {
-  if (!post.value?.date) return ''
-  const date = new Date(post.value.date)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-})
+  if (!post.value?.date) return "";
+  const date = new Date(post.value.date);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+});
 
 // SEO
 useSeoMeta({
-  title: computed(() => post.value ? `${post.value.title} - Fiftymillimeter` : 'Post Not Found'),
-  ogTitle: computed(() => post.value ? `${post.value.title} - Fiftymillimeter` : 'Post Not Found'),
-  description: computed(() => post.value?.description || 'Blog post from Fiftymillimeter'),
-  ogDescription: computed(() => post.value?.description || 'Blog post from Fiftymillimeter'),
-})
+  title: computed(() =>
+    post.value ? `${post.value.title} - Fiftymillimeter` : "Post Not Found",
+  ),
+  ogTitle: computed(() =>
+    post.value ? `${post.value.title} - Fiftymillimeter` : "Post Not Found",
+  ),
+  description: computed(
+    () => post.value?.description || "Blog post from Fiftymillimeter",
+  ),
+  ogDescription: computed(
+    () => post.value?.description || "Blog post from Fiftymillimeter",
+  ),
+});
 
 // Handle 404 for non-existent posts
 if (!post.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: 'Post not found'
-  })
+    statusMessage: "Post not found",
+  });
 }
 </script>

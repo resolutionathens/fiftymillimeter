@@ -1,4 +1,21 @@
----
+import matter from 'gray-matter'
+import { marked } from 'marked'
+
+interface BlogPost {
+  title: string
+  date: string
+  description?: string
+  category?: string
+  path: string
+  _path: string
+  body: string
+  html: string
+  slug: string
+}
+
+// Inline the blog content at build time since we can't use filesystem on Workers
+const blogPostsRaw: Record<string, string> = {
+  'first-post': `---
 title: "This guy tweets"
 date: "2026-01-30"
 description: "Hello world where I share some old tweets."
@@ -66,3 +83,38 @@ Anyway, they seemed like as good a place to start as any. So here they are:
 <img src="https://cdn.fiftymillimeter.com/blog/tweets/tweet-28.png" alt="Tweet 28" style="max-width: 600px; width: 100%;" />
 
 Maybe this blog will eventually turn into something more focused. Maybe it won't. For now, I built it.
+`
+}
+
+// Process markdown content
+function processMarkdown(raw: string, slug: string): BlogPost {
+  const { data, content } = matter(raw)
+  const html = marked.parse(content) as string
+
+  return {
+    title: data.title || '',
+    date: data.date || '',
+    description: data.description,
+    category: data.category,
+    path: `/blog/${slug}`,
+    _path: `/blog/${slug}`,
+    body: content,
+    html,
+    slug
+  }
+}
+
+// All blog posts bundled at build time
+export const blogPosts: BlogPost[] = Object.entries(blogPostsRaw)
+  .map(([slug, raw]) => processMarkdown(raw, slug))
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+// Get all posts (without heavy html/body fields)
+export function getAllPosts(): Omit<BlogPost, 'html' | 'body'>[] {
+  return blogPosts.map(({ html, body, ...rest }) => rest)
+}
+
+// Get single post by slug
+export function getPostBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find(post => post.slug === slug)
+}

@@ -1,9 +1,6 @@
-import { promises as fs } from 'node:fs'
-import { join } from 'node:path'
-import matter from 'gray-matter'
-import { marked } from 'marked'
+import { getPostBySlug } from '../../../utils/blog-content'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
   const slug = getRouterParam(event, 'slug')
 
   if (!slug) {
@@ -13,32 +10,14 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const filePath = join(process.cwd(), 'content', 'blog', `${slug}.md`)
+  const post = getPostBySlug(slug)
 
-  try {
-    const fileContent = await fs.readFile(filePath, 'utf-8')
-    const { data, content } = matter(fileContent)
-
-    // Parse markdown to HTML
-    const html = await marked.parse(content)
-
-    return {
-      ...data,
-      path: `/blog/${slug}`,
-      _path: `/blog/${slug}`,
-      body: content,
-      html
-    }
-  } catch (error: any) {
-    if (error.code === 'ENOENT') {
-      throw createError({
-        statusCode: 404,
-        statusMessage: 'Post not found'
-      })
-    }
+  if (!post) {
     throw createError({
-      statusCode: 500,
-      statusMessage: 'Failed to load blog post'
+      statusCode: 404,
+      statusMessage: 'Post not found'
     })
   }
+
+  return post
 })
