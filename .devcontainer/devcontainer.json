@@ -1,0 +1,35 @@
+{
+  "name": "fiftymillimeter",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "features": {
+    "ghcr.io/shyim/devcontainers-features/bun:0": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installOhMyZsh": true,
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers-extra/features/cloudflare-wrangler:1": {},
+    "ghcr.io/devcontainers-extra/features/claude-code:1": {}
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "bun install",
+  "postStartCommand": "if [ -n \"$CLOUDFLARE_API_TOKEN\" ]; then echo '✓ Wrangler authenticated via API token'; else echo '⚠ Run: wrangler login'; fi",
+  "forwardPorts": [3000, 8787],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+  "remoteEnv": {
+    "NODE_ENV": "development",
+    "CLOUDFLARE_API_TOKEN": "${localEnv:CLOUDFLARE_API_TOKEN}"
+  }
+}
