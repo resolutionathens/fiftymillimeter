@@ -20,10 +20,14 @@
             rusted shovel and a plastic spoon."
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            Twenty years later, I still don't know how to classify what I do. I
-            know that I'm pulled toward something I can't quite capture
-            completely—quiet mystery in the ordinary, the shimmer in a scene
-            that transforms a photograph into an emotion.
+            Twenty-plus years later, I still can't fully name what pulls me
+            toward certain scenes — quiet mystery in the ordinary, a shimmer
+            that transforms a photograph into something closer to an emotion.
+            When I'm photographing at my best, each image is just another
+            sentence in a long love letter to the world. And though there is
+            personal symbolism in every frame, I'd rather you find your own
+            meaning than be led to mine. Too often, I find that to define the
+            work is to limit it.
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
             I still take all of my photos one at a time.
