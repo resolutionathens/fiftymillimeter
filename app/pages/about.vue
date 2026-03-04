@@ -4,14 +4,14 @@
       <!-- Hero Section -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-16">
         <div>
-          <NuxtImg
+          <img
             src="https://cdn.fiftymillimeter.com/shop/eponymous.jpg"
             alt="Ian Kennedy"
             class="w-full"
             width="800"
             height="800"
             loading="lazy"
-          />
+          >
         </div>
         <div>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
