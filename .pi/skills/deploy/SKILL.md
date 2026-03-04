@@ -11,10 +11,39 @@ Full pipeline: commit, push to GitHub, build with Nuxt, and deploy to Cloudflare
 
 ### 1. Commit and push
 
+Create atomic commits using [Conventional Commits](https://www.conventionalcommits.org/). Review staged changes and split them into logical units:
+
 ```bash
 cd /Users/slip/Documents/GitHub/fiftymillimeter
-git add -A
-git commit -m "<descriptive commit message>"
+git status
+git diff
+```
+
+Stage and commit related changes together. Use `git add -p` or `git add <file>` to stage selectively:
+
+```bash
+git add <related-files>
+git commit -m "<type>(<scope>): <description>"
+```
+
+**Types:** `feat`, `fix`, `style`, `refactor`, `perf`, `docs`, `chore`, `build`, `ci`, `test`
+
+**Examples:**
+- `feat(about): update bio with personal connection copy`
+- `fix(gallery): correct srcset sizes for collection thumbnails`
+- `perf(image): add global density config for retina displays`
+- `chore(config): add screens config to nuxt image module`
+- `docs(skills): add deploy pipeline skill`
+
+**Rules:**
+- One logical change per commit — don't mix unrelated changes
+- Config changes are separate from component changes
+- Copy/content updates are separate from layout/style changes
+- Bug fixes are separate from features
+
+Push all commits after staging is complete:
+
+```bash
 git push
 ```
 
