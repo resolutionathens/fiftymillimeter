@@ -22,7 +22,7 @@
       :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-80'"
       :width="800"
       :height="800"
-      densities="x1 x2"
+
       loading="lazy"
       @load="isImageLoading = false"
     />

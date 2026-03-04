@@ -38,6 +38,7 @@ export default defineNuxtConfig({
   // Image optimization with Cloudflare transformations
   image: {
     format: ['avif', 'webp'],
+    densities: [1, 2],
     screens: {
       xs: 320,
       sm: 640,
