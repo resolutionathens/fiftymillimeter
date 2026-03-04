@@ -22,7 +22,7 @@
       :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-80'"
       :width="600"
       :height="600"
-      sizes="(max-width: 768px) 100vw, 50vw"
+      sizes="(max-width: 768px) 768px, 640px"
       loading="lazy"
       @load="isImageLoading = false"
     />
