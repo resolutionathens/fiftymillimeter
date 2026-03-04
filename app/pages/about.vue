@@ -20,14 +20,20 @@
             rusted shovel and a plastic spoon."
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            Twenty-plus years later, I still can't fully name what pulls me
-            toward certain scenes — quiet mystery in the ordinary, a shimmer
-            that transforms a photograph into something closer to an emotion.
-            When I'm photographing at my best, each image is just another
-            sentence in a long love letter to the world. And though there is
-            personal symbolism in every frame, I'd rather you find your own
-            meaning than be led to mine. Too often, I find that to define the
-            work is to limit it.
+            There are times that I feel incredibly connected. Connected to the
+            universe in its entirety; to the mystery; to God. Most of the time,
+            I don't. I feel human. Small, isolated, impotent, filled with fears
+            and foibles. Even then, I recognize the divine in sparks and
+            shimmers.
+          </p>
+          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
+            I don't create images, I collect them. This collection is my love
+            letter. My body of evidence. Each of my photographs is proof that I
+            was here, proof that I saw this thing. Each photo is a piece of a
+            puzzle, relying on the others to reveal something greater. And
+            though there is personal symbolism in every frame, I'd rather you
+            find your own meaning than be led to mine. Too often, I find that
+            to define the work is to limit it.
           </p>
           <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
             I still take all of my photos one at a time.
