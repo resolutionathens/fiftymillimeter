@@ -1,8 +1,7 @@
 <template>
   <div class="py-16 lg:py-24">
     <UContainer>
-      <!-- Hero Section -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
         <div>
           <NuxtImg
             src="https://cdn.fiftymillimeter.com/shop/eponymous.jpg"
@@ -14,48 +13,50 @@
           />
         </div>
         <div>
-          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            The first iteration of fiftymillimeter was launched in 2004 with a
-            bio that read, "Ian takes all of his photos one at a time with a
-            rusted shovel and a plastic spoon."
-          </p>
-          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            There are times that I feel incredibly connected. Connected to the
-            universe in its entirety; to the mystery; to God. Most of the time,
-            I don't. I feel human. Small, isolated, impotent, filled with fears
-            and foibles. Even then, I recognize the divine in sparks and
-            shimmers.
-          </p>
-          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            I don't create images, I collect them. This collection is my love
-            letter. My body of evidence. Each of my photographs is proof that I
-            was here, proof that I saw this thing. Each photo is a piece of a
-            puzzle, relying on the others to reveal something greater. And
-            though there is personal symbolism in every frame, I'd rather you
-            find your own meaning than be led to mine. Too often, I find that
-            to define the work is to limit it.
-          </p>
-          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            I still take all of my photos one at a time.
-          </p>
-          <p class="text-lg text-gray-600 dark:text-gray-300 pb-6">
-            I am Ian Kennedy, a photographer based in Athens, Georgia.
-          </p>
+          <!-- Name -->
+          <h1 class="text-3xl lg:text-4xl font-light tracking-tight text-gray-900 dark:text-white mb-8">
+            Ian Kennedy
+          </h1>
+
+          <!-- Pull Quote -->
+          <blockquote class="text-sm italic text-gray-500 dark:text-gray-400 border-l-2 border-gray-300 dark:border-gray-600 pl-6 mb-10">
+            "I don't create images, I collect them. Each photograph is proof that I was here, proof that I saw this thing."
+          </blockquote>
+
+          <!-- Bio -->
+          <div class="space-y-4">
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              Ian Kennedy is a photographer based in Athens, Georgia, whose work finds the extraordinary within the ordinary. Since launching fiftymillimeter in 2004, he has built a body of work drawn from contemporary scenes across the American Southeast and beyond.
+            </p>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              His photographs are less concerned with spectacle than with accumulation. Each image is a piece of a larger puzzle, relying on the others to reveal something greater. Though personal symbolism runs through every frame, the work is left open — he'd rather you find your own meaning than be led to his.
+            </p>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              He still takes all of his photos one at a time.
+            </p>
+          </div>
 
           <!-- Contact -->
-          <div class="space-y-2 pt-4">
+          <div class="space-y-2 pt-8">
             <a
               href="mailto:hello@fiftymillimeter.com"
-              class="block text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              class="block text-sm text-gray-400 hover:text-gray-900 dark:hover:text-white"
             >
               hello@fiftymillimeter.com
             </a>
             <a
               href="https://instagram.com/fiftymillimeter_"
               target="_blank"
-              class="block text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              class="block text-sm text-gray-400 hover:text-gray-900 dark:hover:text-white"
             >
               @fiftymillimeter_
+            </a>
+            <a
+              href="https://theprinttrade.com/p/ian-kennedy"
+              target="_blank"
+              class="block text-sm text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            >
+              The Print Trade
             </a>
           </div>
         </div>
