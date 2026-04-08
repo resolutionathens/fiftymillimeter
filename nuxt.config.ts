@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   },
   // Enable static site generation
   ssr: true,
-  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxt/fonts', '@nuxt/content'],
+  modules: ['nitro-cloudflare-dev', '@nuxt/eslint', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxt/fonts'],
 
   // Font configuration
   fonts: {
