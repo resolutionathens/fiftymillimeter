@@ -26,10 +26,10 @@
           <!-- Bio -->
           <div class="space-y-4">
             <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-              Ian Kennedy is a photographer based in Athens, Georgia, whose work finds the extraordinary within the ordinary. The first iteration of fiftymillimeter launched in 2004 with a bio that read, "Ian takes all of his photos one at a time with a rusted shovel and a plastic spoon." Since then, he has built a body of work drawn from contemporary scenes across the American Southeast and beyond.
+              Ian Kennedy is a photographer based in Athens, Georgia, whose work leans into the ambiguity of the photograph ...images that shift meaning depending on what song is playing. The first iteration of fiftymillimeter launched in 2004 with a bio that read, "Ian takes all of his photos one at a time with a rusted shovel and a plastic spoon." Since then, he has built a body of work drawn from contemporary scenes across the American Southeast and beyond.
             </p>
             <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-              Recurring themes include a tug-of-war between nature and man in which he tries not to take sides. His photographs are less concerned with spectacle than with accumulation — each image is a piece of a larger puzzle, relying on the others to reveal something greater. Ultimately, he's trying to capture the images that would otherwise seep into his subconscious.
+              Recurring themes include a tug-of-war between nature and man in which he tries not to take sides. His photographs are less concerned with spectacle than with accumulation ...each image is a piece of a larger puzzle, relying on the others to reveal something greater. Ultimately, he's trying to capture the images that would otherwise seep into his subconscious.
             </p>
             <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
               He still takes all of his photos one at a time.
