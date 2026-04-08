@@ -154,7 +154,6 @@ const previewImages = [
   "https://cdn.fiftymillimeter.com/shop/02.webp",
   "https://cdn.fiftymillimeter.com/shop/03.webp",
   "https://cdn.fiftymillimeter.com/shop/04.webp",
-  "https://cdn.fiftymillimeter.com/shop/05.webp",
   "https://cdn.fiftymillimeter.com/shop/06.webp",
 ];
 
