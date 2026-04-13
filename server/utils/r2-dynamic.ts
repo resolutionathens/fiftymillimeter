@@ -3,7 +3,7 @@
 /// <reference types="@cloudflare/workers-types" />
 
 // Folders to include in gallery listings
-const includedFolders = ['maps', 'legends']
+const includedFolders = ['maps', 'legends', 'subtropical', 'chickenwire']
 
 export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
   const collections = []
@@ -23,8 +23,12 @@ export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
         // Get first image from this folder for cover image
         const folderContents = await bucket.list({
           prefix: prefix,
-          limit: 1
+          limit: 10
         })
+
+        const firstImage = folderContents.objects.find((obj: R2Object) =>
+          obj.key && isImageFile(obj.key)
+        )
 
         const imageCount = await getImageCount(bucket, prefix)
 
@@ -35,8 +39,8 @@ export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
           displayName,
           description: `${displayName} collection`,
           imageCount,
-          coverImage: folderContents.objects[0]?.key
-            ? `${publicUrl}/${folderContents.objects[0].key}`
+          coverImage: firstImage?.key
+            ? `${publicUrl}/${firstImage.key}`
             : null
         })
       }
@@ -122,6 +126,7 @@ function isImageFile(key: string): boolean {
 // Map of folder names to custom display names
 const displayNameOverrides: Record<string, string> = {
   'newyork': 'New York',
+  'subtropical': 'Subtropical Selections',
 }
 
 function formatDisplayName(folderName: string): string {
