@@ -1,51 +1,40 @@
 <template>
   <NuxtLink
     :to="`/galleries/${collection.slug}`"
-    class="group relative aspect-square overflow-hidden bg-gray-50 dark:bg-gray-900"
+    class="group block"
   >
-    <!-- Loading Indicator -->
-    <div
-      v-if="isImageLoading && collection.coverImage"
-      class="absolute inset-0 flex items-center justify-center z-10"
-    >
-      <UIcon
-        name="i-heroicons-arrow-path"
-        class="w-6 h-6 text-neutral-400 animate-spin"
+    <div class="relative aspect-square overflow-hidden bg-gray-50 dark:bg-gray-900">
+      <!-- Loading Indicator -->
+      <div
+        v-if="isImageLoading && collection.coverImage"
+        class="absolute inset-0 flex items-center justify-center z-10"
+      >
+        <UIcon
+          name="i-heroicons-arrow-path"
+          class="w-6 h-6 text-neutral-400 animate-spin"
+        />
+      </div>
+
+      <NuxtImg
+        v-if="collection.coverImage"
+        :src="collection.coverImage"
+        :alt="collection.displayName"
+        class="w-full h-full object-cover transition-opacity duration-300"
+        :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-80'"
+        :width="800"
+        :height="800"
+        loading="lazy"
+        @load="isImageLoading = false"
+      />
+      <div
+        v-else
+        class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800"
       />
     </div>
 
-    <NuxtImg
-      v-if="collection.coverImage"
-      :src="collection.coverImage"
-      :alt="collection.displayName"
-      class="w-full h-full object-cover transition-opacity duration-300"
-      :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-80'"
-      :width="800"
-      :height="800"
-
-      loading="lazy"
-      @load="isImageLoading = false"
-    />
-    <div
-      v-else
-      class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800"
-    />
-
-    <!-- Collection title - always visible on mobile, hover on desktop -->
-    <div
-      class="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
-    >
-      <div class="text-center text-white px-4">
-        <!-- Mobile: Subtle background with text -->
-        <div class="md:hidden bg-black/60 px-4 py-2">
-          <h3 class="text-lg font-light tracking-wider">{{ collection.displayName }}</h3>
-        </div>
-        <!-- Desktop: Hover text -->
-        <div class="hidden md:block">
-          <h3 class="text-lg font-light tracking-wider">{{ collection.displayName }}</h3>
-        </div>
-      </div>
-    </div>
+    <h3 class="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+      {{ collection.displayName }}
+    </h3>
   </NuxtLink>
 </template>
 
