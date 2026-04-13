@@ -36,7 +36,7 @@
     "dev:remote": "nuxt build && wrangler dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "deploy": "wrangler deploy",
+    "deploy": "nuxt build && wrangler deploy",
     "deploy:staging": "sed -i '' 's/fiftymillimeter-portfolio/fiftymillimeter-staging/g' .output/server/wrangler.json && wrangler deploy --cwd .output",
     "deploy:preview": "wrangler versions upload",
     "postinstall": "nuxt prepare"
