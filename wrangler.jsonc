@@ -24,6 +24,6 @@
   "vars": {
     "NUXT_SITE_URL": "https://fiftymillimeter.com",
     "CLOUDFLARE_R2_PUBLIC_URL": "https://cdn.fiftymillimeter.com",
-    "STRIPE_PUBLISHABLE_KEY": "pk_live_51SPnVPLI2wGBxlDb8OvEJIv7onAGQ2Z89UfIhsAckh9IfRmF6u50mWRNUffzYBtSJzms8K3dRGix9Feffu29PhDJ00zta32ovY"
+    "NUXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_live_51SPnVPLI2wGBxlDb8OvEJIv7onAGQ2Z89UfIhsAckh9IfRmF6u50mWRNUffzYBtSJzms8K3dRGix9Feffu29PhDJ00zta32ovY"
   }
 }
