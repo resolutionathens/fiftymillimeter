@@ -2,12 +2,33 @@
 @plugin "@tailwindcss/typography";
 @import "@nuxt/ui";
 
-body {
-  font-family: 'Inter', sans-serif;
-  @apply font-light tracking-wide;
+@theme {
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-ink: #1a1815;
+  --color-paper: #ffffff;
+  --color-rule: #e8e6e0;
+  --color-muted-warm: #9a9690;
+  --color-gold: #b58a3f;
+
+  --tracking-mono-wide: 0.04em;
+  --tracking-mono-caps: 0.14em;
+  --tracking-mono-eyebrow: 0.2em;
 }
 
-/* Inconsolata for all display text */
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-mono);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
 h1,
 h2,
 h3,
@@ -17,44 +38,10 @@ h6,
 nav,
 button,
 a {
-  font-family: 'Inconsolata', monospace;
-  @apply font-light tracking-wider;
+  font-family: var(--font-mono);
+  font-weight: 400;
 }
 
-/* Links with subtle hover */
 a {
   @apply transition-colors duration-200;
-}
-
-/* Remove header border */
-header {
-  border-bottom: none !important;
-}
-
-/* Black nav links to match logo */
-header nav a {
-  color: black;
-}
-
-:root.dark header nav a {
-  color: white;
-}
-
-/* Navigation: underline instead of background for active state */
-nav a[aria-current="page"] {
-  position: relative;
-}
-
-nav a[aria-current="page"]::before {
-  background: transparent !important;
-}
-
-nav a[aria-current="page"]::after {
-  content: "";
-  position: absolute;
-  bottom: 4px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: currentColor;
 }

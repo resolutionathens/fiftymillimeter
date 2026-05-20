@@ -1,107 +1,83 @@
 <template>
-  <div class="py-2 md:py-12">
-    <UContainer>
-      <!-- Header -->
-      <div class="mb-2 md:mb-12">
-        <!-- Breadcrumb -->
-        <nav class="mb-1 md:mb-6">
-          <ol class="flex items-center space-x-2 text-xs md:text-sm text-gray-500">
-            <li>
-              <NuxtLink
-                to="/"
-                class="hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                Home
-              </NuxtLink>
-            </li>
-            <li>/</li>
-            <li>
-              <NuxtLink
-                to="/galleries"
-                class="hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                Galleries
-              </NuxtLink>
-            </li>
-            <li>/</li>
-            <li class="text-gray-900 dark:text-white font-medium">
-              {{ collectionDisplayName }}
-            </li>
-          </ol>
-        </nav>
-
-        <!-- Collection Title -->
-        <!-- <h1 class="text-2xl md:text-6xl font-bold text-gray-900 dark:text-white mb-1 md:mb-4">
-          {{ collectionDisplayName }}
-        </h1> -->
-      </div>
+  <div class="px-6 sm:px-10 lg:px-14 pt-6 md:pt-8 pb-4">
+    <!-- Breadcrumb / section header -->
+    <div class="flex items-baseline gap-6 mb-6 md:mb-8">
+      <nav>
+        <ol class="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-muted-warm">
+          <li>
+            <NuxtLink
+              to="/galleries"
+              class="hover:text-ink"
+            >
+              collections
+            </NuxtLink>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li class="text-ink">
+            {{ collectionDisplayName }}
+          </li>
+        </ol>
+      </nav>
+      <div class="flex-1 h-px bg-rule" />
+    </div>
 
       <!-- Loading State -->
-      <div
-        v-if="pending"
-        class="grid grid-cols-2 md:grid-cols-3 gap-4"
-      >
-        <USkeleton
-          v-for="i in 9"
-          :key="i"
-          class="aspect-square rounded-lg"
-        />
-      </div>
+    <div
+      v-if="pending"
+      class="grid grid-cols-2 md:grid-cols-3 gap-4"
+    >
+      <USkeleton
+        v-for="i in 9"
+        :key="i"
+        class="aspect-square"
+      />
+    </div>
 
-      <!-- Image Gallery -->
-      <div v-else-if="images?.length">
-        <ImageGallery
-          :images="images"
-          default-view="single"
-        />
-      </div>
+    <!-- Image Gallery -->
+    <div v-else-if="images?.length">
+      <ImageGallery
+        :images="images"
+        default-view="single"
+      />
+    </div>
 
-      <!-- Empty State -->
-      <div
-        v-else
-        class="text-center py-20"
+    <!-- Empty State -->
+    <div
+      v-else
+      class="text-center py-20"
+    >
+      <h2 class="text-lg text-ink mb-3">
+        No images found
+      </h2>
+      <p class="text-muted-warm text-sm mb-6">
+        This collection doesn&rsquo;t contain any images yet, or they&rsquo;re still being processed.
+      </p>
+      <NuxtLink
+        to="/galleries"
+        class="text-[11px] uppercase tracking-[0.14em] text-muted-warm hover:text-ink"
       >
-        <UIcon
-          name="i-heroicons-photo"
-          class="w-20 h-20 text-gray-400 mx-auto mb-6"
-        />
-        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-          No Images Found
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-8">
-          This collection doesn't contain any images yet, or they're still being processed.
-        </p>
-        <UButton
-          to="/galleries"
-          variant="outline"
-        >
-          Back to Galleries
-        </UButton>
-      </div>
+        ← back to collections
+      </NuxtLink>
+    </div>
 
-      <!-- Error State -->
-      <div
-        v-if="error"
-        class="text-center py-20"
+    <!-- Error State -->
+    <div
+      v-if="error"
+      class="text-center py-20"
+    >
+      <h2 class="text-lg text-ink mb-3">
+        Collection not found
+      </h2>
+      <p class="text-muted-warm text-sm mb-6">
+        The requested collection could not be loaded.
+      </p>
+      <NuxtLink
+        to="/galleries"
+        class="text-[11px] uppercase tracking-[0.14em] text-muted-warm hover:text-ink"
       >
-        <UIcon
-          name="i-heroicons-exclamation-triangle"
-          class="w-20 h-20 text-red-400 mx-auto mb-6"
-        />
-        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-          Collection Not Found
-        </h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-8">
-          The requested collection could not be loaded. Please try again later.
-        </p>
-        <UButton
-          to="/galleries"
-          variant="outline"
-        >
-          Back to Galleries
-        </UButton>
-      </div>
-    </UContainer>
+        ← back to collections
+      </NuxtLink>
+    </div>
   </div>
 </template>
 

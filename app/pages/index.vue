@@ -1,42 +1,95 @@
 <template>
-  <div class="flex items-center justify-center min-h-[calc(100vh-200px)] py-8">
-    <NuxtLink
-      v-if="randomImage"
-      :to="`/galleries/${randomImage.collection}`"
-      class="relative block max-w-4xl mx-auto px-4"
-    >
-      <!-- Loading Indicator -->
-      <div
-        v-if="isImageLoading"
-        class="absolute inset-0 flex items-center justify-center"
-      >
-        <UIcon
-          name="i-heroicons-arrow-path"
-          class="w-8 h-8 text-neutral-400 animate-spin"
+  <div class="flex-1 flex flex-col px-6 sm:px-10 lg:px-14 pt-11 pb-8">
+    <div class="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 min-h-0">
+      <!-- photo -->
+      <div class="relative flex flex-col min-h-0">
+        <NuxtLink
+          v-if="randomImage"
+          :to="`/galleries/${randomImage.collection}`"
+          class="relative flex-1 block bg-rule/40 overflow-hidden"
+        >
+          <div
+            v-if="isImageLoading"
+            class="absolute inset-0 flex items-center justify-center"
+          >
+            <UIcon
+              name="i-heroicons-arrow-path"
+              class="w-6 h-6 text-muted-warm animate-spin"
+            />
+          </div>
+          <NuxtImg
+            :src="randomImage.url"
+            :alt="`From the ${randomImage.collection} collection`"
+            class="w-full h-full object-cover transition-opacity duration-300"
+            :class="isImageLoading ? 'opacity-0' : 'opacity-100'"
+            loading="eager"
+            width="1800"
+            format="auto"
+            fit="cover"
+            @load="isImageLoading = false"
+          />
+        </NuxtLink>
+        <div
+          v-else
+          class="flex-1 bg-rule/40"
         />
+
+        <div class="pt-3 flex justify-between text-[10px] uppercase tracking-[0.12em] text-muted-warm">
+          <span>{{ captionLeft }}</span>
+          <span v-if="randomImage">
+            from
+            <NuxtLink
+              :to="`/galleries/${randomImage.collection}`"
+              class="text-ink border-b border-gold ml-1"
+            >{{ randomImage.collection }}</NuxtLink>
+          </span>
+        </div>
       </div>
 
-      <NuxtImg
-        :src="randomImage.url"
-        :alt="`From the ${randomImage.collection} collection`"
-        class="w-full h-auto max-w-[90vw] object-contain transition-opacity duration-300"
-        :class="isImageLoading ? 'opacity-0' : 'opacity-100'"
-        loading="eager"
-        width="1800"
-        format="auto"
-        fit="contain"
-        @load="isImageLoading = false"
-      />
-    </NuxtLink>
-    <div
-      v-else
-      class="aspect-[3/2] w-full max-w-4xl bg-gray-100 dark:bg-gray-900"
-    />
+      <!-- caption column -->
+      <aside class="flex flex-col justify-between pt-0.5">
+        <div>
+          <div class="text-[10px] uppercase tracking-[0.2em] text-muted-warm mb-4">
+            <span class="text-gold">●</span>&nbsp; a random frame from the archive
+          </div>
+          <div class="text-[15px] leading-[1.65] text-ink mb-5">
+            One image, picked at random from the archive. Reload for another.
+          </div>
+          <div class="text-[11px] text-muted-warm leading-[1.8]">
+            <template v-if="randomImage">
+              {{ formatCollection(randomImage.collection) }}<br />
+              50mm
+            </template>
+          </div>
+        </div>
+
+        <div>
+          <div class="h-px bg-rule mb-4" />
+          <div class="flex flex-col gap-3 text-[11px]">
+            <button
+              type="button"
+              class="flex justify-between items-center text-left hover:text-ink"
+              @click="reroll"
+            >
+              <span class="text-muted-warm">↺&nbsp;reroll</span>
+              <span class="text-ink">↗</span>
+            </button>
+            <NuxtLink
+              v-if="randomImage"
+              :to="`/galleries/${randomImage.collection}`"
+              class="flex justify-between items-center"
+            >
+              <span>open the {{ randomImage.collection }} collection</span>
+              <span class="text-gold">→</span>
+            </NuxtLink>
+          </div>
+        </div>
+      </aside>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// Loading state for hero image
 const isImageLoading = ref(true);
 
 interface Image {
@@ -54,7 +107,6 @@ interface ImagesResponse {
   count: number;
 }
 
-// SEO
 useSeoMeta({
   title: "Fiftymillimeter",
   ogTitle: "Fiftymillimeter",
@@ -73,19 +125,31 @@ useSeoMeta({
     "https://fiftymillimeter.com/cdn-cgi/image/f=jpeg,w=1200,h=630,fit=cover/https://cdn.fiftymillimeter.com/maine/maine-00003.webp",
 });
 
-// Fetch Athens images for random display
-const { data: athensData } = await useFetch<ImagesResponse>(
-  "/api/images/maps",
-  {
-    default: () => ({ collection: "athens", images: [], count: 0 }),
-  },
-);
+const { data: athensData } = await useFetch<ImagesResponse>("/api/images/maps", {
+  default: () => ({ collection: "maps", images: [], count: 0 }),
+});
 
-// Select a random image from Athens collection
+const seed = ref(0);
 const randomImage = computed(() => {
+  // touch seed so reroll re-evaluates
+  void seed.value;
   const images = athensData.value?.images || [];
   if (images.length === 0) return null;
-  const randomIndex = Math.floor(Math.random() * images.length);
-  return images[randomIndex];
+  return images[Math.floor(Math.random() * images.length)];
 });
+
+const captionLeft = computed(() => {
+  if (!randomImage.value) return "";
+  return randomImage.value.name
+    .replace(/\.[^.]+$/, "")
+    .replace(/[-_]/g, " ");
+});
+
+const formatCollection = (slug: string) =>
+  slug.charAt(0).toUpperCase() + slug.slice(1).replace(/-/g, " ");
+
+const reroll = () => {
+  isImageLoading.value = true;
+  seed.value++;
+};
 </script>

@@ -2,40 +2,51 @@
   <div class="w-full">
     <div class="relative w-full">
       <!-- Navigation Controls -->
-      <div class="flex items-center justify-center gap-4 mb-4 md:mb-6">
-        <UPagination
-          v-model:page="currentPage"
-          :total="images.length"
-          :items-per-page="itemsPerPage"
-          :sibling-count="1"
-          show-edges
-          color="neutral"
-          variant="outline"
-          size="sm"
-        />
+      <div class="flex items-center justify-between gap-6 mb-5 md:mb-7 px-1">
+        <div class="text-[10px] uppercase tracking-[0.16em] text-muted-warm">
+          {{ viewMode === "single" ? "frame" : "page" }}
+          {{ pageLabel }} / {{ totalLabel }}
+        </div>
 
-        <!-- View Toggle Button -->
-        <UButton
-          color="neutral"
-          variant="outline"
-          size="sm"
-          :title="viewMode === 'grid' ? 'Single image view' : 'Grid view'"
-          :aria-label="
-            viewMode === 'grid'
-              ? 'Switch to single image view'
-              : 'Switch to grid view'
-          "
-          @click="toggleViewMode"
-        >
-          <UIcon
-            :name="
-              viewMode === 'grid'
-                ? 'i-heroicons-square-2-stack'
-                : 'i-heroicons-squares-2x2'
-            "
-            class="w-4 h-4"
+        <div class="flex-1 h-px bg-rule" />
+
+        <div class="flex items-center gap-5 text-[11px]">
+          <button
+            type="button"
+            class="uppercase tracking-[0.14em] disabled:text-rule disabled:cursor-not-allowed text-muted-warm hover:text-ink transition-colors"
+            :disabled="currentPage <= 1"
+            aria-label="Previous"
+            @click="currentPage--"
+          >
+            ← prev
+          </button>
+          <button
+            type="button"
+            class="uppercase tracking-[0.14em] disabled:text-rule disabled:cursor-not-allowed text-muted-warm hover:text-ink transition-colors"
+            :disabled="currentPage >= totalPages"
+            aria-label="Next"
+            @click="currentPage++"
+          >
+            next
+            <span class="text-gold">→</span>
+          </button>
+          <span
+            class="ml-2 inline-block w-px h-3 bg-rule align-middle"
+            aria-hidden="true"
           />
-        </UButton>
+          <button
+            type="button"
+            class="uppercase tracking-[0.14em] text-muted-warm hover:text-ink transition-colors"
+            :aria-label="
+              viewMode === 'grid'
+                ? 'Switch to single image view'
+                : 'Switch to grid view'
+            "
+            @click="toggleViewMode"
+          >
+            {{ viewMode === "grid" ? "single" : "grid" }}
+          </button>
+        </div>
       </div>
 
       <!-- Grid View -->
@@ -234,6 +245,12 @@ const itemsPerPage = computed(() => (viewMode.value === "single" ? 1 : 9));
 const pageStartIndex = computed(
   () => (currentPage.value - 1) * itemsPerPage.value,
 );
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(props.images.length / itemsPerPage.value)),
+);
+const pad = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+const pageLabel = computed(() => pad(currentPage.value));
+const totalLabel = computed(() => pad(totalPages.value));
 
 const paginatedImages = computed(() => {
   const start = pageStartIndex.value;

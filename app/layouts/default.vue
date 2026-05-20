@@ -1,14 +1,9 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-black">
-    <!-- Header -->
+  <div class="min-h-screen flex flex-col bg-paper text-ink">
     <AppHeader />
-
-    <!-- Main Content -->
-    <main>
+    <main class="flex-1 flex flex-col">
       <slot />
     </main>
-
-    <!-- Footer -->
     <AppFooter />
   </div>
 </template>

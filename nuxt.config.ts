@@ -20,8 +20,7 @@ export default defineNuxtConfig({
   // Font configuration
   fonts: {
     families: [
-      { name: 'Inter', provider: 'google' },
-      { name: 'Inconsolata', provider: 'google' }
+      { name: 'IBM Plex Mono', provider: 'google', weights: [300, 400, 500, 600] }
     ]
   },
   
