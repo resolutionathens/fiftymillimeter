@@ -1,23 +1,14 @@
 <template>
   <NuxtLink
     :to="`/galleries/${collection.slug}`"
-    class="group flex-1 grid grid-cols-[60px_1fr_140px_80px] sm:grid-cols-[80px_1fr_180px_100px] items-center gap-7 border-b border-rule"
-    :class="first ? 'border-t' : ''"
+    class="group grid gap-8 lg:gap-11 py-8 md:py-11 border-b border-rule md:h-[400px]"
+    :class="flip ? 'md:grid-cols-[1fr_1.15fr]' : 'md:grid-cols-[1.15fr_1fr]'"
   >
-    <div class="text-[28px] tracking-[0.02em] text-ink">
-      {{ roman }}.
-    </div>
-
-    <div>
-      <div class="text-[20px] sm:text-[26px] tracking-[0.01em] text-ink">
-        {{ collection.displayName }}
-      </div>
-      <div class="text-[10px] uppercase tracking-[0.14em] text-muted-warm mt-1.5">
-        {{ collection.imageCount ?? 0 }} frames
-      </div>
-    </div>
-
-    <div class="relative h-[64px] sm:h-[76px] bg-rule/40 overflow-hidden">
+    <!-- Image -->
+    <div
+      class="relative h-[220px] md:h-full bg-rule/40 overflow-hidden"
+      :class="flip ? 'md:order-2' : 'md:order-1'"
+    >
       <div
         v-if="isImageLoading && collection.coverImage"
         class="absolute inset-0 flex items-center justify-center"
@@ -32,17 +23,44 @@
         :src="collection.coverImage"
         :alt="collection.displayName"
         class="w-full h-full object-cover transition-opacity duration-300"
-        :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-80 opacity-100'"
-        :width="600"
-        :height="400"
+        :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-90 opacity-100'"
+        :width="900"
+        :height="700"
         loading="lazy"
         @load="isImageLoading = false"
       />
     </div>
 
-    <div class="flex justify-end items-center gap-2.5 text-[11px] text-muted-warm">
-      <span class="uppercase tracking-[0.14em]">open</span>
-      <span class="text-gold text-base transition-transform group-hover:translate-x-1">→</span>
+    <!-- Type -->
+    <div
+      class="flex flex-col justify-center"
+      :class="flip
+        ? 'md:order-1 md:items-end md:text-right md:pl-2'
+        : 'md:order-2 md:pr-2'"
+    >
+      <div class="text-[11px] tracking-[0.24em] text-muted-warm mb-3.5">
+        {{ roman }}
+      </div>
+
+      <div class="text-[30px] md:text-[40px] leading-[1.1] tracking-[-0.005em] text-ink mb-3">
+        {{ collection.displayName }}
+      </div>
+
+      <p
+        v-if="collection.description"
+        class="text-[12px] leading-[1.75] text-ink max-w-[330px] mb-[18px]"
+      >
+        {{ collection.description }}
+      </p>
+
+      <div class="w-11 h-px bg-gold mb-4" />
+
+      <div class="flex items-center gap-3 text-[10px] uppercase tracking-[0.18em]">
+        <span class="text-muted-warm">{{ collection.imageCount ?? 0 }} frames</span>
+        <span class="text-muted-warm">/</span>
+        <span class="text-ink">open</span>
+        <span class="text-gold text-sm transition-transform group-hover:translate-x-1">→</span>
+      </div>
     </div>
   </NuxtLink>
 </template>
@@ -54,6 +72,7 @@ interface Collection {
   name: string;
   slug: string;
   displayName: string;
+  description?: string;
   coverImage?: string | null;
   imageCount?: number;
 }
@@ -61,7 +80,7 @@ interface Collection {
 interface Props {
   collection: Collection;
   roman: string;
-  first?: boolean;
+  flip?: boolean;
 }
 
 defineProps<Props>();

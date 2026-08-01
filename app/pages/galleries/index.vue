@@ -14,29 +14,40 @@
     <!-- Loading -->
     <div
       v-if="pending"
-      class="flex-1 flex flex-col"
+      class="flex-1"
     >
       <div
         v-for="i in 4"
         :key="i"
-        class="flex-1 border-b border-rule"
-        :class="i === 1 ? 'border-t' : ''"
+        class="grid gap-8 lg:gap-11 py-8 md:py-11 border-b border-rule md:h-[400px]"
+        :class="i % 2 === 0 ? 'md:grid-cols-[1fr_1.15fr]' : 'md:grid-cols-[1.15fr_1fr]'"
       >
-        <USkeleton class="h-16 my-6" />
+        <USkeleton
+          class="h-[220px] md:h-full"
+          :class="i % 2 === 0 ? 'md:order-2' : 'md:order-1'"
+        />
+        <div
+          class="flex flex-col justify-center gap-3"
+          :class="i % 2 === 0 ? 'md:order-1 md:items-end' : 'md:order-2'"
+        >
+          <USkeleton class="h-8 w-2/3" />
+          <USkeleton class="h-12 w-full max-w-[330px]" />
+          <USkeleton class="h-3 w-32" />
+        </div>
       </div>
     </div>
 
     <!-- Rows -->
     <div
       v-else-if="collections.length"
-      class="flex-1 flex flex-col"
+      class="flex-1"
     >
       <CollectionCard
         v-for="(collection, i) in collections"
         :key="collection.slug"
         :collection="collection"
         :roman="toRoman(i + 1)"
-        :first="i === 0"
+        :flip="i % 2 === 1"
       />
     </div>
 

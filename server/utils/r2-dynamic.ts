@@ -37,7 +37,7 @@ export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
           name: folderName,
           slug: folderName.toLowerCase().replace(/\s+/g, '-'),
           displayName,
-          description: `${displayName} collection`,
+          description: formatDescription(folderName, displayName),
           imageCount,
           coverImage: firstImage?.key
             ? `${publicUrl}/${firstImage.key}`
@@ -127,6 +127,18 @@ function isImageFile(key: string): boolean {
 const displayNameOverrides: Record<string, string> = {
   'newyork': 'New York',
   'subtropical': 'Subtropical Selections',
+}
+
+// Map of folder names to editorial notes shown on the collections index
+const descriptionOverrides: Record<string, string> = {
+  'chickenwire': 'Fences, stumps and the things that grow through them. Made over two winters in Cedartown.',
+  'legends': 'The roads out of town after dark, and the stories people tell about what happens on them.',
+  'maps': 'An ongoing survey of the railroad cuts, service roads and edges of the American Southeast.',
+  'subtropical': 'A year of looking at the same five miles of Athens, and what the humidity does to it.',
+}
+
+function formatDescription(folderName: string, displayName: string): string {
+  return descriptionOverrides[folderName.toLowerCase()] || `${displayName} collection`
 }
 
 function formatDisplayName(folderName: string): string {
