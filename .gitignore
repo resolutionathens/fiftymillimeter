@@ -19,6 +19,9 @@ logs
 .DS_Store
 .fleet
 .idea
+.codex
+AGENTS.md
+tsconfig.tsbuildinfo
 
 # Local env files
 .env
