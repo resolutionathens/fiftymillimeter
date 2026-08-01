@@ -19,11 +19,11 @@
       <div
         v-for="i in 4"
         :key="i"
-        class="grid gap-8 lg:gap-11 py-8 md:py-11 border-b border-rule md:h-[400px]"
+        class="grid gap-8 lg:gap-11 py-8 md:py-11 border-b border-rule"
         :class="i % 2 === 0 ? 'md:grid-cols-[1fr_1.15fr]' : 'md:grid-cols-[1.15fr_1fr]'"
       >
         <USkeleton
-          class="h-[220px] md:h-full"
+          class="aspect-[3/2]"
           :class="i % 2 === 0 ? 'md:order-2' : 'md:order-1'"
         />
         <div
@@ -31,7 +31,6 @@
           :class="i % 2 === 0 ? 'md:order-1 md:items-end' : 'md:order-2'"
         >
           <USkeleton class="h-8 w-2/3" />
-          <USkeleton class="h-12 w-full max-w-[330px]" />
           <USkeleton class="h-3 w-32" />
         </div>
       </div>

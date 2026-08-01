@@ -1,12 +1,12 @@
 <template>
   <NuxtLink
     :to="`/galleries/${collection.slug}`"
-    class="group grid gap-8 lg:gap-11 py-8 md:py-11 border-b border-rule md:h-[400px]"
+    class="group grid gap-8 lg:gap-11 py-8 md:py-11 border-b border-rule"
     :class="flip ? 'md:grid-cols-[1fr_1.15fr]' : 'md:grid-cols-[1.15fr_1fr]'"
   >
     <!-- Image -->
     <div
-      class="relative h-[220px] md:h-full bg-rule/40 overflow-hidden"
+      class="relative aspect-[3/2] bg-rule/40 overflow-hidden"
       :class="flip ? 'md:order-2' : 'md:order-1'"
     >
       <div
@@ -25,7 +25,7 @@
         class="w-full h-full object-cover transition-opacity duration-300"
         :class="isImageLoading ? 'opacity-0' : 'group-hover:opacity-90 opacity-100'"
         :width="900"
-        :height="700"
+        :height="600"
         loading="lazy"
         @load="isImageLoading = false"
       />
@@ -46,14 +46,7 @@
         {{ collection.displayName }}
       </div>
 
-      <p
-        v-if="collection.description"
-        class="text-[12px] leading-[1.75] text-ink max-w-[330px] mb-[18px]"
-      >
-        {{ collection.description }}
-      </p>
-
-      <div class="w-11 h-px bg-gold mb-4" />
+      <div class="w-11 h-px bg-gold mt-1.5 mb-4" />
 
       <div class="flex items-center gap-3 text-[10px] uppercase tracking-[0.18em]">
         <span class="text-muted-warm">{{ collection.imageCount ?? 0 }} frames</span>
@@ -72,7 +65,6 @@ interface Collection {
   name: string;
   slug: string;
   displayName: string;
-  description?: string;
   coverImage?: string | null;
   imageCount?: number;
 }
