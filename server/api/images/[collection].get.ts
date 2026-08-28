@@ -1,4 +1,4 @@
-import { listR2Images } from '../../utils/r2-dynamic'
+import { listR2Images, formatDisplayName } from '../../utils/r2-dynamic'
 
 export default defineEventHandler(async (event) => {
   const collection = getRouterParam(event, 'collection')
@@ -42,6 +42,7 @@ export default defineEventHandler(async (event) => {
 
     return {
       collection,
+      displayName: collection === 'main' ? 'Main Collection' : formatDisplayName(collection),
       images,
       count: images.length
     }

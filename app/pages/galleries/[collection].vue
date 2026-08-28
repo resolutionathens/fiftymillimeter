@@ -87,19 +87,20 @@ const collectionSlug = route.params.collection as string;
 
 // R2 folder names never contain spaces, so the slug is the collection name as-is
 const collectionName = collectionSlug
-const collectionDisplayName = collectionName.charAt(0).toUpperCase() + collectionName.slice(1)
-
-// SEO
-useSeoMeta({
-  title: `${collectionDisplayName} - Fiftymillimeter`,
-  ogTitle: `${collectionDisplayName} - Fiftymillimeter`,
-  description: `Photographs from the ${collectionDisplayName} collection, exploring moments and scenes that caught my eye.`,
-  ogDescription: `Photographs from the ${collectionDisplayName} collection, exploring moments and scenes that caught my eye.`,
-})
 
 // Fetch collection images
 const { data: collectionData, pending, error } = await useFetch(`/api/images/${collectionName}`, {
-  default: () => ({ images: [], count: 0, collection: collectionName })
+  default: () => ({ images: [], count: 0, collection: collectionName, displayName: collectionName })
+})
+
+const collectionDisplayName = computed(() => collectionData.value?.displayName || collectionName)
+
+// SEO
+useSeoMeta({
+  title: () => `${collectionDisplayName.value} - Fiftymillimeter`,
+  ogTitle: () => `${collectionDisplayName.value} - Fiftymillimeter`,
+  description: () => `Photographs from the ${collectionDisplayName.value} collection, exploring moments and scenes that caught my eye.`,
+  ogDescription: () => `Photographs from the ${collectionDisplayName.value} collection, exploring moments and scenes that caught my eye.`,
 })
 
 const images = computed(() => collectionData.value?.images.map(img => ({
