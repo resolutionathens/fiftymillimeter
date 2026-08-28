@@ -85,8 +85,8 @@
 const route = useRoute();
 const collectionSlug = route.params.collection as string;
 
-// Convert slug back to collection name (reverse of the slug creation process)
-const collectionName = collectionSlug.replace(/-/g, ' ')
+// R2 folder names never contain spaces, so the slug is the collection name as-is
+const collectionName = collectionSlug
 const collectionDisplayName = collectionName.charAt(0).toUpperCase() + collectionName.slice(1)
 
 // SEO
