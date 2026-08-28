@@ -3,7 +3,7 @@
 /// <reference types="@cloudflare/workers-types" />
 
 // Folders to include in gallery listings
-const includedFolders = ['maps', 'legends', 'subtropical', 'chickenwire']
+const includedFolders = ['maps', 'legends', 'subtropical', 'chickenwire', 'cullen-skink']
 
 export async function listR2Collections(bucket: R2Bucket, publicUrl: string) {
   const collections = []
@@ -127,6 +127,7 @@ function isImageFile(key: string): boolean {
 const displayNameOverrides: Record<string, string> = {
   'newyork': 'New York',
   'subtropical': 'Subtropical Selections',
+  'cullen-skink': 'Cullen Skink',
 }
 
 function formatDisplayName(folderName: string): string {
